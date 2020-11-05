@@ -1,5 +1,6 @@
 import React from 'react'
-
+import {Link} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -70,13 +71,14 @@ class SearchRecipe extends React.Component {
                     this.state.rawRecipes.map(
                         (rawRecipe, index) =>
                             <div>
-
+                                <Link to="/recipes">
                             <li key={index} className="list-group-item">
                                 {/*{JSON.stringify(rawRecipe)}*/}
 
                                 {rawRecipe.recipe.label}
 
                             </li>
+                                </Link>
 
                             </div>
                     )
