@@ -1,14 +1,15 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import SearchRecipe from "./SearchRecipe";
 
 export default class EdamamClient extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+
+    // constructor(props) {
+    //     super(props);
+    // }
+
     render() {
         return (
-            <div>
+            <div className="container">
                 <h1> Recipe Edamam Client </h1>
                 <SearchRecipe/>
             </div>
@@ -16,7 +17,3 @@ export default class EdamamClient extends React.Component {
     }
 }
 
-ReactDOM.render(
-    <EdamamClient/>
-    document.getElementById('root')
-);

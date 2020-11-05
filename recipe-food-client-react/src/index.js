@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+// import './index.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import EdamamClient from "./components/EdamamClient";
 
+
 ReactDOM.render(
-  <EdamamClient />,
+  <EdamamClient/>,
   document.getElementById('root')
 );
