@@ -9,15 +9,13 @@ export class SearchManager extends React.Component {
     render() {
         return (
             <BrowserRouter>
-
                 <div className="container">
-                    <h1>Proceed to Recipe Search</h1>
                     <Link to="/recipeSearch">
-                        <button>Go</button>
+                       Search Recipe
                     </Link>
 
                     <Route path="/recipeSearch" component={SearchRecipe}/>
-                    <Route path="/recipes" component={RecipeDetails}/>
+                    <Route path="/recipes/:name" component={RecipeDetails}/>
                 </div>
             </BrowserRouter>
         );
