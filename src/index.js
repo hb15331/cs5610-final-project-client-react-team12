@@ -10,8 +10,6 @@ import {SearchManager} from "./components/SearchManager";
 ReactDOM.render(
 
     <SearchManager/>,
-
-    // <EdamamClient/>,
     document.getElementById('root')
 
 );

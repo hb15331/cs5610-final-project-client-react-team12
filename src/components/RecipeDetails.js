@@ -6,7 +6,6 @@ export class RecipeDetails extends React.Component {
         return (
             <div className="container">
                 <h1> Recipe Edamam Client </h1>
-                {/*<SearchRecipe/>*/}
             </div>
         )
     }
