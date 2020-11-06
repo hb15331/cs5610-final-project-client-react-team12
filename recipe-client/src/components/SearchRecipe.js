@@ -83,14 +83,11 @@ class SearchRecipe extends React.Component {
                         (rawRecipe, index) =>
                             <div>
                                 <Link to={`/recipes/${rawRecipe.recipe.label}`}>
-                            <li key={index} className="list-group-item">
-                                {/*{JSON.stringify(rawRecipe)}*/}
-
-                                {rawRecipe.recipe.label}
-
-                            </li>
+                                    <li key={index} className="list-group-item">
+                                        {/*{JSON.stringify(rawRecipe)}*/}
+                                        {rawRecipe.recipe.label}
+                                    </li>
                                 </Link>
-
                             </div>
                     )
                 }
