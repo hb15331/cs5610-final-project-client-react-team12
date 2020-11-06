@@ -43,6 +43,17 @@ class SearchRecipe extends React.Component {
     render() {
         return (
             <div>
+                <h1>PROTOTYPE</h1>
+                <h3>Edamam API</h3>
+                <p>Put text about Edamam</p>
+                <h3>Search Criteria</h3>
+                <p>Using the Edamam api, users can search for recipes using ingredients as keywords.....
+                    then talk about how the REST API works</p>
+                <h3>Search Results</h3>
+                <p>The search will produce a list that shows the names of recipes with the use of the search keyword.
+                    Clicking on the list item will navigate the user to a page that shows a more detailed information
+                    about the recipe.</p>
+                <h5>Proceed to Recipe Search</h5>
                 <h2>Search Recipes</h2>
 
                 <div className="input-group">
@@ -71,7 +82,7 @@ class SearchRecipe extends React.Component {
                     this.state.rawRecipes.map(
                         (rawRecipe, index) =>
                             <div>
-                                <Link to="/recipes">
+                                <Link to={`/recipes/${rawRecipe.recipe.label}`}>
                             <li key={index} className="list-group-item">
                                 {/*{JSON.stringify(rawRecipe)}*/}
 
