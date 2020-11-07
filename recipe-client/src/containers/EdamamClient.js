@@ -1,11 +1,10 @@
 import React from 'react'
 import SearchRecipe from "../components/SearchRecipe";
 
-export default class EdamamClient extends React.Component {
 
-    // constructor(props) {
-    //     super(props);
-    // }
+
+
+export default class EdamamClient extends React.Component {
 
     render() {
         return (
