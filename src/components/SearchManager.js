@@ -15,7 +15,7 @@ export class SearchManager extends React.Component {
                     </Link>
 
                     <Route path="/recipeSearch" component={SearchRecipe}/>
-                    <Route path="/recipes/:name" component={RecipeDetails}/>
+                    <Route path="/recipes/:recipeUri" component={RecipeDetails}/>
                 </div>
             </BrowserRouter>
         );

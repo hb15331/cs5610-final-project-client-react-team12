@@ -6,7 +6,7 @@ const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
 const RECIPE_URL = "https://api.edamam.com/search"
 
-
+// TODO: Solve a CORS error when we are clicking Search too fast
 class SearchRecipe extends React.Component {
 
     constructor(props) {
@@ -19,7 +19,7 @@ class SearchRecipe extends React.Component {
 
 
     // fetch a list of recipes that match user's search criteria
-    searchRecipe = () => {
+    searchRecipes = () => {
         //console.log(this.state.keyword)
         const queryUrl = `${RECIPE_URL}?q=${this.state.keyword}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=5`
         fetch(queryUrl)
@@ -70,7 +70,7 @@ class SearchRecipe extends React.Component {
 
                     <div className="input-group-append">
                         <button
-                            onClick={this.searchRecipe}
+                            onClick={this.searchRecipes}
                             className="btn btn-primary">
                             Search
                         </button>
@@ -80,15 +80,23 @@ class SearchRecipe extends React.Component {
                 <ul className="list-group mt-3">
                 {
                     this.state.rawRecipes.map(
-                        (rawRecipe, index) =>
-                            <div>
-                                <Link to={`/recipes/${rawRecipe.recipe.label}`}>
-                                    <li key={index} className="list-group-item">
+                        (rawRecipe, index) => {
+                            // extract uri from data and use it as the unique identifier of recipe
+                            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+                            // console.log(recipeUri)
+
+                            return (
+                            <div key={index}>
+                                {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
+                                <Link to={`/recipes/${recipeUri}`}>
+                                    <li className="list-group-item">
                                         {/*{JSON.stringify(rawRecipe)}*/}
                                         {rawRecipe.recipe.label}
                                     </li>
                                 </Link>
                             </div>
+                            )
+                        }
                     )
                 }
                 </ul>
