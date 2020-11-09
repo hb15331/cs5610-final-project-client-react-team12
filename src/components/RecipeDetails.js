@@ -1,4 +1,6 @@
 import React from "react"
+import "bootstrap/dist/css/bootstrap.min.css"
+import '../styling/RecipeDetails-style.css'
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -10,7 +12,9 @@ const RECIPE_URL = "https://api.edamam.com/search"
 export class RecipeDetails extends React.Component {
 
     state = {
-        recipe: {}
+        recipe: {
+            ingredients:[]
+        }
     }
 
     componentDidMount() {
@@ -42,14 +46,14 @@ export class RecipeDetails extends React.Component {
                 <h3>Total Weight(g):</h3>
                 <p>{this.state.recipe.totalWeight}</p>
 
+                <h3>Ingredients:</h3>
+                <ul>
+                    {
+                    this.state.recipe.ingredients.map((ingredient) =>
+                        <li>{ingredient.text}</li>
 
-                {/*<ul>*/}
-                {/*    {*/}
-                {/*    this.state.recipe.ingredients.map((ingredient) =>*/}
-                {/*        <li>{ingredient.text}</li>*/}
-
-                {/*    )}*/}
-                {/*</ul>*/}
+                    )}
+                </ul>
             </div>
         )
     }
