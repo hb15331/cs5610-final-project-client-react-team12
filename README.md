@@ -28,4 +28,6 @@ multiple dishes provided.
 
 ### Details Results
 
-Clicking on a certain dish name navigates the user a new page that includes more details about the dish. This will allow
+Clicking on a certain dish name navigates the user a new page that includes more details about the dish. 
+This includes an image of the name, number of servings, number of calories, total weight of the dish, and an ingredients list.
+This information is obtained from the specified query.
