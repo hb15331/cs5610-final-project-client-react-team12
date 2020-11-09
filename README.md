@@ -4,7 +4,7 @@ Project Proposal Link : https://docs.google.com/document/d/1FY6LwnaCY1WbJ_9JLPei
 
 __________________________________________________________________________
 
-### PROTOTYPE WIKI
+### PROTOTYPE WIKI 
 
 Wiki that describes the API, the search criteria, summary results, and details results. In the wiki page, provide example queries and what results to expect. 
 
@@ -22,5 +22,10 @@ The following parameters are part of the GET request URL on a list toward the bo
 
 ### Summary Results
 
+The search result provides a list of dish names that matched the specified query. For example, users can search for the keyword chicken.
+The search would then provide a list of dishes that has chicken as an ingredient. The search result would allow the users to choose from
+multiple dishes provided.
 
 ### Details Results
+
+Clicking on a certain dish name navigates the user a new page that includes more details about the dish. This will allow
