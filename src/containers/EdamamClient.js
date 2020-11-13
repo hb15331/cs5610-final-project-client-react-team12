@@ -9,6 +9,7 @@ export default class EdamamClient extends React.Component {
     render() {
         return (
             <div className="container">
+                <h1>Welcome to Foodify!</h1>
                 <h1> Recipe Edamam Client </h1>
                 <SearchRecipe/>
             </div>
