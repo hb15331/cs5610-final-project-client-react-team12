@@ -21,7 +21,7 @@ class SearchRecipe extends React.Component {
     // fetch a list of recipes that match user's search criteria
     searchRecipes = () => {
         //console.log(this.state.keyword)
-        const queryUrl = `${RECIPE_URL}?q=${this.state.keyword}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=5`
+        const queryUrl = `${RECIPE_URL}?q=${this.state.keyword}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=10`
         fetch(queryUrl)
             .then(response => response.json())
             .then((data) => this.renderRecipes(data))
@@ -44,7 +44,7 @@ class SearchRecipe extends React.Component {
         return (
             <div>
 
-                <h1>Find your favorite recipe</h1>
+                <h1>Find a recipe</h1>
                 {/* <h5>Choose an ingredient</h5> */}
 
                 <div className="input-group">

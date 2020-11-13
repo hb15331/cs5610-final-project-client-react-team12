@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import SearchRecipe from "./SearchRecipe";
-import HomePageStyle from "../styling/HomePageStyle.css"
+import "../styling/HomePageStyle.css"
 
 // const APP_ID = "e488ff8f"
 // const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -24,9 +24,13 @@ class HomePage extends React.Component {
             <div>
 
 
-                <h2>Welcome to Foodify!!!</h2>
+                <nav className="navbar navbar-light">
+                    <a className="navbar-brand" href="#">
+                        <h1>Foodify</h1>
+                    </a>
+                </nav>
 
-                <div className="homePageStyle">
+                <div className="imageStyle">
                     <img className="img-fluid"
                          width="100%"
                          height="auto"
