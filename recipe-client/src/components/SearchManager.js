@@ -30,7 +30,7 @@ export class SearchManager extends React.Component {
                                 Search Recipe
                             </Link>
 
-                            <Route path="/home" component={HomePage}/>
+                            <Route path={["/", "/home" ]} component={HomePage}/>
                             <Route path="/register" component={RegisterPage}/>
                             {/*    <Route path="/login" component={LoginPage}/> */}
                             <Route path="/profile" component={ProfilePage}/>
