@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/js/dist/collapse"
 import SearchRecipe from "./SearchRecipe";
 import "../styling/HomePageStyle.css"
 
@@ -78,11 +79,41 @@ class HomePage extends React.Component {
         return (
             <div>
 
+                <nav class="navbar navbar-light">
 
-                <nav className="navbar navbar-light">
                     <a className="navbar-brand" href="#">
                         <h1>Foodify</h1>
                     </a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item active">
+                                <li className="nav-item active">
+                                    <a className="nav-link" >
+                                        <Link to="/register">
+                                            <span>Register</span>
+                                        </Link>
+                                    </a>
+                                </li>
+                                <a className="nav-link" >
+                                    <Link to="/login">
+                                        <span>Log In</span>
+                                    </Link>
+                                </a>
+                            </li>
+                            <li className="nav-item active">
+                                <a className="nav-link" >
+                                    <Link to="/profile">
+                                        <span>Profile</span>
+                                    </Link>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </nav>
 
                 <div className="imageStyle">
