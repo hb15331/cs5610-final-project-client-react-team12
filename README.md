@@ -6,6 +6,9 @@ Project Proposal Link : https://docs.google.com/document/d/1FY6LwnaCY1WbJ_9JLPei
 To run the program, navigate to recipe-client directory. 
 Do npm install ,npm install bootstrap, and npm install jquery.
 To start the program, run npm start.
+
+# Heroku Link:
+https://shrouded-fjord-64864.herokuapp.com/
 __________________________________________________________________________
 
 ### PROTOTYPE WIKI 
