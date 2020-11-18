@@ -1,6 +1,8 @@
 import React from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import '../styling/RecipeDetails-style.css'
+import {Link} from "react-router-dom";
+import HomePage from "./HomePage";
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -34,8 +36,12 @@ export class RecipeDetails extends React.Component {
     render() {
         return (
             <div className="container">
-
+                <span>
+                     <Link to={`/home`}>
+                        <button  className="btn btn-danger">X</button>
+                    </Link>
                 <h1>{this.state.recipe.label}</h1>
+                    </span>
                 <img src={this.state.recipe.image}/>
                 {/*{JSON.stringify(this.state.recipe)}*/}
 
