@@ -2,6 +2,10 @@
 
 Project Proposal Link : https://docs.google.com/document/d/1FY6LwnaCY1WbJ_9JLPeijY8mEO_XfNO7SOeQDqC5qe0/edit?usp=sharing
 
+# Instructions: 
+To run the program, navigate to recipe-client directory. 
+Do npm install ,npm install bootstrap, and npm install jquery.
+To start the program, run npm start.
 __________________________________________________________________________
 
 ### PROTOTYPE WIKI 
