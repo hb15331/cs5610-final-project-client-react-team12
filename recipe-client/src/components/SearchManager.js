@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Link} from "react-router-dom";
 
 import HomePage from "./HomePage"
 import RegisterPage from "./RegisterPage";
+import registerContainer from "../containers/registerContainer";
 import ProfilePage from "./ProfilePage"
 import RecipeDetails from "./RecipeDetails";
 import SearchRecipe from "./SearchRecipe";
@@ -31,7 +32,7 @@ export class SearchManager extends React.Component {
                             {/*</Link>*/}
 
                             <Route exact path={["/", "/home" ]} component={HomePage}/>
-                            <Route excat path="/register" component={RegisterPage}/>
+                            <Route excat path="/register" component={registerContainer}/>
                                 <Route exact path="/login" component={LoginPage}/>
                             <Route exact path="/profile" component={ProfilePage}/>
                             <Route exact path="/recipeSearch" component={SearchRecipe}/>
