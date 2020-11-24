@@ -1,23 +1,23 @@
 import React from "react";
 import {connect} from "react-redux";
-import userService from "../services/UserService"
+import orderService from "../services/OrderService"
+import OrderList from "../components/OrderList";
 
-import RegisterPage from "../components/RegisterPage";
 
-class registerContainer extends React.Component {
+class orderListContainer extends React.Component {
 
 
     componentDidMount() {
-        const userId = this.props.match.params.userId
+        const orderId = this.props.match.params.orderId
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const userId = this.props.match.params.userId
+        const orderId = this.props.match.params.orderId
     }
     render() {
         return(
             <div class="container-fluid">
-                   <RegisterPage/>
+                <OrderList/>
             </div>
 
         )
@@ -28,20 +28,20 @@ class registerContainer extends React.Component {
 
 const stateToPropertyMapper = (state) => ({
     // course: state.courseReducer.course
-    user: state.userReducer.user
+    item: state.orderReducer.item
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
 
-    findAllUsers: () =>
-        userService.findAllUsers()
-            .then(users => dispatch({
+    findAllOrder: () =>
+        orderService.findAllOrder()
+            .then(items => dispatch({
                 // type: "FIND_ALL_WIDGETS",
-                type: "FIND_ALL_USERS",
-                users
+                type: "FIND_ALL_ORDERS",
+                items
             }))
 })
 
 export default connect
 (stateToPropertyMapper, propertyToDispatchMapper)
-(registerContainer)
+(orderListContainer)

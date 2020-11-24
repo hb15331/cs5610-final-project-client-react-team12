@@ -8,6 +8,7 @@ import ProfilePage from "./ProfilePage"
 import RecipeDetails from "./RecipeDetails";
 import SearchRecipe from "./SearchRecipe";
 import LoginPage from "./LoginPage";
+import orderListContainer from "../containers/OrderListContainer";
 
 export class SearchManager extends React.Component {
 
@@ -37,6 +38,7 @@ export class SearchManager extends React.Component {
                             <Route exact path="/profile" component={ProfilePage}/>
                             <Route exact path="/recipeSearch" component={SearchRecipe}/>
                             <Route exact path="/recipes/:recipeUri" component={RecipeDetails}/>
+                            <Route exact path="/cart" component={orderListContainer}/>
 
                         </div>
                     </BrowserRouter>

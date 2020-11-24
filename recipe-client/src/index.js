@@ -5,10 +5,11 @@ import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 
 import userReducer from "./reducers/userReducer"
+import orderReducer from "./reducers/orderReducer";
 import {SearchManager} from "./components/SearchManager";
 
 const reducers = combineReducers({
-    userReducer
+    userReducer, orderReducer
 })
 const store = createStore(reducers)
 

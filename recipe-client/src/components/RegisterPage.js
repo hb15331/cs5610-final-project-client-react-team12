@@ -21,7 +21,7 @@ const RegisterPage = (
             <div className="col-sm-10">
                 <input className="form-control" id="username-fld"
                        placeholder="alice"
-                       onChange={e =>
+                       onChange={(e) =>
                            userName= e.target.value}
                 />
             </div>
@@ -32,8 +32,8 @@ const RegisterPage = (
             <label htmlFor="password-fld" className="col-sm-2 col-form-label">Password</label>
             <div className="col-sm-10">
                 <input className="form-control" type="password" id="password-fld"
-                       onChange={e =>
-                           password= e.target.value}
+                       onChange={(e) =>
+                           password = e.target.value}
                 />
             </div>
         </div>
@@ -50,7 +50,7 @@ const RegisterPage = (
             <label htmlFor="usertype-fld" className="col-sm-2 col-form-label"></label>
             <div className="col-sm-10">
                 <select id="usertype-fld" className="form-control"
-                        onChange={e =>
+                        onChange={(e) =>
                             type= e.target.value}
                 >
                     <option value="CUSTOMER">Customer</option>
