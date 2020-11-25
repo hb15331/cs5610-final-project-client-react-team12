@@ -1,5 +1,5 @@
 const initialState = {
-    items: [],
+    orders: []
 }
 
 const orderReducer = (state=initialState, action) => {
@@ -7,14 +7,14 @@ const orderReducer = (state=initialState, action) => {
         case "FIND_ALL_ORDERS":
             return {
                 ...state,
-                items: action.items
+                orders: action.orders
             }
         case "CREATE_ORDER":
             return {
                 ...state,
-                items: [
-                    ...state.items,
-                    action.item
+                orders: [
+                    ...state.orders,
+                    action.order
                 ]
             }
         default:
@@ -22,4 +22,4 @@ const orderReducer = (state=initialState, action) => {
     }
 }
 
-export default orderReducer()
+export default orderReducer

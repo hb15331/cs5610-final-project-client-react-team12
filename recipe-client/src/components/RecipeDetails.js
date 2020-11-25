@@ -17,9 +17,9 @@ export class RecipeDetails extends React.Component {
 
     state = {
         recipe: {
-            ingredients:[]
+            ingredients: []
         },
-        items: [],
+        orders: [],
     }
 
     componentDidMount() {
@@ -36,7 +36,7 @@ export class RecipeDetails extends React.Component {
     }
 
 
-    addItems = (item) =>{
+    addItems = (item) => {
         itemOrd.push(item)
         this.setState({items: itemOrd})
     }
@@ -46,33 +46,33 @@ export class RecipeDetails extends React.Component {
             <div className="container">
                 <div>
                     <Link to={{pathname:"/cart",
-                        state:{items:this.state.items},
+                        state:{items:this.state.orders},
                         label: {label:this.state.recipe.label}}}>
-                <i className="fa fa-shopping-basket fa-2x btn btn-success pull-right"></i>
-                </Link>
+                    <i className="fa fa-shopping-basket fa-2x btn btn-success pull-right"></i>
+                    </Link>
                 </div>
                 <div>
-                <h1>{this.state.recipe.label}</h1>
-                <img src={this.state.recipe.image}/>
-                {/*{JSON.stringify(this.state.recipe)}*/}
+                    <h1>{this.state.recipe.label}</h1>
+                    <img src={this.state.recipe.image}/>
+                    {/*{JSON.stringify(this.state.recipe)}*/}
 
-                <h3>Number of Servings:</h3>
-                <p>{this.state.recipe.yield}</p>
-                <h3>Total Calories(kcal):</h3>
-                <p>{this.state.recipe.calories}</p>
-                <h3>Total Weight(g):</h3>
-                <p>{this.state.recipe.totalWeight}</p>
+                    <h3>Number of Servings:</h3>
+                    <p>{this.state.recipe.yield}</p>
+                    <h3>Total Calories(kcal):</h3>
+                    <p>{this.state.recipe.calories}</p>
+                    <h3>Total Weight(g):</h3>
+                    <p>{this.state.recipe.totalWeight}</p>
 
-                <h3>Ingredients:</h3>
-                <ul>
-                    {
-                    this.state.recipe.ingredients.map((ingredient) =>
-                        <span>
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        {
+                            this.state.recipe.ingredients.map((ingredient) =>
+                                    <span>
                         <li>
 
                             <i class="fa fa-plus-square fa-plus-square fa-lg"
                                onClick=
-                                   {()=> this.addItems(ingredient.text)}></i>
+                                   {() => this.addItems(ingredient.text)}></i>
                             {ingredient.text}
                             {/*<button className="btn btn-success pull-right"*/}
                             {/*onClick=*/}
@@ -81,18 +81,16 @@ export class RecipeDetails extends React.Component {
                         </li>
 
                         </span>
-                    )}
-                </ul>
+                            )}
+                    </ul>
                 </div>
             </div>
         )
     }
-    render() {
-        return{
-
-        }
-    }
 }
+
+
+
 
 
 

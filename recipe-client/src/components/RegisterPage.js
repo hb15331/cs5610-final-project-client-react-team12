@@ -97,6 +97,6 @@ const dispatchToPropertyMapper = (dispatch) => ({
 
 export default connect
 (stateToPropertyMapper,
-    dispatchToPropertyMapper())
+    dispatchToPropertyMapper)
 (RegisterPage)
 
