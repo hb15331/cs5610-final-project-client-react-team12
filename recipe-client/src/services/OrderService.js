@@ -14,3 +14,6 @@ const createOrder = (order) =>
         }
     })
         .then(response => response.json())
+export default {
+    createOrder
+}

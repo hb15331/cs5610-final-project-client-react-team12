@@ -4,6 +4,8 @@ import "font-awesome/css/font-awesome.css"
 import '../styling/RecipeDetails-style.css'
 import OrderList from "./OrderList";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import orderService from "../services/OrderService"
 
 
 const APP_ID = "e488ff8f"
@@ -37,8 +39,9 @@ export class RecipeDetails extends React.Component {
 
 
     addItems = (item) => {
+
         itemOrd.push(item)
-        this.setState({items: itemOrd})
+        this.setState({orders: itemOrd})
     }
 
     render() {
@@ -46,8 +49,12 @@ export class RecipeDetails extends React.Component {
             <div className="container">
                 <div>
                     <Link to={{pathname:"/cart",
-                        state:{items:this.state.orders},
-                        label: {label:this.state.recipe.label}}}>
+                        // state:{orders:this.state.orders},
+                        // label: {label:this.state.recipe.label}
+                        // state:{label: this.state.recipe.label,
+                        //         orders:this.state.recipe.ingredients
+                        // }
+                    }}>
                     <i className="fa fa-shopping-basket fa-2x btn btn-success pull-right"></i>
                     </Link>
                 </div>
@@ -69,29 +76,51 @@ export class RecipeDetails extends React.Component {
                             this.state.recipe.ingredients.map((ingredient) =>
                                     <span>
                         <li>
-
-                            <i class="fa fa-plus-square fa-plus-square fa-lg"
-                               onClick=
-                                   {() => this.addItems(ingredient.text)}></i>
+                            <i className="fa fa-plus-square fa-plus-square fa-lg"
+                            onClick={()=>this.addItems(ingredient.text)}></i>
                             {ingredient.text}
-                            {/*<button className="btn btn-success pull-right"*/}
-                            {/*onClick=*/}
-                            {/*    {()=> this.addItems(ingredient.text)}*/}
-                            {/*>Add</button>*/}
                         </li>
 
                         </span>
                             )}
                     </ul>
+                    <ul>
+                        <h2>Order's List</h2>
+                        {
+                            this.state.orders.map((ingredient) =>
+                                    <span>
+                        <li>
+
+                            {ingredient}
+                        </li>
+
+                        </span>
+                            )}
+                    </ul>
+                    <i className="fa fa-plus-square fa-plus-square fa-lg"
+                       onClick={()=>this.props.createOrder(itemOrd.toString(),123,345)}
+                    ></i>
                 </div>
             </div>
         )
     }
 }
 
+const stateToPropertyMapper = (state) => ({
+    order: state.orderReducer.order
+})
+
+const propertyToDispatchMapper = (dispatch) => ({
+    createOrder: (items,customerId,delivererId)=>
+        orderService.createOrder({items:items, customerId:customerId,delivererId:delivererId})
+            .then(actualOrder => dispatch({
+                type: "CREATE_ORDER",
+                order: actualOrder
+            }))
+})
 
 
 
-
-
-export default RecipeDetails
+export default connect
+(stateToPropertyMapper, propertyToDispatchMapper)
+(RecipeDetails)

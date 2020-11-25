@@ -5,11 +5,16 @@
 
 
  class orderListContainer extends React.Component {
-
+        state={
+            orders: [],
+            label: ''
+        }
 
      componentDidMount() {
          const orderId = this.props.match.params.orderId
-
+         this.setState({orders: this.props.location.state.orders})
+         this.setState({label:this.props.location.state.label})
+         console.log("hello:"+this.props.location.state.orders)
      }
      componentDidUpdate(prevProps, prevState, snapshot) {
          const orderId = this.props.match.params.orderId
@@ -17,7 +22,7 @@
      render() {
          return(
              <div class="container-fluid">
-                 <h1>OrderListContainer</h1>
+
                  <OrderList/>
              </div>
 
