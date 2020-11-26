@@ -2,6 +2,7 @@
  import {connect} from "react-redux";
  import orderService from "../services/OrderService"
  import OrderList from "../components/OrderList";
+ import {findAllOrders} from "../services/OrderService"
 
 
  class orderListContainer extends React.Component {
@@ -11,10 +12,13 @@
         }
 
      componentDidMount() {
+            //TODO: findOrdersByCustomerId
          const orderId = this.props.match.params.orderId
-         this.setState({orders: this.props.location.state.orders})
-         this.setState({label:this.props.location.state.label})
-         console.log("hello:"+this.props.location.state.orders)
+         this.props.findAllOrders()
+
+         // this.setState({orders: this.props.location.state.orders})
+         // this.setState({label:this.props.location.state.label})
+         // console.log("hello:"+this.props.location.state.orders)
      }
      componentDidUpdate(prevProps, prevState, snapshot) {
          const orderId = this.props.match.params.orderId
@@ -39,8 +43,7 @@
 
  const propertyToDispatchMapper = (dispatch) => ({
 
-     findAllOrder: () =>
-         orderService.findAllOrder()
+     findAllOrders: () =>findAllOrders()
              .then(orders => dispatch({
                  // type: "FIND_ALL_WIDGETS",
                  type: "FIND_ALL_ORDERS",

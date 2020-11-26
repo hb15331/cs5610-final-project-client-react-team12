@@ -4,22 +4,34 @@ import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import orderService from "../services/OrderService";
 
-const OrderList = (props,{orders = props.orders}) =>
+const OrderList = (
+    {orders = []}) =>
     <div>
 
         {/*<h1>OrderList</h1>*/}
-        <h1>ORDER LIST for {props.label} </h1>
+        <h1>ORDER LIST </h1>
+
         <ul>
             {
-                orders.map((ingredient) =>
+                orders.map(order =>
+
+                    <div className="card" styles={{width: '18rem'}}>
+                        {/*<div className="col-md-4">*/}
+                        <img className="card-img-top"
+                             src="https://picsum.photos/300/200"/>
+                        <div className="card-body">
+
+
                     <span>
                         <li>
 
-                            {ingredient.text}
+                            {order.items}
 
                         </li>
 
                         </span>
+                         </div>
+                     </div>
                 )}
         </ul>
 

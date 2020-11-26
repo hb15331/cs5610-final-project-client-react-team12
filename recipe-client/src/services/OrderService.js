@@ -1,10 +1,10 @@
 const ORDER_URL = "http://localhost:8080/api/orders"
 
-const findAllOrders = () =>
+export const findAllOrders = () =>
     fetch(ORDER_URL)
         .then(response => response.json())
 
-const createOrder = (order) =>
+export const createOrder = (order) =>
     // fetch(WIDGET_URL, {
     fetch(ORDER_URL, {
         method: "POST",
