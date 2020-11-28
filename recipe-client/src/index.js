@@ -8,6 +8,7 @@ import userReducer from "./reducers/userReducer"
 import orderReducer from "./reducers/orderReducer";
 import {SearchManager} from "./components/SearchManager";
 
+
 const reducers = combineReducers({
     userReducer, orderReducer
 })

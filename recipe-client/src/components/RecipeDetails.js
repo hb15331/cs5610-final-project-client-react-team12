@@ -22,6 +22,7 @@ export class RecipeDetails extends React.Component {
             ingredients: []
         },
         orders: [],
+
     }
 
     componentDidMount() {
