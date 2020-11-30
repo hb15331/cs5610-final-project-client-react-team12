@@ -1,3 +1,4 @@
+/*
 import React from "react";
 import {connect} from "react-redux";
 import userService from "../services/UserService"
@@ -45,3 +46,4 @@ const propertyToDispatchMapper = (dispatch) => ({
 export default connect
 (stateToPropertyMapper, propertyToDispatchMapper)
 (registerContainer)
+*/

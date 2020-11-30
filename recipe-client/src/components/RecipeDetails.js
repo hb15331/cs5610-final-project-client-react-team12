@@ -98,9 +98,10 @@ export class RecipeDetails extends React.Component {
                         </span>
                             )}
                     </ul>
-                    <i className="fa fa-plus-square fa-plus-square fa-lg"
+
+                    <i className="fa fa-cart-plus fa-2x btn" aria-hidden="true"
                        onClick={()=>this.props.createOrder(itemOrd.toString(),123,345)}
-                    ></i>
+                    >Add to cart</i>
                 </div>
             </div>
         )
