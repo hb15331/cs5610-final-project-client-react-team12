@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/js/dist/collapse"
 import SearchRecipe from "./SearchRecipe";
 import "../styling/HomePageStyle.css"
+import {connect} from "react-redux";
+import UserActions from "../actions/UserActions";
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -33,6 +35,7 @@ class HomePage extends React.Component {
     componentDidMount() {
         {this.randomGenerator()}
         {this.searchRecipes()}
+        {this.props.profile()}
     }
     
 
@@ -88,6 +91,9 @@ class HomePage extends React.Component {
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+                    <h5>Current user:
+                        {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
+                    </h5>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item active">
@@ -169,5 +175,14 @@ class HomePage extends React.Component {
     }
 }
 
+const stateToPropertyMapper = (state) => ({
+    currentUser: state.UserReducer.currentUser
+})
 
-export default HomePage;
+const propertyToDispatchMapper = (dispatch) => ({
+    profile: () => UserActions.profile(dispatch),
+    // updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
+    // saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch)
+})
+
+export default connect(stateToPropertyMapper, propertyToDispatchMapper)(HomePage)

@@ -36,6 +36,9 @@ class ProfilePage extends React.Component {
         else return (
             <div>
                 <h5>Profile</h5>
+                <h5>Current user:
+                    {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
+                </h5>
 
                 {/*UserId field*/}
                 <label htmlFor="userId-fld">User Id</label>

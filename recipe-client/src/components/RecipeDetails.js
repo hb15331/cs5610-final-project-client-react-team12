@@ -6,6 +6,7 @@ import OrderList from "./OrderList";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import orderService from "../services/OrderService"
+import UserActions from "../actions/UserActions";
 
 
 const APP_ID = "e488ff8f"
@@ -59,6 +60,9 @@ export class RecipeDetails extends React.Component {
                     <i className="fa fa-shopping-basket fa-2x btn btn-success pull-right"></i>
                     </Link>
                 </div>
+                <h5>Current user:
+                    {this.props.currentUser.userId ? this.props.currentUser.username : "anonymous"}
+                </h5>
                 <div>
                     <h1>{this.state.recipe.label}</h1>
                     <img src={this.state.recipe.image}/>
@@ -100,7 +104,7 @@ export class RecipeDetails extends React.Component {
                     </ul>
 
                     <i className="fa fa-cart-plus fa-2x btn" aria-hidden="true"
-                       onClick={()=>this.props.createOrder(itemOrd.toString(),123,345)}
+                       onClick={()=>this.props.createOrder(itemOrd.toString(),this.props.currentUser.userId)}
                     >Add to cart</i>
                 </div>
             </div>
@@ -109,12 +113,14 @@ export class RecipeDetails extends React.Component {
 }
 
 const stateToPropertyMapper = (state) => ({
-    order: state.orderReducer.order
+    order: state.orderReducer.order,
+    currentUser: state.UserReducer.currentUser
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
-    createOrder: (items,customerId,delivererId)=>
-        orderService.createOrder({items:items, customerId:customerId,delivererId:delivererId})
+    profile: () => UserActions.profile(dispatch),
+    createOrder: (items,userId)=>
+        orderService.createOrder({items:items,customerId:userId})
             .then(actualOrder => dispatch({
                 type: "CREATE_ORDER",
                 order: actualOrder
