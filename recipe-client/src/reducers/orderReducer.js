@@ -9,6 +9,13 @@ const orderReducer = (state=initialState, action) => {
                 ...state,
                 orders: action.orders
             }
+        case "FIND_ORDERS_FOR_USER":
+            return {
+                ...state,
+                orders: action.orders,
+                customerId: action.customerId
+            }
+            console.log(this.orders)
         case "CREATE_ORDER":
             return {
                 ...state,

@@ -104,7 +104,7 @@ export class RecipeDetails extends React.Component {
                     </ul>
 
                     <i className="fa fa-cart-plus fa-2x btn" aria-hidden="true"
-                       onClick={()=>this.props.createOrder(itemOrd.toString(),this.props.currentUser.userId)}
+                       onClick={()=>this.props.createOrder(itemOrd.toString(),this.props.currentUser.userId, this.state.recipe.image)}
                     >Add to cart</i>
                 </div>
             </div>
@@ -119,8 +119,8 @@ const stateToPropertyMapper = (state) => ({
 
 const propertyToDispatchMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
-    createOrder: (items,userId)=>
-        orderService.createOrder({items:items,customerId:userId})
+    createOrder: (items,userId,image)=>
+        orderService.createOrder({items:items,customerId:userId, image:image})
             .then(actualOrder => dispatch({
                 type: "CREATE_ORDER",
                 order: actualOrder

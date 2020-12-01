@@ -117,6 +117,13 @@ class HomePage extends React.Component {
                                     </Link>
                                 </a>
                             </li>
+                            <li className="nav-item active">
+                                <a className="nav-link" >
+                                    <Link to="/cart">
+                                        <span>Orders</span>
+                                    </Link>
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
