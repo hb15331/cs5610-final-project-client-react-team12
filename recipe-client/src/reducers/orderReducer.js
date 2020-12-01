@@ -15,7 +15,6 @@ const orderReducer = (state=initialState, action) => {
                 orders: action.orders,
                 customerId: action.customerId
             }
-            console.log(this.orders)
         case "CREATE_ORDER":
             return {
                 ...state,
@@ -23,6 +22,11 @@ const orderReducer = (state=initialState, action) => {
                     ...state.orders,
                     action.order
                 ]
+            }
+        case "DELETE_ORDER":
+            return {
+                ...state,
+                orders: state.orders.filter(order => order.id !== action.orderId)
             }
         default:
             return state

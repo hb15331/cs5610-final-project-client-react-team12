@@ -6,6 +6,7 @@ export const findAllOrders = () =>
 export const findOrderForUser = (cid) =>
     fetch(`${ORDER_URL}/${cid}/orders`)
         .then(response => response.json())
+
 export const createOrder = (order) =>
     // fetch(WIDGET_URL, {
     fetch(ORDER_URL, {
@@ -16,6 +17,13 @@ export const createOrder = (order) =>
         }
     })
         .then(response => response.json())
+
+const deleteOrder = (oid) =>
+    fetch(`${ORDER_URL}/${oid}`, {
+        method:"DELETE"
+    }).then(response => findOrderForUser())
+    // }).then(response => response.json())
+
 export default {
-    createOrder, findOrderForUser
+    createOrder, findOrderForUser, deleteOrder
 }
