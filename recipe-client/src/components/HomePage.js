@@ -6,6 +6,7 @@ import SearchRecipe from "./SearchRecipe";
 import "../styling/HomePageStyle.css"
 import {connect} from "react-redux";
 import UserActions from "../actions/UserActions";
+import OrderActions from "../actions/OrderActions"
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -28,16 +29,33 @@ class HomePage extends React.Component {
         recipeOfTheDay: "",
         rawRecipes: [],
         recipeUri: "",
-        random: 0
+        random: 0,
     }
 
 
     componentDidMount() {
         {this.randomGenerator()}
         {this.searchRecipes()}
-        {this.props.profile()}
+        {
+            this.props.profile()
+        }
+        if(this.props.currentUser != null){
+            const customerId = this.props.currentUser.userId
+            {this.props.findOrderForUser(customerId)}
+        }
+
     }
-    
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.currentUser !== null) {
+            const customerId = this.props.currentUser.userId
+            if (customerId !== this.props.customerId) {
+                {
+                    this.props.findOrderForUser(customerId)
+                }
+            }
+        }
+    }
 
     min = 1;
     max = 18;
@@ -46,8 +64,6 @@ class HomePage extends React.Component {
         this.setState({random: this.min + (Math.random() * (this.max - this.min))});
         //this.setState({random: 5})
     };
-
-
 
     // fetch a list of recipes that match user's search criteria
     searchRecipes = () => {
@@ -81,7 +97,7 @@ class HomePage extends React.Component {
     render() {
         return (
             <div>
-
+                {this.props.currentUser &&
                 <nav class="navbar navbar-light">
 
                     <a className="navbar-brand" href="#">
@@ -128,6 +144,49 @@ class HomePage extends React.Component {
                     </div>
 
                 </nav>
+                }
+
+                {!this.props.currentUser &&
+                <nav class="navbar navbar-light">
+
+                    <a className="navbar-brand" href="#">
+                        <h1>Foodify</h1>
+                    </a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <h5>Current user:
+                        {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
+                    </h5>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item active">
+                                <li className="nav-item active">
+                                    <a className="nav-link" >
+                                        <Link to="/register">
+                                            <span>Register</span>
+                                        </Link>
+                                    </a>
+                                </li>
+                                <a className="nav-link" >
+                                    <Link to="/login">
+                                        <span>Log In</span>
+                                    </Link>
+                                </a>
+                            </li>
+                            <li className="nav-item active">
+                                <a className="nav-link" >
+                                    <Link to="/profile">
+                                        <span>Profile</span>
+                                    </Link>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+                }
 
                 <div className="imageStyle">
                     <img className="img-fluid"
@@ -138,9 +197,17 @@ class HomePage extends React.Component {
 
                 </div>
 
+                {this.props.currentUser &&
+                //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
                 <div className="row">
                     <div className="col-6">
+                        <h1>Recent Orders:</h1>
+                        {/*<p>Length:{this.props.orders.length}</p>*/}
+                        {/*diplay most recent order for the user*/}
+                        <p>{this.props.orders[this.props.orders.length-1].items}</p>
+
                         <h1>Recipe of the Day</h1>
+
                         {
                             this.state.rawRecipes.map(
                                 (rawRecipe, index) => {
@@ -175,7 +242,7 @@ class HomePage extends React.Component {
 
                 </div>
 
-
+                }
             </div>
 
         )
@@ -183,11 +250,14 @@ class HomePage extends React.Component {
 }
 
 const stateToPropertyMapper = (state) => ({
-    currentUser: state.UserReducer.currentUser
+    currentUser: state.UserReducer.currentUser,
+    order: state.orderReducer.order,
+    orders: state.orderReducer.orders
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
+    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId)
     // updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
     // saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch)
 })
