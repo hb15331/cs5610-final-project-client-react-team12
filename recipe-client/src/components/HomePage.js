@@ -198,13 +198,109 @@ class HomePage extends React.Component {
                 </div>
 
                 {this.props.currentUser &&
+                this.props.currentUser.type === "CUSTOMER" &&
+                    //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+                    <div className="row">
+                    <div className="col-6">
+                    <h1>Recent Orders:</h1>
+                    <p>Length:{this.props.orders.length}</p>
+                    {/*diplay most recent order for the user*/}
+                        {this.props.orders.map((order =>
+                        <li>{order.items}</li>))}
+
+                    {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
+
+                    <h1>Recipe of the Day</h1>
+
+                    {
+                        this.state.rawRecipes.map(
+                            (rawRecipe, index) => {
+                                // extract uri from data and use it as the unique identifier of recipe
+                                const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+                                // console.log(recipeUri)
+
+                                return (
+                                    <div key={index}>
+                                        {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
+                                        <Link to={`/recipes/${recipeUri}`}>
+
+                                            <h3>{rawRecipe.recipe.label}</h3>
+
+                                            <li className="container">
+                                                {/*{JSON.stringify(rawRecipe)}*/}
+                                                <img src={rawRecipe.recipe.image}/>
+                                            </li>
+
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                        )
+
+                    }
+
+                    </div>
+                    <div className="col-6">
+                    <SearchRecipe/>
+                    </div>
+
+                    </div>
+
+                }
+
+                {this.props.currentUser &&
+                this.props.currentUser.type === "DELIVERER" &&
                 //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
                 <div className="row">
                     <div className="col-6">
-                        <h1>Recent Orders:</h1>
-                        {/*<p>Length:{this.props.orders.length}</p>*/}
+                        <h1>Recent Orders For Delivery:</h1>
+                        <p>Length:{this.props.orders.length}</p>
                         {/*diplay most recent order for the user*/}
-                        <p>{this.props.orders[this.props.orders.length-1].items}</p>
+                        {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
+
+                        {/*<h1>Recipe of the Day</h1>*/}
+
+                        {/*{*/}
+                        {/*    this.state.rawRecipes.map(*/}
+                        {/*        (rawRecipe, index) => {*/}
+                        {/*            // extract uri from data and use it as the unique identifier of recipe*/}
+                        {/*            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)*/}
+                        {/*            // console.log(recipeUri)*/}
+
+                        {/*            return (*/}
+                        {/*                <div key={index}>*/}
+                        {/*                    /!*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*!/*/}
+                        {/*                    <Link to={`/recipes/${recipeUri}`}>*/}
+
+                        {/*                        <h3>{rawRecipe.recipe.label}</h3>*/}
+
+                        {/*                        <li className="container">*/}
+                        {/*                            /!*{JSON.stringify(rawRecipe)}*!/*/}
+                        {/*                            <img src={rawRecipe.recipe.image}/>*/}
+                        {/*                        </li>*/}
+
+                        {/*                    </Link>*/}
+                        {/*                </div>*/}
+                        {/*            )*/}
+                        {/*        }*/}
+                        {/*    )*/}
+
+                        {/*}*/}
+
+                    </div>
+                    <div className="col-6">
+                        <SearchRecipe/>
+                    </div>
+
+                </div>
+
+                }
+
+
+                {!this.props.currentUser &&
+                //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+                <div className="row">
+                    <div className="col-6">
 
                         <h1>Recipe of the Day</h1>
 
@@ -236,7 +332,11 @@ class HomePage extends React.Component {
                         }
 
                     </div>
+
+
+
                     <div className="col-6">
+                        <h1>Welcome to our Community:</h1>
                         <SearchRecipe/>
                     </div>
 
