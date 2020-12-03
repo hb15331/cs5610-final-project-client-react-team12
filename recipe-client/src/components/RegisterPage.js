@@ -10,11 +10,15 @@ class RegisterPage extends React.Component {
     // TODO: verification of password
 
     state = {
+        userId: '',
         username: '',
         password: '',
         password2: '',
         type: 'CUSTOMER',
-        email: ''
+        email: '',
+        firstname: '',
+        lastname: '',
+        location: ''
     }
 
     handleRegister = (user) => {

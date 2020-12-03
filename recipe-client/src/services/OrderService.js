@@ -1,4 +1,5 @@
 const ORDER_URL = "http://localhost:8080/api/orders"
+const USER_URL = "http://localhost:8080/api/profiles"
 
 export const findAllOrders = () =>
     fetch(ORDER_URL)
@@ -23,6 +24,9 @@ const deleteOrder = (oid) =>
         method:"DELETE"
     }).then(response => findOrderForUser())
     // }).then(response => response.json())
+
+const findDelivererForOrder = (order, currentUser) =>
+    fetch((`${USER_URL}/${order.customerId}`))
 
 export default {
     createOrder, findOrderForUser, deleteOrder

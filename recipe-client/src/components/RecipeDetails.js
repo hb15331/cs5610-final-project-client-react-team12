@@ -48,15 +48,10 @@ export class RecipeDetails extends React.Component {
 
     render() {
         return (
+
             <div className="container">
                 <div>
-                    <Link to={{pathname:"/cart",
-                        // state:{orders:this.state.orders},
-                        // label: {label:this.state.recipe.label}
-                        // state:{label: this.state.recipe.label,
-                        //         orders:this.state.recipe.ingredients
-                        // }
-                    }}>
+                    <Link to={{pathname:"/cart"}}>
                     <i className="fa fa-shopping-basket fa-2x btn btn-success pull-right"></i>
                     </Link>
                 </div>
@@ -108,6 +103,7 @@ export class RecipeDetails extends React.Component {
                     >Add to cart</i>
                 </div>
             </div>
+
         )
     }
 }
