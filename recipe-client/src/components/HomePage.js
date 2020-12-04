@@ -46,16 +46,16 @@ class HomePage extends React.Component {
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.currentUser !== null) {
-            const customerId = this.props.currentUser.userId
-            if (customerId !== this.props.customerId) {
-                {
-                    this.props.findOrderForUser(customerId)
-                }
-            }
-        }
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     if (this.props.currentUser !== null) {
+    //         const customerId = this.props.currentUser.userId
+    //         if (customerId !== this.props.customerId) {
+    //             {
+    //                 this.props.findOrderForUser(customerId)
+    //             }
+    //         }
+    //     }
+    // }
 
     min = 1;
     max = 18;
@@ -107,8 +107,7 @@ class HomePage extends React.Component {
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <h5>Current user:
-                        {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
+                    <h5>WELCOME {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
                     </h5>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">

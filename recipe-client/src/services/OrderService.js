@@ -25,5 +25,5 @@ const deleteOrder = (oid) =>
     // }).then(response => response.json())
 
 export default {
-    createOrder, findOrderForUser, deleteOrder
+    createOrder, findOrderForUser, deleteOrder, findAllOrders
 }

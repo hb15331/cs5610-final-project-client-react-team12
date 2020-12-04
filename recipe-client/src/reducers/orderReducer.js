@@ -1,5 +1,6 @@
 const initialState = {
-    orders: []
+    orders: [],
+    allOrders: []
 }
 
 const orderReducer = (state=initialState, action) => {
@@ -7,7 +8,7 @@ const orderReducer = (state=initialState, action) => {
         case "FIND_ALL_ORDERS":
             return {
                 ...state,
-                orders: action.orders
+                allOrders: action.allOrders
             }
         case "FIND_ORDERS_FOR_USER":
             return {
