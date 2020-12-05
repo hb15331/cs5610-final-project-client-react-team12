@@ -160,30 +160,6 @@ export class RecipeDetails extends React.Component {
                     >Add to cart</i>
                 </div>
 
-                <span>
-                     <Link to={`/home`}>
-                        <button  className="btn btn-danger">X</button>
-                    </Link>
-                <h1>{this.state.recipe.label}</h1>
-                    </span>
-                <img src={this.state.recipe.image}/>
-                {/*{JSON.stringify(this.state.recipe)}*/}
-
-                <h3>Number of Servings:</h3>
-                <p>{this.state.recipe.yield}</p>
-                <h3>Total Calories(kcal):</h3>
-                <p>{this.state.recipe.calories}</p>
-                <h3>Total Weight(g):</h3>
-                <p>{this.state.recipe.totalWeight}</p>
-
-                <h3>Ingredients:</h3>
-                <ul>
-                    {
-                    this.state.recipe.ingredients.map((ingredient) =>
-                        <li>{ingredient.text}</li>
-
-                    )}
-                </ul>
 
             </div>
         )

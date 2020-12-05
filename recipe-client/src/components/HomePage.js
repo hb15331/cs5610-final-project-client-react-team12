@@ -339,7 +339,7 @@ class HomePage extends React.Component {
 
                     <div className="col-6">
                         <h1>Latest Recipe purchased:</h1>
-                        <p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>
+                        {/*<p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>*/}
                         <SearchRecipe/>
                     </div>
 
