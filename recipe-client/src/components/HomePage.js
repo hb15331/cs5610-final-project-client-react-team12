@@ -328,7 +328,7 @@ class HomePage extends React.Component {
                                     return (
                                         <div key={index}>
                                             {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
-                                            <Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>
+                                            <Link to={`/search/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>
 
                                                 <h3>{rawRecipe.recipe.label}</h3>
 

@@ -73,7 +73,7 @@ class SearchRecipe extends React.Component {
                            id="search"/>
 
                     <div className="input-group-append">
-                        <Link to={`/recipeSearch/q=${this.state.keyword}/recipes`}>
+                        <Link to={`/search/q=${this.state.keyword}`}>
                         <button
                             onClick={this.searchRecipes}
                             className="btn btn-success">
@@ -95,7 +95,7 @@ class SearchRecipe extends React.Component {
                                 return (
                                     <div key={index}>
 
-                                        <Link to={`/recipeSearch/q=${this.state.keyword}/recipes/${recipeUri}`}>
+                                        <Link to={`/search/q=${this.state.keyword}/${recipeUri}`}>
                                             <li className="list-group-item">
 
                                                 {rawRecipe.recipe.label}

@@ -25,7 +25,8 @@ export class RecipeDetails extends React.Component {
             ingredients: []
         },
         orders: [],
-        usersList: []
+        usersList: [],
+        purchaseBy : false
     }
 
     componentDidMount() {
@@ -73,6 +74,9 @@ export class RecipeDetails extends React.Component {
 
     }
 
+    showCustomers = () => {
+        this.setState({purchaseBy:true})
+    }
     render() {
         return (
 
@@ -131,9 +135,13 @@ export class RecipeDetails extends React.Component {
                             )}
                     </ul>
                         <ul>
-                            <h5>People who have ordered this recipe:</h5>
+                            <Link to={`/details/purchases`}
+                            onClick={this.showCustomers}>
+                            <h5>Also purchased by:</h5>
+                            </Link>
 
                             {
+                                this.state.purchaseBy === true &&
                                 this.props.allOrders.map((user) =>
 
                                         <li>
