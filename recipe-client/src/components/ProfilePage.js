@@ -27,15 +27,16 @@ class ProfilePage extends React.Component {
     render() {
         if (!this.props.currentUser)
             return (
-                <div>
-                    <h3>Create an account first before viewing your profile</h3>
+                <div className="text-center">
+                    <h3>Login or register before viewing your profile</h3>
                     <Link to={`/home`} className="btn btn-link">Home</Link>
+                    <Link to={`/login`} className="btn btn-link">Log in</Link>
                     <Link to={`/register`} className="btn btn-link">Register</Link>
                 </div>
             )
         else return (
             <div>
-                <h5>Profile</h5>
+                <h3>Profile</h3>
                 <h5>Current user:
                     {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
                 </h5>

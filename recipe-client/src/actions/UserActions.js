@@ -16,7 +16,12 @@ const saveProfile = (newProfile, dispatch) =>
     UserService.updateProfile(newProfile)
         .then(status => {
             console.log(status)
-            dispatch({type: "UPDATE_PROFILE", newProfile: newProfile})
+            if (status === 1) {
+                alert("The update is saved in server")
+                dispatch({type: "UPDATE_PROFILE", newProfile: newProfile})
+            } else {
+                alert("UPDATE FAILED: This username already exists in server!")
+            }
         })
 
 const findAllUsers = (dispatch) =>
