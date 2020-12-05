@@ -36,13 +36,14 @@ class HomePage extends React.Component {
     componentDidMount() {
         {this.randomGenerator()}
         {this.searchRecipes()}
-        {
-            this.props.profile()
-        }
+        {this.props.profile()}
+        {this.props.findAllUsers()}
         if(this.props.currentUser != null){
             const customerId = this.props.currentUser.userId
             {this.props.findOrderForUser(customerId)}
         }
+        {this.props.findAllOrders()}
+
 
     }
 
@@ -108,6 +109,7 @@ class HomePage extends React.Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <h5>WELCOME {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
+
                     </h5>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
@@ -203,6 +205,7 @@ class HomePage extends React.Component {
                     <div className="col-6">
                     <h1>Recent Orders:</h1>
                     <p>Length:{this.props.orders.length}</p>
+
                     {/*diplay most recent order for the user*/}
                         {this.props.orders.map((order =>
                         <li>{order.items}</li>))}
@@ -335,7 +338,8 @@ class HomePage extends React.Component {
 
 
                     <div className="col-6">
-                        <h1>Welcome to our Community:</h1>
+                        <h1>Latest Recipe purchased:</h1>
+                        <p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>
                         <SearchRecipe/>
                     </div>
 
@@ -351,12 +355,17 @@ class HomePage extends React.Component {
 const stateToPropertyMapper = (state) => ({
     currentUser: state.UserReducer.currentUser,
     order: state.orderReducer.order,
-    orders: state.orderReducer.orders
+    orders: state.orderReducer.orders,
+    user: state.UserReducer.user,
+    users: state.UserReducer.users,
+    allOrders: state.orderReducer.allOrders
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
-    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId)
+    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId),
+    findAllUsers: () => UserActions.findAllUsers(dispatch),
+    findAllOrders: () => OrderActions.findAllOrders(dispatch)
     // updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
     // saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch)
 })

@@ -134,12 +134,12 @@ export class RecipeDetails extends React.Component {
                                         <li>
                                             {(this.state.recipe.label === user.name) && (this.state.usersList.includes(user.username) === false) &&
                                             <div>
-                                                <p>{user.username}</p>
-                                                {this.state.usersList.push(user.username)}
-                                                <p>{this.state.usersList.length}</p>
-                                                {this.state.usersList.map((userL) =>
-                                              <li>{userL}</li>)
-                                                }
+                                              {/*  <p>{user.username}</p>*/}
+                                              {this.state.usersList.push(user.username)}
+                                              {/*  <p>{this.state.usersList.length}</p>*/}
+                                              {/*  {this.state.usersList.map((userL) =>*/}
+                                              {/*<li>{userL}</li>)*/}
+                                              {/*  }*/}
                                             </div>
                                             }
                                            </li>

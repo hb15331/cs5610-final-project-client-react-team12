@@ -50,8 +50,10 @@ const updateProfile = (newProfile) =>
         credentials: "include"
     }).then(response => response.json())
 
-
+const findAllUsers = () =>
+    fetch(`${API_BASE_URL}/api/profiles`)
+        .then(response => response.json())
 
 export default {
-    register, profile, logout, login, updateProfile
+    register, profile, logout, login, updateProfile, findAllUsers
 }

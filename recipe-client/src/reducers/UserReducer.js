@@ -1,6 +1,7 @@
 const initialState = {
-    currentUser: null
-    // currentUser: {userId: '', username: '', type: '', password: '', email: ''}
+    users: [],
+    currentUser: null,
+
 }
 
 
@@ -14,6 +15,12 @@ const UserReducer = (state=initialState, action) => {
             return {
                 currentUser: action.newProfile
             }
+        case "FIND_ALL_USERS":
+            return {
+                ...state,
+                users: action.users
+            }
+
         default:
             return state
     }
