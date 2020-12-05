@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
+import {RecipeDetails} from "./RecipeDetails";
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -13,10 +14,17 @@ class SearchRecipe extends React.Component {
         super(props);
         this.state = {
             keyword: '',
-            rawRecipes: []
+            rawRecipes: [],
         }
     }
 
+    componentDidMount() {
+        // not sure if this is needed
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // not sure if this is needed
+    }
 
     // fetch a list of recipes that match user's search criteria
     searchRecipes = () => {
@@ -25,19 +33,21 @@ class SearchRecipe extends React.Component {
         fetch(queryUrl)
             .then(response => response.json())
             .then((data) => this.renderRecipes(data))
-            //.then(this.renderRecipes)
+        //.then(this.renderRecipes)
 
     }
 
 
     // data includes all the info retrieved from api
-    renderRecipes = (data) =>
+    renderRecipes = (data) => {
+        //console.log("hello", data)
         this.setState(prevState => ({
             //...prevState,
             // hits is an array of objects that include the true recipes we want
             rawRecipes: data.hits
         }))
-        //console.log(data)
+    }
+
 
 
     render() {
@@ -50,7 +60,8 @@ class SearchRecipe extends React.Component {
                 <div className="input-group">
 
                     <label for="search" className="col-12">Enter keyword</label>
-                    <input onChange={(event) =>
+
+                   <input onChange={(event) =>
                         //console.log(event.target.value)
                         this.setState(prevState => ({
                             //...prevState,
@@ -59,40 +70,45 @@ class SearchRecipe extends React.Component {
                            className="form-control"
                            placeholder="keyword"
                            value={this.state.keyword}
-                            id="search"/>
+                           id="search"/>
 
                     <div className="input-group-append">
-                            <button
-                                onClick={this.searchRecipes}
-                                className="btn btn-primary">
-                                Search
-                            </button>
+                        <Link to={`/recipeSearch/q=${this.state.keyword}/recipes`}>
+                        <button
+                            onClick={this.searchRecipes}
+                            className="btn btn-success">
+                            Search
+                        </button>
+                        </Link>
                     </div>
                 </div>
 
-                <ul className="list-group mt-3">
-                {
-                    this.state.rawRecipes.map(
-                        (rawRecipe, index) => {
-                            // extract uri from data and use it as the unique identifier of recipe
-                            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
-                            // console.log(recipeUri)
 
-                            return (
-                                <div key={index}>
-                                    {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
-                                    <Link to={`/recipes/${recipeUri}`}>
-                                        <li className="list-group-item">
-                                            {/*{JSON.stringify(rawRecipe)}*/}
-                                            {rawRecipe.recipe.label}
-                                        </li>
-                                    </Link>
-                                </div>
-                            )
-                        }
-                    )
-                }
+                <ul className="list-group mt-3">
+                    {
+                        this.state.rawRecipes.map(
+                            (rawRecipe, index) => {
+                                // extract uri from data and use it as the unique identifier of recipe
+                                const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+                                // console.log(recipeUri)
+
+                                return (
+                                    <div key={index}>
+
+                                        <Link to={`/recipeSearch/q=${this.state.keyword}/recipes/${recipeUri}`}>
+                                            <li className="list-group-item">
+
+                                                {rawRecipe.recipe.label}
+                                            </li>
+                                        </Link>
+
+                                    </div>
+                                )
+                            }
+                        )
+                    }
                 </ul>
+
 
             </div>
 

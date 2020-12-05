@@ -14,3 +14,20 @@ h3 {
     color:darkslategray;
 }
 
+ul{
+    list-style-type: none;
+}
+
+.fa-plus-square{
+    color: green;
+    padding-right: 10px;
+}
+
+.fa-home {
+    color:darkslategray;
+}
+
+.fa-shopping-basket {
+    color:darkslategray;
+}
+

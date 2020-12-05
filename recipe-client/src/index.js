@@ -1,16 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import "bootstrap/dist/css/bootstrap.min.css"
-// import './index.css';
-// import '../node_modules/bootstrap/dist/css/bootstrap.css';
-import EdamamClient from "./containers/EdamamClient";
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+
+import UserReducer from "./reducers/UserReducer"
+import orderReducer from "./reducers/orderReducer";
 import {SearchManager} from "./components/SearchManager";
 
 
+const reducers = combineReducers({
+    UserReducer, orderReducer
+})
+const store = createStore(reducers)
+
 ReactDOM.render(
 
-    <SearchManager/>,
+    <Provider store={store}>
+        <SearchManager/>
+    </Provider>,
+
+
     document.getElementById('root')
 
 );
+
 

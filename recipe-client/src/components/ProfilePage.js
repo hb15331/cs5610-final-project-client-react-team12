@@ -1,104 +1,130 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
-import RegisterPage from "./RegisterPage";
+import UserService from "../services/UserService";
+import UserActions from "../actions/UserActions";
+import {connect} from "react-redux";
 
 
-const ProfilePage = () =>
+// TODO: Allow the current user to edit the profile
+
+class ProfilePage extends React.Component {
+
+    componentDidMount() {
+        this.props.profile()
+    }
+
+
+    logout = () =>
+        UserService.logout()
+            .then(status => {
+                // TODO: async function called in another async
+                this.props.profile()
+                this.props.history.push('/')
+            })
+
+
+    render() {
+        if (!this.props.currentUser)
+            return (
+                <div>
+                    <h3>Create an account first before viewing your profile</h3>
+                    <Link to={`/home`} className="btn btn-link">Home</Link>
+                    <Link to={`/register`} className="btn btn-link">Register</Link>
+                </div>
+            )
+        else return (
             <div>
-
-
                 <h5>Profile</h5>
-                <span //TODO: add edit buttons
-                >
+                <h5>Current user:
+                    {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
+                </h5>
 
-                <label for = "name">Name</label>
-                <input className="form-control" type="text" id="name"
-                    //TODO: onchange input username
+                {/*UserId field*/}
+                <label htmlFor="userId-fld">User Id</label>
+                <input
+                    className="form-control"
+                    id="userId-fld"
+                    value={this.props.currentUser.userId}
+                    onChange={() => {}}
                 />
 
-                </span>
-                <label for="name">Email</label>
-                <input className="form-control" type="email" id="name"
-                    //TODO: onchange input username
-                />
-                <label for="telephone">Telephone</label>
-                <input className="form-control" type="tel" id="telephone"
-                    //TODO: onchange input password
-                />
-                <label for="location">Location</label>
-                <input className="form-control" type="text" id="location"
-                    //TODO: onchange input password
+
+                {/*Username field*/}
+                <label htmlFor="username-fld">Username</label>
+                <input
+                    className="form-control"
+                    id="username-fld"
+                    value={this.props.currentUser.username}
+                    onChange={(e) =>
+                        this.props.updateProfile({...this.props.currentUser, username: e.target.value})}
                 />
 
-                <label for="orderlist">Orders:</label>
-                <ul id="orderlist">
 
-                </ul>
-                <Link to={`/home`} className="btn btn-success btn-block">
+                {/*Usertype field*/}
+                <label htmlFor="type-fld">User type</label>
+                <input
+                    className="form-control"
+                    id="type-fld"
+                    value={this.props.currentUser.type}
+                    onChange={() => {}}
+                />
+
+
+                {/*Password field*/}
+                <label htmlFor="pw-fld">Password</label>
+                <input
+                    className="form-control"
+                    id="pw-fld"
+                    value={this.props.currentUser.password}
+                    onChange={(e) =>
+                        this.props.updateProfile({...this.props.currentUser, password: e.target.value})}
+                />
+
+
+                <label htmlFor="email-fld">Email</label>
+                <input className="form-control"
+                       type="email"
+                       id="email-fld"
+                       value={this.props.currentUser.email}
+                       onChange={(e) =>
+                           this.props.updateProfile({...this.props.currentUser, email: e.target.value})}
+                />
+
+                <label htmlFor="location">Location</label>
+                <input className="form-control" type="text" id="location"/>
+
+                <label htmlFor="orders">Orders</label>
+
+                <button className="btn btn-warning btn-block"
+                        onClick={() => this.props.saveProfile(this.props.currentUser)}>
                     Save
+                </button>
+
+                <Link to={`/home`} className="btn btn-success btn-block">
+                    Home
                 </Link>
+
+                <button className="btn btn-danger btn-block" onClick={this.logout}>
+                    Logout
+                </button>
 
             </div>
 
-export default ProfilePage;
+        )
+    }
+}
 
 
-// import React from 'react'
-// import {Link} from "react-router-dom";
-// import "bootstrap/dist/css/bootstrap.min.css"
-//
-// // const APP_ID = "e488ff8f"
-// // const APP_KEY = "922801bd953e0343123e19348ba693fe"
-// // const RECIPE_URL = "https://api.edamam.com/search"
-//
-// class RegisterPage extends React.Component {
-//
-//     constructor(props) {
-//         super(props);
-//     }
-//
-//     render() {
-//         return (
-//             <div>
-//
-//
-//                 <h5>Profile</h5>
-//                 <span //TODO: add edit buttons
-//                 >
-//
-//                 <label for = "name">Name</label>
-//                 <input className="form-control" type="text" id="name"
-//                     //TODO: onchange input username
-//                 />
-//
-//                 </span>
-//                 <label for="name">Email</label>
-//                 <input className="form-control" type="email" id="name"
-//                     //TODO: onchange input username
-//                 />
-//                 <label for="telephone">Telephone</label>
-//                 <input className="form-control" type="tel" id="telephone"
-//                     //TODO: onchange input password
-//                 />
-//                 <label for="location">Location</label>
-//                 <input className="form-control" type="text" id="location"
-//                     //TODO: onchange input password
-//                 />
-//
-//                 <label for="orderlist">Orders:</label>
-//                 <ul id="orderlist">
-//
-//                 </ul>
-//
-//
-//
-//
-//             </div>
-//
-//         )
-//     }
-// }
-//
-//
-// export default RegisterPage;
+const stateToPropertyMapper = (state) => ({
+    currentUser: state.UserReducer.currentUser
+})
+
+const propertyToDispatchMapper = (dispatch) => ({
+    profile: () => UserActions.profile(dispatch),
+    updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
+    saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch)
+})
+
+
+export default connect(stateToPropertyMapper, propertyToDispatchMapper)(ProfilePage)
