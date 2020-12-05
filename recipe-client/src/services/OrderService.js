@@ -4,6 +4,7 @@ const USER_URL = "http://localhost:8080/api/profiles"
 export const findAllOrders = () =>
     fetch(ORDER_URL)
         .then(response => response.json())
+
 export const findOrderForUser = (cid) =>
     fetch(`${ORDER_URL}/${cid}/orders`)
         .then(response => response.json())
@@ -25,9 +26,22 @@ const deleteOrder = (oid) =>
     }).then(response => findOrderForUser())
     // }).then(response => response.json())
 
-const findDelivererForOrder = (order, currentUser) =>
-    fetch((`${USER_URL}/${order.customerId}`))
+
+
+// const updateOrder = (newOrder) =>
+//     fetch(`${ORDER_URL}/${newOrder.orderId}`, {
+//         method: "PUT",
+//         body: JSON.stringify(newOrder),
+//         headers: {
+//             "content-type": "application/json"
+//         }
+//     }).then(response => response.json())
+
+
+const findDeliverersForOrder = (userId) =>
+    fetch(`${USER_URL}/${userId}/deliverers`)
+        .then(response => response.json())
 
 export default {
-    createOrder, findOrderForUser, deleteOrder
+    createOrder, findOrderForUser, deleteOrder, findDeliverersForOrder
 }

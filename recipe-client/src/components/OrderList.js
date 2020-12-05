@@ -3,12 +3,13 @@ import {connect} from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css"
 import orderService from "../services/OrderService";
 import UserActions from "../actions/UserActions";
+import {Link} from "react-router-dom";
 
 const OrderList = (
     {orders = [],
-        currentUser, customerId, delivererId,
+        currentUser, customerId, delivererId, deliverers = [],
         deleteOrder,
-        findDelivererForOrder
+        findDeliverersForOrder
     }) =>
     <div>
 
@@ -48,7 +49,32 @@ const OrderList = (
                     </div>
 
                 <div className="col-4">
-                <h3>Your assigned deliverer:</h3>
+                    <Link to={{pathname:"/cart"}}>
+                        {console.log(customerId)}
+                    <button className="btn btn-block btn-outline-info"
+                        onClick={() => findDeliverersForOrder(customerId)}>
+                        Order this recipe
+                    </button>
+                        {console.log(deliverers)}
+                    </Link>
+
+                    <ol>
+                        <h5>Please select a deliverer for your order</h5>
+                        {deliverers.map(deliverer =>
+                            <li /*onClick={() => assignDriverToOrder(orderId, newOrder)}*/>
+                                <ul className="list-group">
+                                    {console.log(deliverer)}
+                                    <li onClick={() => alert("Assigning driver!")}
+                                        className="list-group-item btn">
+                                        <h4>Deliverer ID: {deliverer.username}</h4>
+                                        Name: {deliverer.firstname} <br/>
+                                        Location: {deliverer.location} <br/>
+                                    </li>
+                                </ul>
+
+                            </li>
+                        )}
+                    </ol>
 
                 </div>
                     </div>
@@ -67,7 +93,7 @@ const OrderList = (
 const stateToPropertyMapper = (state) => ({
     orders: state.orderReducer.orders,
     customerId: state.orderReducer.customerId,
-    delivererId: state.orderReducer.delivererId,
+    deliverers: state.orderReducer.deliverers,
     currentUser: state.UserReducer.currentUser
 })
 const dispatchToPropertyMapper = (dispatch) => ({
@@ -80,12 +106,25 @@ const dispatchToPropertyMapper = (dispatch) => ({
                 orderId
             })),
 
-    // findDelivererForOrder: (orderId) =>
-    //     orderService.findDelivererForOrder(orderId)
+    findDeliverersForOrder: (customerId) =>
+        orderService.findDeliverersForOrder(customerId)
+            .then(drivers => dispatch({
+               type: "FIND_DELIVERERS_FOR_ORDER",
+                customerId: customerId,
+                deliverers: drivers
+            })),
+
+
+    // assignDelivererToOrder: (orderId, newOrder) =>
+    //     orderService.updateOrder(orderId, newOrder)
     //         .then(status => dispatch({
-    //             type: "FIND_DELIVERER_FOR_ORDER",
-    //             orderId
+    //             type: "UPDATE_ORDER",
+    //             delivererIdID: delivererId,
+    //             orderId: orderId,
+    //             customerId: customerId
     //         }))
+
+
 
 
 
