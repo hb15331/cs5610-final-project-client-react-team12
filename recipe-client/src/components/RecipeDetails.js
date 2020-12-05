@@ -15,7 +15,6 @@ const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
 const RECIPE_URL = "https://api.edamam.com/search"
 
-// https://api.edamam.com/search?r=http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_b79327d05b8e5b838ad6cfd9576b30b6&app_id=e488ff8f&app_key=922801bd953e0343123e19348ba693fe
 
 // let itemOrd= [];
 export class RecipeDetails extends React.Component {
