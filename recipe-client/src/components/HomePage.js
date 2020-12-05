@@ -43,8 +43,11 @@ class HomePage extends React.Component {
             const customerId = this.props.currentUser.userId
             {this.props.findOrderForUser(customerId)}
         }
-        {this.props.findAllOrders()}
-
+        if(this.props.allOrders != null) {
+            {
+                this.props.findAllOrders()
+            }
+        }
 
     }
 

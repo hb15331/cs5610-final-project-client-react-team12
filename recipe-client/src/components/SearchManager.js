@@ -34,7 +34,7 @@ export class SearchManager extends React.Component {
                             <Route exact path={["/", "/home", "/recipeSearch/q=:keyword/recipes" ]} component={HomePage}/>
                             <Route exact path="/register" component={RegisterPage}/>
                                 <Route exact path="/login" component={LoginPage}/>
-                            <Route exact path="/profile" component={ProfilePage}/>
+                            <Route exact path={["/profile", "/profile/:uid"]} component={ProfilePage}/>
                             <Route exact path="/recipeSearch" component={SearchRecipe}/>
                             <Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>
                             <Route exact path="/cart" component={orderListContainer}/>
