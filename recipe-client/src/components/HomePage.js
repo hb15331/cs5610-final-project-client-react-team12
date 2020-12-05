@@ -26,6 +26,7 @@ class HomePage extends React.Component {
             "South American", "South East Asian"],
         ingredients: ["chicken", "pork", "tomatoes", "cheese", "flour", "milk", "potato", "onion", "avocado", "beans",
         "pasta", "pepper", "nuts", "beef", "vegetables", "bread", "egg", "fish"],
+        selectedIngredient: "",
         recipeOfTheDay: "",
         rawRecipes: [],
         recipeUri: "",
@@ -69,12 +70,14 @@ class HomePage extends React.Component {
     // fetch a list of recipes that match user's search criteria
     searchRecipes = () => {
         //console.log(this.state.keyword)
-        let ingredient = this.state.ingredients[this.state.random]
+        let ingredient = this.state.ingredients[8]
+
+        this.state.selectedIngredient = ingredient
         //let cuisineType = this.state.cuisineTypes[2]
         //console.log(ingredient, cuisineType)
-        const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=1`
-        //const queryUrl =
-        // `${RECIPE_URL}?q=${this.state.keyword}&app_id=${APP_ID}&app_key=${APP_KEY}&cuisineType="indian"&from=0&to=1`
+        const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=4&to=5`
+       // const queryUrl =
+        // `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&cuisineType="Indian"&from=0&to=1`
         fetch(queryUrl)
             .then(response => response.json())
             .then((data) => this.renderRecipes(data))
@@ -101,13 +104,15 @@ class HomePage extends React.Component {
                 {this.props.currentUser &&
                 <nav class="navbar navbar-light">
 
-                    <a className="navbar-brand" href="#">
-                        <h1>Foodify</h1>
-                    </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+
+                    <a className="navbar-brand" href="#">
+                        <h1>Foodify</h1>
+                    </a>
+
                     <h5>WELCOME {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
 
                     </h5>
@@ -192,7 +197,7 @@ class HomePage extends React.Component {
                 <div className="imageStyle">
                     <img className="img-fluid"
                          width="100%"
-                         height="auto"
+                         height="20%"
                         src={this.state.imageUrl}
                         alt="randomImage"/>
 
@@ -304,7 +309,11 @@ class HomePage extends React.Component {
                 <div className="row">
                     <div className="col-6">
 
+                        <h1>Today's pick</h1>
+
+
                         <h1>Recipe of the Day</h1>
+
 
                         {
                             this.state.rawRecipes.map(
@@ -316,7 +325,7 @@ class HomePage extends React.Component {
                                     return (
                                         <div key={index}>
                                             {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
-                                            <Link to={`/recipes/${recipeUri}`}>
+                                            <Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>
 
                                                 <h3>{rawRecipe.recipe.label}</h3>
 

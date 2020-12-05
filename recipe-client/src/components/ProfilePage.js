@@ -60,6 +60,24 @@ class ProfilePage extends React.Component {
                         this.props.updateProfile({...this.props.currentUser, username: e.target.value})}
                 />
 
+                <label htmlFor="firstname-fld">First Name</label>
+                <input
+                    className="form-control"
+                    id="firstname-fld"
+                    value={this.props.currentUser.firstname}
+                    onChange={(e) =>
+                        this.props.updateProfile({...this.props.currentUser, firstname: e.target.value})}
+                />
+
+                <label htmlFor="lastname-fld">Last Name</label>
+                <input
+                    className="form-control"
+                    id="lastname-fld"
+                    value={this.props.currentUser.lastname}
+                    onChange={(e) =>
+                        this.props.updateProfile({...this.props.currentUser, lastname: e.target.value})}
+                />
+
 
                 {/*Usertype field*/}
                 <label htmlFor="type-fld">User type</label>
@@ -91,8 +109,14 @@ class ProfilePage extends React.Component {
                            this.props.updateProfile({...this.props.currentUser, email: e.target.value})}
                 />
 
-                <label htmlFor="location">Location</label>
-                <input className="form-control" type="text" id="location"/>
+                <label htmlFor="location-fld">Location</label>
+                <input
+                    className="form-control"
+                    id="location-fld"
+                    value={this.props.currentUser.location}
+                    onChange={(e) =>
+                        this.props.updateProfile({...this.props.currentUser, location: e.target.value})}
+                />
 
                 <label htmlFor="orders">Orders</label>
 

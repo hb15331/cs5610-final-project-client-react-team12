@@ -75,14 +75,17 @@ export class RecipeDetails extends React.Component {
 
     render() {
         return (
+
             <div className="container">
 
                 <div>
+
                     <Link to={{pathname:"/cart",}}>
                     <i className="fa fa-shopping-basket fa-2x btn pull-right btn-sm"></i>
                     </Link>
                     <Link to={"/home"}>
                     <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
+
                     </Link>
                 </div>
                 <h5>Current user:
@@ -162,6 +165,7 @@ export class RecipeDetails extends React.Component {
 
 
             </div>
+
         )
     }
 }

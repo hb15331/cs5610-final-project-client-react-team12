@@ -1,6 +1,8 @@
 const initialState = {
     orders: [],
+    users: [],
     allOrders: []
+
 }
 
 const orderReducer = (state=initialState, action) => {
@@ -15,6 +17,19 @@ const orderReducer = (state=initialState, action) => {
                 ...state,
                 orders: action.orders,
                 customerId: action.customerId
+            }
+
+        case "FIND_DELIVERER":
+            return {
+
+            }
+
+        case "FIND_DELIVERER_FOR_ORDER":
+            return {
+                ...state,
+                orders: action.orders,
+                customerId: action.customerId,
+                delivererId: action.delivererId
             }
         case "CREATE_ORDER":
             return {
