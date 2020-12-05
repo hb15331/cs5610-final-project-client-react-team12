@@ -4,12 +4,13 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import orderService from "../services/OrderService";
 import UserActions from "../actions/UserActions";
 import {Link} from "react-router-dom";
+import OrderDetails from "./OrderDetails";
 
 const OrderList = (
     {orders = [],
         currentUser, customerId, delivererId, deliverers = [],
         deleteOrder,
-        findDeliverersForOrder
+        findDeliverersForOrder, assignDelivererToOrder
     }) =>
     <div>
 
@@ -59,17 +60,27 @@ const OrderList = (
                     </Link>
 
                     <ol>
+
                         <h5>Please select a deliverer for your order</h5>
                         {deliverers.map(deliverer =>
-                            <li /*onClick={() => assignDriverToOrder(orderId, newOrder)}*/>
+                            <li>
                                 <ul className="list-group">
-                                    {console.log(deliverer)}
-                                    <li onClick={() => alert("Assigning driver!")}
+                                    {console.log("Deliverer: ",deliverer)}
+                                    {console.log("Order before assignment: ", order)}
+                                    <Link to={"/cart/orderDetails"}>
+                                    <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
+                                        ...order,
+                                        delivererId: deliverer.userId,
+                                        orderId: order.orderId,
+                                        customerId: order.customerId
+                                    })}
                                         className="list-group-item btn">
                                         <h4>Deliverer ID: {deliverer.username}</h4>
                                         Name: {deliverer.firstname} <br/>
                                         Location: {deliverer.location} <br/>
+                                        {console.log("new order", order)}
                                     </li>
+                                    </Link>
                                 </ul>
 
                             </li>
@@ -96,6 +107,8 @@ const stateToPropertyMapper = (state) => ({
     deliverers: state.orderReducer.deliverers,
     currentUser: state.UserReducer.currentUser
 })
+
+
 const dispatchToPropertyMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
 
@@ -114,14 +127,24 @@ const dispatchToPropertyMapper = (dispatch) => ({
                 deliverers: drivers
             })),
 
+    assignDelivererToOrder: (orderId, delivererId, newOrder) =>
+        orderService.updateOrder(orderId, delivererId, {
+            ...newOrder, orderPlaced: true
+        })
+            .then(status => dispatch({
+                type: "UPDATE_ORDER",
+                orderId: orderId,
+                delivererId: delivererId,
+                order: newOrder
+            }))
+
 
     // assignDelivererToOrder: (orderId, newOrder) =>
     //     orderService.updateOrder(orderId, newOrder)
     //         .then(status => dispatch({
     //             type: "UPDATE_ORDER",
-    //             delivererIdID: delivererId,
     //             orderId: orderId,
-    //             customerId: customerId
+    //             order: newOrder
     //         }))
 
 
