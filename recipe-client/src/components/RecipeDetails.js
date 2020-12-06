@@ -25,6 +25,7 @@ export class RecipeDetails extends React.Component {
         },
         orders: [],
         usersList: [],
+        customIdList: [],
         purchaseBy : false
     }
 
@@ -147,20 +148,28 @@ export class RecipeDetails extends React.Component {
                                             {(this.state.recipe.label === user.name) && (this.state.usersList.includes(user.username) === false) &&
                                             <div>
                                               {/*  <p>{user.username}</p>*/}
+                                              {/*  {this.setState(prevState => ({*/}
+                                              {/*      ...prevState, usersList: [prevState.usersList, user.username]                                                }))}*/}
                                               {this.state.usersList.push(user.username)}
+                                                {this.state.customIdList.push(user.customerId)}
                                               {/*  <p>{this.state.usersList.length}</p>*/}
                                               {/*  {this.state.usersList.map((userL) =>*/}
-                                              {/*<li>{userL}</li>)*/}
-                                              {/*  }*/}
+                                              {/*<li>{user.username}</li>)*/}
+                                                {/*}*/}
                                             </div>
                                             }
                                            </li>
 
                                 )
+
                             }
-                                            {this.state.usersList.map((userL) =>
-                                                <li>{userL}</li>)
-                            }
+
+                                             {this.state.usersList.map((userL,index) =>
+                                                <Link to={`/profile/${this.state.customIdList[index]}`}>
+                                                <li>{userL}</li>
+                                                </Link>
+
+                                           )}
 
                         </ul>
 
