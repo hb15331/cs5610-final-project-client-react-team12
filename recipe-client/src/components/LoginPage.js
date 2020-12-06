@@ -51,32 +51,13 @@ class LoginPage extends React.Component {
                         <input className="form-control"
                                type="password"
                                id="password-fld"
+                               placeholder="*******"
                                value={this.state.password}
                                onChange={(e) =>
                                    this.setState({password: e.target.value})}
                         />
                     </div>
                 </div>
-
-                {/*Usertype dropdown*/}
-                {/*<div className="form-group row">*/}
-                {/*    <label htmlFor="usertype-fld" className="col-sm-2 col-form-label"></label>*/}
-
-                {/*    <div className="col-sm-10">*/}
-
-                {/*        <select id="usertype-fld"*/}
-                {/*                className="form-control"*/}
-                {/*                value={this.state.type}*/}
-                {/*                onChange={(e) =>*/}
-                {/*                    this.setState({type: e.target.value})}>*/}
-                {/*            <option value="CUSTOMER">Customer</option>*/}
-                {/*            <option value="DELIVERER">Deliverer</option>*/}
-                {/*            <option value="ADMIN">Admin</option>*/}
-                {/*        </select>*/}
-
-                {/*    </div>*/}
-                {/*</div>*/}
-
 
                 <div className="form-group row">
 

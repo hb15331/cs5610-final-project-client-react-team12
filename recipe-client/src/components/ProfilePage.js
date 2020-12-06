@@ -6,8 +6,7 @@ import UserActions from "../actions/UserActions";
 import {connect} from "react-redux";
 
 
-// TODO: Allow the current user to edit the profile
-
+// the private profile page contains both the public info and private info
 class ProfilePage extends React.Component {
 
     componentDidMount() {
@@ -27,15 +26,16 @@ class ProfilePage extends React.Component {
     render() {
         if (!this.props.currentUser)
             return (
-                <div>
-                    <h3>Create an account first before viewing your profile</h3>
+                <div className="text-center">
+                    <h3>Login or register before viewing your profile</h3>
                     <Link to={`/home`} className="btn btn-link">Home</Link>
+                    <Link to={`/login`} className="btn btn-link">Log in</Link>
                     <Link to={`/register`} className="btn btn-link">Register</Link>
                 </div>
             )
         else return (
             <div>
-                <h5>Profile</h5>
+                <h3>Profile</h3>
                 <h5>Current user:
                     {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
                 </h5>
@@ -46,7 +46,7 @@ class ProfilePage extends React.Component {
                     className="form-control"
                     id="userId-fld"
                     value={this.props.currentUser.userId}
-                    onChange={() => {}}
+                    readOnly
                 />
 
 
@@ -55,6 +55,7 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="username-fld"
+                    placeholder="Your username"
                     value={this.props.currentUser.username}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, username: e.target.value})}
@@ -64,18 +65,20 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="firstname-fld"
-                    value={this.props.currentUser.firstname}
+                    placeholder="John"
+                    value={this.props.currentUser.firstName}
                     onChange={(e) =>
-                        this.props.updateProfile({...this.props.currentUser, firstname: e.target.value})}
+                        this.props.updateProfile({...this.props.currentUser, firstName: e.target.value})}
                 />
 
                 <label htmlFor="lastname-fld">Last Name</label>
                 <input
                     className="form-control"
                     id="lastname-fld"
-                    value={this.props.currentUser.lastname}
+                    placeholder="Lennon"
+                    value={this.props.currentUser.lastName}
                     onChange={(e) =>
-                        this.props.updateProfile({...this.props.currentUser, lastname: e.target.value})}
+                        this.props.updateProfile({...this.props.currentUser, lastName: e.target.value})}
                 />
 
 
@@ -85,7 +88,7 @@ class ProfilePage extends React.Component {
                     className="form-control"
                     id="type-fld"
                     value={this.props.currentUser.type}
-                    onChange={() => {}}
+                    readOnly
                 />
 
 
@@ -94,6 +97,7 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="pw-fld"
+                    placeholder="*******"
                     value={this.props.currentUser.password}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, password: e.target.value})}
@@ -104,6 +108,7 @@ class ProfilePage extends React.Component {
                 <input className="form-control"
                        type="email"
                        id="email-fld"
+                       placeholder="username@gmail.com"
                        value={this.props.currentUser.email}
                        onChange={(e) =>
                            this.props.updateProfile({...this.props.currentUser, email: e.target.value})}
@@ -113,12 +118,18 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="location-fld"
+                    placeholder="Dark side of the moon"
                     value={this.props.currentUser.location}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, location: e.target.value})}
                 />
 
                 <label htmlFor="orders">Orders</label>
+
+
+                {/*links to other users' public profile*/}
+                <p><Link to="/profile/12">user3</Link></p>
+                <p><Link to="/profile/13">user4</Link></p>
 
 
                 <button className="btn btn-warning btn-block"

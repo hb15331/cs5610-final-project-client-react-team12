@@ -73,7 +73,6 @@ class HomePage extends React.Component {
 
     // fetch a list of recipes that match user's search criteria
     searchRecipes = () => {
-        //console.log(this.state.keyword)
         let ingredient = this.state.ingredients[8]
 
         this.state.selectedIngredient = ingredient
@@ -98,7 +97,14 @@ class HomePage extends React.Component {
             rawRecipes: data.hits
 
         }))
-    //console.log(data)
+
+    // current logged in user is not allowed to login or register again unless log out first
+    blockLoginOrRegister = (e) => {
+        if (this.props.currentUser) {
+            alert("ERROR: You are already logged in!")
+            e.preventDefault()
+        }
+    }
 
 
 
@@ -125,14 +131,14 @@ class HomePage extends React.Component {
                             <li className="nav-item active">
                                 <li className="nav-item active">
                                     <a className="nav-link" >
-                                        <Link to="/register">
-                                            <span>Register</span>
+                                        <Link to="/register" onClick={(e) => this.blockLoginOrRegister(e)}>
+                                            Register
                                         </Link>
                                     </a>
                                 </li>
                                 <a className="nav-link" >
-                                    <Link to="/login">
-                                        <span>Log In</span>
+                                    <Link to="/login" onClick={(e) => this.blockLoginOrRegister(e)}>
+                                        Log In
                                     </Link>
                                 </a>
                             </li>
@@ -174,14 +180,15 @@ class HomePage extends React.Component {
                             <li className="nav-item active">
                                 <li className="nav-item active">
                                     <a className="nav-link" >
-                                        <Link to="/register">
-                                            <span>Register</span>
+                                        <Link to="/register" onClick={(e) => this.blockLoginOrRegister(e)}>
+                                            Register
                                         </Link>
                                     </a>
                                 </li>
                                 <a className="nav-link" >
-                                    <Link to="/login">
-                                        <span>Log In</span>
+                                    <Link to="/login"
+                                          onClick={(e) => this.blockLoginOrRegister(e)}>
+                                        Log In
                                     </Link>
                                 </a>
                             </li>
@@ -228,17 +235,14 @@ class HomePage extends React.Component {
                             (rawRecipe, index) => {
                                 // extract uri from data and use it as the unique identifier of recipe
                                 const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
-                                // console.log(recipeUri)
 
                                 return (
                                     <div key={index}>
-                                        {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
                                         <Link to={`/recipes/${recipeUri}`}>
 
                                             <h3>{rawRecipe.recipe.label}</h3>
 
                                             <li className="container">
-                                                {/*{JSON.stringify(rawRecipe)}*/}
                                                 <img src={rawRecipe.recipe.image}/>
                                             </li>
 
@@ -324,17 +328,19 @@ class HomePage extends React.Component {
                                 (rawRecipe, index) => {
                                     // extract uri from data and use it as the unique identifier of recipe
                                     const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
-                                    // console.log(recipeUri)
 
                                     return (
                                         <div key={index}>
+
+                                            {/*<Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>*/}
+
                                             {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
                                             <Link to={`/search/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>
+
 
                                                 <h3>{rawRecipe.recipe.label}</h3>
 
                                                 <li className="container">
-                                                    {/*{JSON.stringify(rawRecipe)}*/}
                                                     <img src={rawRecipe.recipe.image}/>
                                                 </li>
 
@@ -390,8 +396,6 @@ const propertyToDispatchMapper = (dispatch) => ({
     findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId),
     findAllUsers: () => UserActions.findAllUsers(dispatch),
     findAllOrders: () => OrderActions.findAllOrders(dispatch)
-    // updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
-    // saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch)
 })
 
 export default connect(stateToPropertyMapper, propertyToDispatchMapper)(HomePage)
