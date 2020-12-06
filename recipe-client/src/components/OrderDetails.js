@@ -24,7 +24,7 @@ export class OrderDetails extends React.Component {
         const orderId = this.props.orderId
 
         // hardcoding orderId for now as orderId is undefined
-        this.props.findOrderById(orderId)
+        {this.props.findOrderById(orderId)}
         //     .then(order => this.setState(prevState => ({
         //     ...prevState, order: order
         // })))
@@ -41,13 +41,22 @@ export class OrderDetails extends React.Component {
 
                 <h4>Your order summary</h4>
                 <h6>Order placed for recipe:</h6>
-                {this.state.order.image}
+                {/*{this.props.order.image}*/}
+                <img className="card-img-top"
+                     src={this.props.order.image}/>
+                     <span className="row">
                 <h6>Order Id:</h6>
-                {this.state.order.orderId}
+                         <p>{this.props.order.orderId}</p>
+                </span>
+                <span className="row">
                 <h6>Order details:</h6>
-                {this.state.order.items}
+                {this.props.order.items}
+                </span>
+                <span className="row">
                 <h6>Assigned deliverer:</h6>
-                {this.state.order.delivererId}
+                    {this.props.order.delivererId}
+                </span>
+
 
 
             </div>

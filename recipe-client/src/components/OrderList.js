@@ -33,7 +33,7 @@ const OrderList = (
                             <img className="card-img-top"
                                 // src="https://picsum.photos/300/200"/>
                                  src={order.image}/>
-                            {order.customerId}
+                            {/*{order.customerId}*/}
                             <div className="card-body">
 
 
@@ -54,7 +54,7 @@ const OrderList = (
                         {console.log(customerId)}
                     <button className="btn btn-block btn-outline-info"
                         onClick={() => findDeliverersForOrder(customerId)}>
-                        Order this recipe
+                        Find a deliverer
                     </button>
                         {console.log(deliverers)}
                     </Link>
