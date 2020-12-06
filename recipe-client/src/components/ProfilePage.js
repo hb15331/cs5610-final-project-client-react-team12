@@ -121,8 +121,8 @@ class ProfilePage extends React.Component {
                 <label htmlFor="orders">Orders</label>
 
                 {/*links to other users' public profile*/}
-                <p><Link to="/profile/12">user3</Link></p>
-                <p><Link to="/profile/13">user4</Link></p>
+                {/*<p><Link to="/profile/12">user3</Link></p>*/}
+                {/*<p><Link to="/profile/13">user4</Link></p>*/}
 
 
                 <button className="btn btn-warning btn-block"
