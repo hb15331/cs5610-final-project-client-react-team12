@@ -8,9 +8,10 @@ class PublicProfilePage extends React.Component {
     state = {
         // public info of other user
         publicInfo: {
-            userId: '',
             username: '',
-            type: ''
+            type: '',
+            email: '',
+            location: '',
         }
     }
 
@@ -42,7 +43,7 @@ class PublicProfilePage extends React.Component {
                     className="form-control"
                     id="username-fld"
                     value={this.state.publicInfo.username}
-                    onChange={() => {}}
+                    readOnly
                 />
 
                 {/*Usertype field*/}
@@ -51,7 +52,7 @@ class PublicProfilePage extends React.Component {
                     className="form-control"
                     id="type-fld"
                     value={this.state.publicInfo.type}
-                    onChange={() => {}}
+                    readOnly
                 />
 
                 {/*Email*/}
@@ -60,7 +61,7 @@ class PublicProfilePage extends React.Component {
                     className="form-control"
                     id="email-fld"
                     value={this.state.publicInfo.email}
-                    onChange={() => {}}
+                    readOnly
                 />
 
                 {/*Location*/}
@@ -69,12 +70,11 @@ class PublicProfilePage extends React.Component {
                     className="form-control"
                     id="location-fld"
                     value={this.state.publicInfo.location}
-                    onChange={() => {}}
+                    readOnly
                 />
 
-
                 <div className="py-3">
-                    <Link to="/home" className="btn btn-success btn-block">Home</Link>
+                    <button className="btn btn-danger btn-block" onClick={this.props.history.goBack}>Back</button>
                 </div>
 
             </div>

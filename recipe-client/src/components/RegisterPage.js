@@ -56,7 +56,7 @@ class RegisterPage extends React.Component {
                     <div className="col-sm-10">
                         <input className="form-control"
                                id="username-fld"
-                               placeholder="alice"
+                               placeholder="New username"
                                value={this.state.username}
                                onChange={(e) =>
                                    this.setState({username: e.target.value})
@@ -73,6 +73,7 @@ class RegisterPage extends React.Component {
                             className="form-control"
                             type="password"
                             id="password-fld"
+                            placeholder="*******"
                             value={this.state.password}
                             onChange={(e) =>
                                 this.setState({password: e.target.value})
@@ -89,6 +90,7 @@ class RegisterPage extends React.Component {
                             className="form-control"
                             type="password"
                             id="verify-fld"
+                            placeholder="*******"
                             onChange={(e) =>
                                 this.setState({password2: e.target.value})
                             }
@@ -98,7 +100,7 @@ class RegisterPage extends React.Component {
 
                 {/*Usertype dropdown*/}
                 <div className="form-group row">
-                    <label htmlFor="usertype-fld" className="col-sm-2 col-form-label"></label>
+                    <label htmlFor="usertype-fld" className="col-sm-2 col-form-label">Choose user type</label>
                     <div className="col-sm-10">
 
                         <select id="usertype-fld"

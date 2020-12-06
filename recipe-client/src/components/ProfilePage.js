@@ -46,7 +46,7 @@ class ProfilePage extends React.Component {
                     className="form-control"
                     id="userId-fld"
                     value={this.props.currentUser.userId}
-                    onChange={() => {}}
+                    readOnly
                 />
 
 
@@ -55,6 +55,7 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="username-fld"
+                    placeholder="Your username"
                     value={this.props.currentUser.username}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, username: e.target.value})}
@@ -64,6 +65,7 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="firstname-fld"
+                    placeholder="John"
                     value={this.props.currentUser.firstName}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, firstName: e.target.value})}
@@ -73,6 +75,7 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="lastname-fld"
+                    placeholder="Lennon"
                     value={this.props.currentUser.lastName}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, lastName: e.target.value})}
@@ -85,7 +88,7 @@ class ProfilePage extends React.Component {
                     className="form-control"
                     id="type-fld"
                     value={this.props.currentUser.type}
-                    onChange={() => {}}
+                    readOnly
                 />
 
 
@@ -94,6 +97,7 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="pw-fld"
+                    placeholder="*******"
                     value={this.props.currentUser.password}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, password: e.target.value})}
@@ -104,6 +108,7 @@ class ProfilePage extends React.Component {
                 <input className="form-control"
                        type="email"
                        id="email-fld"
+                       placeholder="username@gmail.com"
                        value={this.props.currentUser.email}
                        onChange={(e) =>
                            this.props.updateProfile({...this.props.currentUser, email: e.target.value})}
@@ -113,6 +118,7 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="location-fld"
+                    placeholder="Dark side of the moon"
                     value={this.props.currentUser.location}
                     onChange={(e) =>
                         this.props.updateProfile({...this.props.currentUser, location: e.target.value})}
@@ -121,8 +127,8 @@ class ProfilePage extends React.Component {
                 <label htmlFor="orders">Orders</label>
 
                 {/*links to other users' public profile*/}
-                {/*<p><Link to="/profile/12">user3</Link></p>*/}
-                {/*<p><Link to="/profile/13">user4</Link></p>*/}
+                <p><Link to="/profile/12">user3</Link></p>
+                <p><Link to="/profile/13">user4</Link></p>
 
 
                 <button className="btn btn-warning btn-block"
