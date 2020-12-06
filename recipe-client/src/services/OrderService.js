@@ -9,6 +9,10 @@ export const findOrderForUser = (cid) =>
     fetch(`${ORDER_URL}/${cid}/orders`)
         .then(response => response.json())
 
+export const findOrderById = (orderId) =>
+    fetch(`${ORDER_URL}/${orderId}`)
+        .then(response => response.json())
+
 export const createOrder = (order) =>
     // fetch(WIDGET_URL, {
     fetch(ORDER_URL, {
@@ -26,9 +30,24 @@ const deleteOrder = (oid) =>
     }).then(response => findOrderForUser())
     // }).then(response => response.json())
 
-const findDelivererForOrder = (order, currentUser) =>
-    fetch((`${USER_URL}/${order.customerId}`))
+
+
+const updateOrder = (orderId, delivererId, newOrder) =>
+    fetch(`${ORDER_URL}/${orderId}`, {
+        method: "PUT",
+        body: JSON.stringify(newOrder),
+        headers: {
+            "content-type": "application/json"
+        }
+    }).then(response => response.json())
+
+
+const findDeliverersForOrder = (userId) =>
+    fetch(`${USER_URL}/${userId}/deliverers`)
+        .then(response => response.json())
 
 export default {
-    createOrder, findOrderForUser, deleteOrder, findAllOrders
+
+    createOrder, findOrderForUser, deleteOrder, findAllOrders,findDeliverersForOrder, updateOrder, findOrderById
+
 }

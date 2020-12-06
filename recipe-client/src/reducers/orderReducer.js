@@ -1,8 +1,9 @@
 const initialState = {
     orders: [],
     users: [],
-    allOrders: []
-
+    allOrders: [],
+    deliverers: [],
+    order: {}
 }
 
 const orderReducer = (state=initialState, action) => {
@@ -19,17 +20,20 @@ const orderReducer = (state=initialState, action) => {
                 customerId: action.customerId
             }
 
-        case "FIND_DELIVERER":
+        case "FIND_ORDER_BY_ID":
             return {
+                ...state,
+                order: action.order,
+                orderID: action.orderId
 
             }
 
-        case "FIND_DELIVERER_FOR_ORDER":
+
+        case "FIND_DELIVERERS_FOR_ORDER":
             return {
                 ...state,
-                orders: action.orders,
                 customerId: action.customerId,
-                delivererId: action.delivererId
+                deliverers: action.deliverers
             }
         case "CREATE_ORDER":
             return {
@@ -43,6 +47,17 @@ const orderReducer = (state=initialState, action) => {
             return {
                 ...state,
                 orders: state.orders.filter(order => order.id !== action.orderId)
+            }
+
+        case "UPDATE_ORDER":
+            return {
+                orders: state.orders.map(
+                    order => order.orderId === action.order.orderId ?
+                        action.order : order),
+                orderId: action.orderId,
+                customerId: action.order.customerId,
+                delivererId: action.order.delivererId,
+                orderPlaced: action.order.orderPlaced
             }
         default:
             return state

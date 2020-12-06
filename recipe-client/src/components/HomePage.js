@@ -31,6 +31,7 @@ class HomePage extends React.Component {
         rawRecipes: [],
         recipeUri: "",
         random: 0,
+        latestOrd: []
     }
 
 
@@ -43,8 +44,11 @@ class HomePage extends React.Component {
             const customerId = this.props.currentUser.userId
             {this.props.findOrderForUser(customerId)}
         }
-        {this.props.findAllOrders()}
-
+        if(this.props.allOrders != null) {
+            {
+                this.props.findAllOrders()
+            }
+        }
 
     }
 
@@ -327,7 +331,12 @@ class HomePage extends React.Component {
 
                                     return (
                                         <div key={index}>
-                                            <Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>
+
+                                            {/*<Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>*/}
+
+                                            {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
+                                            <Link to={`/search/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>
+
 
                                                 <h3>{rawRecipe.recipe.label}</h3>
 
@@ -349,6 +358,17 @@ class HomePage extends React.Component {
 
                     <div className="col-6">
                         <h1>Latest Recipe purchased:</h1>
+
+                        {this.props.allOrders.map((ord) =>
+                                //TODO:figure out how to obtain just the latest orders, not the whole list
+                        <div>
+                            {(this.state.latestOrd.includes(ord.name) === false) &&
+                                <div>{this.state.latestOrd.push(ord.name)}</div>
+
+                            }
+                        </div>
+                        )}
+                        <p>{this.state.latestOrd[this.state.latestOrd.length-1]}</p>
                         {/*<p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>*/}
                         <SearchRecipe/>
                     </div>

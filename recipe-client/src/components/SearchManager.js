@@ -6,6 +6,7 @@ import registerContainer from "../containers/registerContainer";
 import RegisterPage from "./RegisterPage"
 import ProfilePage from "./ProfilePage"
 import RecipeDetails from "./RecipeDetails";
+import OrderDetails from "./OrderDetails"
 import SearchRecipe from "./SearchRecipe";
 import LoginPage from "./LoginPage";
 import orderListContainer from "../containers/OrderListContainer"
@@ -32,16 +33,26 @@ export class SearchManager extends React.Component {
                             {/*    Search Recipe*/}
                             {/*</Link>*/}
 
-                            <Route exact path={["/", "/home", "/recipeSearch/q=:keyword/recipes" ]} component={HomePage}/>
+                            {/*<Route exact path={["/", "/home", "/recipeSearch/q=:keyword/recipes" ]} component={HomePage}/>*/}
+                            <Route exact path={["/", "/home", "/search/q=:keyword/" ]} component={HomePage}/>
                             <Route exact path="/register" component={RegisterPage}/>
                                 <Route exact path="/login" component={LoginPage}/>
+
                             <Route exact path="/profile" component={ProfilePage}/>
 
                             <Route exact path="/profile/:uid" component={PublicProfilePage}/>
 
-                            <Route exact path="/recipeSearch" component={SearchRecipe}/>
-                            <Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>
+                            {/*<Route exact path="/recipeSearch" component={SearchRecipe}/>*/}
+                            {/*<Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>*/}
+
+                            <Route exact path={["/profile", "/profile/:uid"]} component={ProfilePage}/>
+                            {/*<Route exact path="/recipeSearch" component={SearchRecipe}/>*/}
+                            <Route exact path="/search" component={SearchRecipe}/>
+                            {/*<Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>*/}
+                            <Route exact path={["/search/q=:keyword/:recipeUri", "/details/purchases"]} component={RecipeDetails}/>
+
                             <Route exact path="/cart" component={orderListContainer}/>
+                            <Route exact path="/cart/orderDetails" component={OrderDetails}/>
                             {/*<Route exact path="/cart" component={orderList}/>*/}
 
 
