@@ -120,6 +120,7 @@ class ProfilePage extends React.Component {
 
                 <label htmlFor="orders">Orders</label>
 
+
                 <button className="btn btn-warning btn-block"
                         onClick={() => this.props.saveProfile(this.props.currentUser)}>
                     Save
