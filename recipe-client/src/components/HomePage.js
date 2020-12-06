@@ -31,6 +31,7 @@ class HomePage extends React.Component {
         rawRecipes: [],
         recipeUri: "",
         random: 0,
+        latestOrd: []
     }
 
 
@@ -351,6 +352,17 @@ class HomePage extends React.Component {
 
                     <div className="col-6">
                         <h1>Latest Recipe purchased:</h1>
+
+                        {this.props.allOrders.map((ord) =>
+                                //TODO:figure out how to obtain just the latest orders, not the whole list
+                        <div>
+                            {(this.state.latestOrd.includes(ord.name) === false) &&
+                                <div>{this.state.latestOrd.push(ord.name)}</div>
+
+                            }
+                        </div>
+                        )}
+                        <p>{this.state.latestOrd[this.state.latestOrd.length-1]}</p>
                         {/*<p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>*/}
                         <SearchRecipe/>
                     </div>
