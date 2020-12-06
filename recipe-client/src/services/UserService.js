@@ -54,6 +54,13 @@ const findAllUsers = () =>
     fetch(`${API_BASE_URL}/api/profiles`)
         .then(response => response.json())
 
+
+const findPublicProfileById = (userId) =>
+    fetch(`${API_BASE_URL}/api/profile/${userId}`)
+        .then(response => response.json()) // may need catch null and throw sth different
+
+
+
 export default {
-    register, profile, logout, login, updateProfile, findAllUsers
+    register, profile, logout, login, updateProfile, findAllUsers, findPublicProfileById
 }

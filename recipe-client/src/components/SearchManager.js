@@ -9,6 +9,7 @@ import RecipeDetails from "./RecipeDetails";
 import SearchRecipe from "./SearchRecipe";
 import LoginPage from "./LoginPage";
 import orderListContainer from "../containers/OrderListContainer"
+import PublicProfilePage from "./PublicProfilePage";
 export class SearchManager extends React.Component {
 
     render() {
@@ -35,6 +36,9 @@ export class SearchManager extends React.Component {
                             <Route exact path="/register" component={RegisterPage}/>
                                 <Route exact path="/login" component={LoginPage}/>
                             <Route exact path="/profile" component={ProfilePage}/>
+
+                            <Route exact path="/profile/:uid" component={PublicProfilePage}/>
+
                             <Route exact path="/recipeSearch" component={SearchRecipe}/>
                             <Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>
                             <Route exact path="/cart" component={orderListContainer}/>

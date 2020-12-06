@@ -6,8 +6,7 @@ import UserActions from "../actions/UserActions";
 import {connect} from "react-redux";
 
 
-// TODO: Allow the current user to edit the profile
-
+// the private profile page contains both the public info and private info
 class ProfilePage extends React.Component {
 
     componentDidMount() {
@@ -65,18 +64,18 @@ class ProfilePage extends React.Component {
                 <input
                     className="form-control"
                     id="firstname-fld"
-                    value={this.props.currentUser.firstname}
+                    value={this.props.currentUser.firstName}
                     onChange={(e) =>
-                        this.props.updateProfile({...this.props.currentUser, firstname: e.target.value})}
+                        this.props.updateProfile({...this.props.currentUser, firstName: e.target.value})}
                 />
 
                 <label htmlFor="lastname-fld">Last Name</label>
                 <input
                     className="form-control"
                     id="lastname-fld"
-                    value={this.props.currentUser.lastname}
+                    value={this.props.currentUser.lastName}
                     onChange={(e) =>
-                        this.props.updateProfile({...this.props.currentUser, lastname: e.target.value})}
+                        this.props.updateProfile({...this.props.currentUser, lastName: e.target.value})}
                 />
 
 
@@ -120,6 +119,11 @@ class ProfilePage extends React.Component {
                 />
 
                 <label htmlFor="orders">Orders</label>
+
+                {/*links to other users' public profile*/}
+                <p><Link to="/profile/12">user3</Link></p>
+                <p><Link to="/profile/13">user4</Link></p>
+
 
                 <button className="btn btn-warning btn-block"
                         onClick={() => this.props.saveProfile(this.props.currentUser)}>
