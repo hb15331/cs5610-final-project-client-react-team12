@@ -92,14 +92,15 @@ export class RecipeDetails extends React.Component {
 
                     </Link>
                 </div>
-                <h5>Current user:
-                    {this.props.currentUser.userId ? this.props.currentUser.username : "anonymous"}
-                </h5>
+                {/*<h5>Current user:*/}
+                {/*    {this.props.currentUser.userId ? this.props.currentUser.username : "anonymous"}*/}
+                {/*</h5>*/}
                 <div>
                     <h1>{this.state.recipe.label}</h1>
                     <img src={this.state.recipe.image}/>
                     {/*{JSON.stringify(this.state.recipe)}*/}
-
+                    <p>{this.props.match.params.recipeUri}</p>
+                    {/*<p>{window.location.href}</p>*/}
                     <h3>Number of Servings:</h3>
                     <p>{this.state.recipe.yield}</p>
                     <h3>Total Calories(kcal):</h3>
@@ -175,7 +176,9 @@ export class RecipeDetails extends React.Component {
 
 
                     <i className="fa fa-cart-plus fa-2x btn" aria-hidden="true"
-                       onClick={()=>this.props.createOrder(this.props.currentUser.username, this.state.recipe.label,this.state.orders.toString(),this.props.currentUser.userId, this.state.recipe.image)}
+                       onClick={()=>this.props.createOrder(this.props.currentUser.username,
+                           this.state.recipe.label,this.state.orders.toString(),this.props.currentUser.userId,
+                           this.state.recipe.image,this.props.match.params.recipeUri)}
                     >Add to cart</i>
                 </div>
 
@@ -195,8 +198,8 @@ const stateToPropertyMapper = (state) => ({
 
 const propertyToDispatchMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
-    createOrder: (username, name,items,userId,image)=>
-        orderService.createOrder({username:username,name:name,items:items,customerId:userId, image:image})
+    createOrder: (username, name,items,userId,image,recipeUri)=>
+        orderService.createOrder({username:username,name:name,items:items,customerId:userId, image:image, recipeUri: recipeUri})
             .then(actualOrder => dispatch({
                 type: "CREATE_ORDER",
                 order: actualOrder

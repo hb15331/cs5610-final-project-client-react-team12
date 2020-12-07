@@ -1,6 +1,9 @@
 import React from 'react'
 import UserService from "../services/UserService";
 import {Link} from "react-router-dom";
+import UserActions from "../actions/UserActions";
+import OrderActions from "../actions/OrderActions";
+import {connect} from "react-redux";
 
 
 class PublicProfilePage extends React.Component {
@@ -83,5 +86,20 @@ class PublicProfilePage extends React.Component {
 
 }
 
+const stateToPropertyMapper = (state) => ({
+    order: state.orderReducer.order,
+    orders: state.orderReducer.orders,
+    currentUser: state.UserReducer.currentUser
 
-export default PublicProfilePage
+})
+
+const propertyToDispatchMapper = (dispatch) => ({
+    profile: () => UserActions.profile(dispatch),
+    updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
+    saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch),
+    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId)
+
+})
+
+
+export default connect(stateToPropertyMapper, propertyToDispatchMapper)(PublicProfilePage)
