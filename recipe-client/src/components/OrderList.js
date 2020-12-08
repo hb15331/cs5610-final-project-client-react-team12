@@ -29,18 +29,16 @@ const OrderList = (
                 orders.map(order =>
 
                     <div className="row">
-                    <div className="col-8">
-                        <div className="card order-card-style">
-                            {/*<div className="col-md-4">*/}
-                            <i className="fa fa-times fa-2x btn float-right"
-                               onClick={()=>deleteOrder(order.orderId)}></i>
-                            <img className="card-img-top"
-                                // src="https://picsum.photos/300/200"/>
-                                 src={order.image}/>
-                            {/*{order.customerId}*/}
-
-                            <div className="card-body">
-
+                        <div className="col-8">
+                            <div className="card order-card-style">
+                                {/*<div className="col-md-4">*/}
+                                <i className="fa fa-times fa-2x btn float-right"
+                                   onClick={()=>deleteOrder(order.orderId)}></i>
+                                <img className="card-img-top"
+                                    // src="https://picsum.photos/300/200"/>
+                                     src={order.image}/>
+                                {/*{order.customerId}*/}
+                                <div className="card-body">
 
                     <span>
                         <li>
@@ -52,10 +50,11 @@ const OrderList = (
 
                         </span>
 
-                            </div>
+                                </div>
                             <h6>Deliverer: {order.delivererId}</h6>
                         </div>
-                    </div>
+                        </div>
+
 
                 <div className="col-4">
                     <Link to={{pathname:"/cart"}}>
@@ -75,7 +74,7 @@ const OrderList = (
                                 <ul className="list-group">
                                     {console.log("Deliverer: ",deliverer)}
                                     {console.log("Order before assignment: ", order)}
-                                    {/*<Link to={"/cart/orderDetails"}>*/}
+
                                     <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
                                         ...order,
                                         delivererId: deliverer.userId,
@@ -88,25 +87,24 @@ const OrderList = (
                                         Location: {deliverer.location} <br/>
                                         {console.log("new order", order)}
                                     </li>
-                                    {/*</Link>*/}
+
                                 </ul>
 
-                            </li>
-                        )}
-                    </ol>
 
-                </div>
+                                    </li>
+                                )}
+                            </ol>
+
+                        </div>
                     </div>
 
 
                 )
             }
 
-        </ul>
+                    </ul>
 
-
-
-    </div>
+</div>
 
 //
 const stateToPropertyMapper = (state) => ({
@@ -130,7 +128,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
     findDeliverersForOrder: (customerId) =>
         orderService.findDeliverersForOrder(customerId)
             .then(drivers => dispatch({
-               type: "FIND_DELIVERERS_FOR_ORDER",
+                type: "FIND_DELIVERERS_FOR_ORDER",
                 customerId: customerId,
                 deliverers: drivers
             })),
