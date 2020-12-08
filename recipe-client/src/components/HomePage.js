@@ -240,7 +240,7 @@ class HomePage extends React.Component {
                     <div className="row">
                     <div className="col-6">
                     <h1>Recent Orders:</h1>
-                    <p>Length:{this.props.orders.length}</p>
+
 
                     {/*diplay most recent order for the user*/}
                         {this.props.orders.map((order =>
