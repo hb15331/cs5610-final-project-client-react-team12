@@ -36,8 +36,9 @@ class HomePage extends React.Component {
 
 
     componentDidMount() {
-        {this.randomGenerator()}
-        {this.searchRecipes()}
+        // {this.randomGenerator()}
+        // {this.searchRecipes()}
+        console.log("From home page:", this.props)
         {this.props.profile()}
         {this.props.findAllUsers()}
         if(this.props.currentUser != null){
@@ -63,40 +64,40 @@ class HomePage extends React.Component {
     //     }
     // }
 
-    min = 1;
-    max = 18;
-
-    randomGenerator = () => {
-        this.setState({random: this.min + (Math.random() * (this.max - this.min))});
-        //this.setState({random: 5})
-    };
-
-    // fetch a list of recipes that match user's search criteria
-    searchRecipes = () => {
-        let ingredient = this.state.ingredients[8]
-
-        this.state.selectedIngredient = ingredient
-        //let cuisineType = this.state.cuisineTypes[2]
-        //console.log(ingredient, cuisineType)
-        const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=4&to=5`
-       // const queryUrl =
-        // `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&cuisineType="Indian"&from=0&to=1`
-        fetch(queryUrl)
-            .then(response => response.json())
-            .then((data) => this.renderRecipes(data))
-        //.then(this.renderRecipes)
-
-    }
-
-
-    // data includes all the info retrieved from api
-    renderRecipes = (data) =>
-        this.setState(prevState => ({
-            //...prevState,
-            // hits is an array of objects that include the true recipes we want
-            rawRecipes: data.hits
-
-        }))
+    // min = 1;
+    // max = 18;
+    //
+    // randomGenerator = () => {
+    //     this.setState({random: this.min + (Math.random() * (this.max - this.min))});
+    //     //this.setState({random: 5})
+    // };
+    //
+    // // fetch a list of recipes that match user's search criteria
+    // searchRecipes = () => {
+    //     let ingredient = this.state.ingredients[8]
+    //
+    //     this.state.selectedIngredient = ingredient
+    //     //let cuisineType = this.state.cuisineTypes[2]
+    //     //console.log(ingredient, cuisineType)
+    //     const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=4&to=5`
+    //    // const queryUrl =
+    //     // `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&cuisineType="Indian"&from=0&to=1`
+    //     fetch(queryUrl)
+    //         .then(response => response.json())
+    //         .then((data) => this.renderRecipes(data))
+    //     //.then(this.renderRecipes)
+    //
+    // }
+    //
+    //
+    // // data includes all the info retrieved from api
+    // renderRecipes = (data) =>
+    //     this.setState(prevState => ({
+    //         //...prevState,
+    //         // hits is an array of objects that include the true recipes we want
+    //         rawRecipes: data.hits
+    //
+    //     }))
 
     // current logged in user is not allowed to login or register again unless log out first
     blockLoginOrRegister = (e) => {
@@ -230,33 +231,36 @@ class HomePage extends React.Component {
 
                     <h1>Recipe of the Day</h1>
 
-                    {
-                        this.state.rawRecipes.map(
-                            (rawRecipe, index) => {
-                                // extract uri from data and use it as the unique identifier of recipe
-                                const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+                    {/*{*/}
+                    {/*    this.state.rawRecipes.map(*/}
+                    {/*        (rawRecipe, index) => {*/}
+                    {/*            // extract uri from data and use it as the unique identifier of recipe*/}
+                    {/*            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)*/}
 
-                                return (
-                                    <div key={index}>
-                                        <Link to={`/recipes/${recipeUri}`}>
+                    {/*            return (*/}
+                    {/*                <div key={index}>*/}
+                    {/*                    <Link to={`/recipes/${recipeUri}`}>*/}
 
-                                            <h3>{rawRecipe.recipe.label}</h3>
+                    {/*                        <h3>{rawRecipe.recipe.label}</h3>*/}
 
-                                            <li className="container">
-                                                <img src={rawRecipe.recipe.image}/>
-                                            </li>
+                    {/*                        <li className="container">*/}
+                    {/*                            <img src={rawRecipe.recipe.image}/>*/}
+                    {/*                        </li>*/}
 
-                                        </Link>
-                                    </div>
-                                )
-                            }
-                        )
+                    {/*                    </Link>*/}
+                    {/*                </div>*/}
+                    {/*            )*/}
+                    {/*        }*/}
+                    {/*    )*/}
 
-                    }
+                    {/*}*/}
 
                     </div>
                     <div className="col-6">
-                    <SearchRecipe/>
+
+                        <SearchRecipe props={this.props}
+                            match={this.props.match}
+                            history={this.props.history}/>
                     </div>
 
                     </div>
@@ -304,7 +308,10 @@ class HomePage extends React.Component {
 
                     </div>
                     <div className="col-6">
-                        <SearchRecipe/>
+                        <SearchRecipe props={this.props}
+                                      match={this.props.match}
+                                      history={this.props.history}/>
+
                     </div>
 
                 </div>
@@ -318,9 +325,6 @@ class HomePage extends React.Component {
                     <div className="col-6">
 
                         <h1>Today's pick</h1>
-
-
-                        <h1>Recipe of the Day</h1>
 
 
                         {
@@ -370,7 +374,9 @@ class HomePage extends React.Component {
                         )}
                         <p>{this.state.latestOrd[this.state.latestOrd.length-1]}</p>
                         {/*<p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>*/}
+
                         <SearchRecipe/>
+
                     </div>
 
                 </div>

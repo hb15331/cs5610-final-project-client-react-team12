@@ -47,10 +47,11 @@ export class SearchManager extends React.Component {
 
                             {/*<Route exact path={["/profile", "/profile/:uid"]} component={ProfilePage}/>*/}
                             {/*<Route exact path="/recipeSearch" component={SearchRecipe}/>*/}
-                            <Route exact path="/search" component={SearchRecipe}/>
+                            <Route exact path={["/search"]} component={SearchRecipe}/>
                             {/*<Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>*/}
                             <Route exact path={["/search/q=:keyword/:recipeUri", "/details/purchases"]} component={RecipeDetails}/>
 
+                            {/*<Route exact path={["/search/q=:keyword/:label/details", "/details/purchases"]} component={RecipeDetails}/>*/}
                             <Route exact path="/cart" component={orderListContainer}/>
                             <Route exact path="/cart/orderDetails" component={OrderDetails}/>
                             {/*<Route exact path="/cart" component={orderList}/>*/}

@@ -20,7 +20,8 @@ export class OrderDetails extends React.Component {
     componentDidMount() {
 
         // const orderId = this.props.match.params.orderId
-        console.log(this.props.orderId)
+        console.log("Order id", this.props.orderId)
+        console.log("Props:", this.props)
         const orderId = this.props.orderId
 
         // hardcoding orderId for now as orderId is undefined
@@ -29,7 +30,7 @@ export class OrderDetails extends React.Component {
         //     ...prevState, order: order
         // })))
 
-        const order = this.state.order
+        const order = this.props.order
 
         console.log("Order in orderDetails:" , order)
     }
