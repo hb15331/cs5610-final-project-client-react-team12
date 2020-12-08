@@ -25,16 +25,16 @@ const OrderList = (
                 orders.map(order =>
 
                     <div className="row">
-                    <div className="col-8">
-                        <div className="card order-card-style">
-                            {/*<div className="col-md-4">*/}
-                            <i className="fa fa-times fa-2x btn float-right"
-                               onClick={()=>deleteOrder(order.orderId)}></i>
-                            <img className="card-img-top"
-                                // src="https://picsum.photos/300/200"/>
-                                 src={order.image}/>
-                            {/*{order.customerId}*/}
-                            <div className="card-body">
+                        <div className="col-8">
+                            <div className="card order-card-style">
+                                {/*<div className="col-md-4">*/}
+                                <i className="fa fa-times fa-2x btn float-right"
+                                   onClick={()=>deleteOrder(order.orderId)}></i>
+                                <img className="card-img-top"
+                                    // src="https://picsum.photos/300/200"/>
+                                     src={order.image}/>
+                                {/*{order.customerId}*/}
+                                <div className="card-body">
 
 
                     <span>
@@ -44,50 +44,51 @@ const OrderList = (
 
                         </li>
 
+
                         </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                <div className="col-4">
-                    <Link to={{pathname:"/cart"}}>
-                        {console.log(customerId)}
-                    <button className="btn btn-block btn-outline-info"
-                        onClick={() => findDeliverersForOrder(customerId)}>
-                        Find a deliverer
-                    </button>
-                        {console.log(deliverers)}
-                    </Link>
+                        <div className="col-4">
+                            <Link to={{pathname:"/cart"}}>
+                                {console.log(customerId)}
+                                <button className="btn btn-block btn-outline-info"
+                                        onClick={() => findDeliverersForOrder(customerId)}>
+                                    Find a deliverer
+                                </button>
+                                {console.log(deliverers)}
+                            </Link>
 
-                    <ol>
+                            <ol>
 
-                        <h5>Please select a deliverer for your order</h5>
-                        {deliverers.map(deliverer =>
-                            <li>
-                                <ul className="list-group">
-                                    {console.log("Deliverer: ",deliverer)}
-                                    {console.log("Order before assignment: ", order)}
-                                    <Link to={"/cart/orderDetails"}>
-                                    <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
-                                        ...order,
-                                        delivererId: deliverer.userId,
-                                        orderId: order.orderId,
-                                        customerId: order.customerId
-                                    })}
-                                        className="list-group-item btn">
-                                        <h4>Deliverer ID: {deliverer.username}</h4>
-                                        Name: {deliverer.firstname} <br/>
-                                        Location: {deliverer.location} <br/>
-                                        {console.log("new order", order)}
+                                <h5>Please select a deliverer for your order</h5>
+                                {deliverers.map(deliverer =>
+                                    <li>
+                                        <ul className="list-group">
+                                            {console.log("Deliverer: ",deliverer)}
+                                            {console.log("Order before assignment: ", order)}
+                                            <Link to={"/cart/orderDetails"}>
+                                                <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
+                                                    ...order,
+                                                    delivererId: deliverer.userId,
+                                                    orderId: order.orderId,
+                                                    customerId: order.customerId
+                                                })}
+                                                    className="list-group-item btn">
+                                                    <h4>Deliverer ID: {deliverer.username}</h4>
+                                                    Name: {deliverer.firstname} <br/>
+                                                    Location: {deliverer.location} <br/>
+                                                    {console.log("new order", order)}
+                                                </li>
+                                            </Link>
+                                        </ul>
+
                                     </li>
-                                    </Link>
-                                </ul>
+                                )}
+                            </ol>
 
-                            </li>
-                        )}
-                    </ol>
-
-                </div>
+                        </div>
                     </div>
 
 
@@ -122,7 +123,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
     findDeliverersForOrder: (customerId) =>
         orderService.findDeliverersForOrder(customerId)
             .then(drivers => dispatch({
-               type: "FIND_DELIVERERS_FOR_ORDER",
+                type: "FIND_DELIVERERS_FOR_ORDER",
                 customerId: customerId,
                 deliverers: drivers
             })),
