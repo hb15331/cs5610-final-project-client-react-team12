@@ -7,6 +7,7 @@ import "../styling/HomePageStyle.css"
 import {connect} from "react-redux";
 import UserActions from "../actions/UserActions";
 import OrderActions from "../actions/OrderActions"
+import edmamApiService from "../services/edmamApiService";
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -36,8 +37,13 @@ class HomePage extends React.Component {
 
 
     componentDidMount() {
-        {this.randomGenerator()}
-        {this.searchRecipes()}
+
+        // generate recipe of the day
+         {this.randomGenerator()}
+         {this.searchRecipes()}
+
+
+        console.log("From home page:", this.props)
         {this.props.profile()}
         {this.props.findAllUsers()}
         if(this.props.currentUser != null){
@@ -74,29 +80,27 @@ class HomePage extends React.Component {
     // fetch a list of recipes that match user's search criteria
     searchRecipes = () => {
         let ingredient = this.state.ingredients[8]
-
         this.state.selectedIngredient = ingredient
-        //let cuisineType = this.state.cuisineTypes[2]
-        //console.log(ingredient, cuisineType)
+
         const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=4&to=5`
-       // const queryUrl =
-        // `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&cuisineType="Indian"&from=0&to=1`
-        fetch(queryUrl)
-            .then(response => response.json())
-            .then((data) => this.renderRecipes(data))
-        //.then(this.renderRecipes)
+
+        edmamApiService.findRecipesBySearchKeyword(queryUrl)
+            .then(data => this.setState({
+                rawRecipes : data.hits
+            }))
 
     }
 
 
+    /** This method no longer required **/
     // data includes all the info retrieved from api
-    renderRecipes = (data) =>
-        this.setState(prevState => ({
-            //...prevState,
-            // hits is an array of objects that include the true recipes we want
-            rawRecipes: data.hits
-
-        }))
+    // renderRecipes = (data) =>
+    //     this.setState(prevState => ({
+    //         //...prevState,
+    //         // hits is an array of objects that include the true recipes we want
+    //         rawRecipes: data.hits
+    //
+    //     }))
 
     // current logged in user is not allowed to login or register again unless log out first
     blockLoginOrRegister = (e) => {
@@ -228,7 +232,7 @@ class HomePage extends React.Component {
 
                     {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
 
-                    <h1>Recipe of the Day</h1>
+                    <h1>Today's pick</h1>
 
                     {
                         this.state.rawRecipes.map(
@@ -256,7 +260,10 @@ class HomePage extends React.Component {
 
                     </div>
                     <div className="col-6">
-                    <SearchRecipe/>
+
+                        <SearchRecipe props={this.props}
+                            match={this.props.match}
+                            history={this.props.history}/>
                     </div>
 
                     </div>
@@ -304,7 +311,10 @@ class HomePage extends React.Component {
 
                     </div>
                     <div className="col-6">
-                        <SearchRecipe/>
+                        <SearchRecipe props={this.props}
+                                      match={this.props.match}
+                                      history={this.props.history}/>
+
                     </div>
 
                 </div>
@@ -318,9 +328,6 @@ class HomePage extends React.Component {
                     <div className="col-6">
 
                         <h1>Today's pick</h1>
-
-
-                        <h1>Recipe of the Day</h1>
 
 
                         {
@@ -370,7 +377,9 @@ class HomePage extends React.Component {
                         )}
                         <p>{this.state.latestOrd[this.state.latestOrd.length-1]}</p>
                         {/*<p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>*/}
+
                         <SearchRecipe/>
+
                     </div>
 
                 </div>

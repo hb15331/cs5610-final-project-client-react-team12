@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import orderService from "../services/OrderService"
 import UserActions from "../actions/UserActions";
 import OrderActions from "../actions/OrderActions";
+import edmamApiService from "../services/edmamApiService";
 
 
 const APP_ID = "e488ff8f"
@@ -41,8 +42,8 @@ export class RecipeDetails extends React.Component {
             {this.props.findAllOrders()}
         }
         // findRecipeById
-        fetch(queryUrl)
-            .then(response => response.json())
+        //
+        edmamApiService.findRecipesBySearchKeyword(queryUrl)
             .then(recipe => this.setState(preState => ({
                 ...preState, recipe: recipe[0]
             })))
@@ -50,19 +51,19 @@ export class RecipeDetails extends React.Component {
 
     // componentDidUpdate(prevProps, prevState, snapshot) {
 
-        // if (this.props.currentUser !== null) {
-        //         {
-        //             this.props.findAllOrders()
-        //         }
-        // }
-        // if (this.props.currentUser !== null) {
-        //     const customerId = this.props.currentUser.userId
-        //     if (customerId !== this.props.customerId) {
-        //         {
-        //             this.props.findOrderForUser(customerId)
-        //         }
-        //     }
-        // }
+    // if (this.props.currentUser !== null) {
+    //         {
+    //             this.props.findAllOrders()
+    //         }
+    // }
+    // if (this.props.currentUser !== null) {
+    //     const customerId = this.props.currentUser.userId
+    //     if (customerId !== this.props.customerId) {
+    //         {
+    //             this.props.findOrderForUser(customerId)
+    //         }
+    //     }
+    // }
     // }
 
     addItems = (item) => {
@@ -85,10 +86,10 @@ export class RecipeDetails extends React.Component {
                 <div>
 
                     <Link to={{pathname:"/cart",}}>
-                    <i className="fa fa-shopping-basket fa-2x btn pull-right btn-sm"></i>
+                        <i className="fa fa-shopping-basket fa-2x btn pull-right btn-sm"></i>
                     </Link>
                     <Link to={"/home"}>
-                    <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
+                        <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
 
                     </Link>
                 </div>
@@ -115,7 +116,7 @@ export class RecipeDetails extends React.Component {
                                     <span>
                         <li>
                             <i className="fa fa-plus-square fa-plus-square fa-lg"
-                            onClick={()=>this.addItems(ingredient.text)}></i>
+                               onClick={()=>this.addItems(ingredient.text)}></i>
                             {ingredient.text}
                         </li>
 
@@ -135,44 +136,44 @@ export class RecipeDetails extends React.Component {
                         </span>
                             )}
                     </ul>
-                        <ul>
-                            <Link to={`/details/purchases`}
-                            onClick={this.showCustomers}>
+                    <ul>
+                        <Link to={`/details/purchases`}
+                              onClick={this.showCustomers}>
                             <h5>Also purchased by:</h5>
+                        </Link>
+
+                        {
+                            this.state.purchaseBy === true &&
+                            this.props.allOrders.map((user) =>
+
+                                <li>
+                                    {(this.state.recipe.label === user.name) && (this.state.usersList.includes(user.username) === false) &&
+                                    <div>
+                                        {/*  <p>{user.username}</p>*/}
+                                        {/*  {this.setState(prevState => ({*/}
+                                        {/*      ...prevState, usersList: [prevState.usersList, user.username]                                                }))}*/}
+                                        {this.state.usersList.push(user.username)}
+                                        {this.state.customIdList.push(user.customerId)}
+                                        {/*  <p>{this.state.usersList.length}</p>*/}
+                                        {/*  {this.state.usersList.map((userL) =>*/}
+                                        {/*<li>{user.username}</li>)*/}
+                                        {/*}*/}
+                                    </div>
+                                    }
+                                </li>
+
+                            )
+
+                        }
+
+                        {this.state.usersList.map((userL,index) =>
+                            <Link to={`/profile/${this.state.customIdList[index]}`}>
+                                <li>{userL}</li>
                             </Link>
 
-                            {
-                                this.state.purchaseBy === true &&
-                                this.props.allOrders.map((user) =>
+                        )}
 
-                                        <li>
-                                            {(this.state.recipe.label === user.name) && (this.state.usersList.includes(user.username) === false) &&
-                                            <div>
-                                              {/*  <p>{user.username}</p>*/}
-                                              {/*  {this.setState(prevState => ({*/}
-                                              {/*      ...prevState, usersList: [prevState.usersList, user.username]                                                }))}*/}
-                                              {this.state.usersList.push(user.username)}
-                                                {this.state.customIdList.push(user.customerId)}
-                                              {/*  <p>{this.state.usersList.length}</p>*/}
-                                              {/*  {this.state.usersList.map((userL) =>*/}
-                                              {/*<li>{user.username}</li>)*/}
-                                                {/*}*/}
-                                            </div>
-                                            }
-                                           </li>
-
-                                )
-
-                            }
-
-                                             {this.state.usersList.map((userL,index) =>
-                                                <Link to={`/profile/${this.state.customIdList[index]}`}>
-                                                <li>{userL}</li>
-                                                </Link>
-
-                                           )}
-
-                        </ul>
+                    </ul>
 
 
                     <i className="fa fa-cart-plus fa-2x btn" aria-hidden="true"
@@ -213,4 +214,3 @@ const propertyToDispatchMapper = (dispatch) => ({
 export default connect
 (stateToPropertyMapper, propertyToDispatchMapper)
 (RecipeDetails)
-
