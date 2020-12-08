@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import UserActions from "../actions/UserActions";
 import OrderActions from "../actions/OrderActions"
 import edmamApiService from "../services/edmamApiService";
+import UserService from "../services/UserService";
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -20,7 +21,7 @@ class HomePage extends React.Component {
     }
 
     state = {
-        //imageUrl: "https://picsum.photos/200"
+
         imageUrl: "https://image.shutterstock.com/image-photo/healthy-food-clean-eating-selection-600w-722718097.jpg",
         cuisineTypes: ["American", "Asian", "British", "Caribbean", "Central Europe", "Chinese", "Eastern Europe",
             "French", "Indian", "Italian", "Japanese", "Kosher", "Mediterranean", "Mexican", "Middle Eastern", "Nordic",
@@ -58,16 +59,6 @@ class HomePage extends React.Component {
 
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
-    //     if (this.props.currentUser !== null) {
-    //         const customerId = this.props.currentUser.userId
-    //         if (customerId !== this.props.customerId) {
-    //             {
-    //                 this.props.findOrderForUser(customerId)
-    //             }
-    //         }
-    //     }
-    // }
 
     min = 1;
     max = 18;
@@ -90,6 +81,14 @@ class HomePage extends React.Component {
             }))
 
     }
+
+    logout = () =>
+        UserService.logout()
+            .then(status => {
+                // TODO: async function called in another async
+                this.props.profile()
+                this.props.history.push('/')
+            })
 
 
     /** This method no longer required **/
@@ -118,6 +117,7 @@ class HomePage extends React.Component {
                 {this.props.currentUser &&
                 <nav class="navbar navbar-light">
 
+
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -127,9 +127,10 @@ class HomePage extends React.Component {
                         <h1>Foodify</h1>
                     </a>
 
-                    <h5>WELCOME {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
 
-                    </h5>
+                    <h5>Welcome {this.props.currentUser ? this.props.currentUser.username : "anonymous"}</h5>
+
+
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item active">
@@ -160,6 +161,16 @@ class HomePage extends React.Component {
                                     </Link>
                                 </a>
                             </li>
+                            <li className="nav-item active">
+                                {this.props.currentUser &&
+                                <Link to={"/"}>
+                                <a onClick={this.logout}
+                                    className="nav-link">
+                                    <span>Logout</span>
+                                </a>
+                                </Link>
+                                }
+                            </li>
                         </ul>
                     </div>
 
@@ -169,13 +180,16 @@ class HomePage extends React.Component {
                 {!this.props.currentUser &&
                 <nav class="navbar navbar-light">
 
-                    <a className="navbar-brand" href="#">
-                        <h1>Foodify</h1>
-                    </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
+
+                    <a className="navbar-brand" href="#">
+                        <h1>Foodify</h1>
+                    </a>
+
+
                     <h5>Current user:
                         {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
                     </h5>
@@ -217,6 +231,8 @@ class HomePage extends React.Component {
                         alt="randomImage"/>
 
                 </div>
+
+
 
                 {this.props.currentUser &&
                 this.props.currentUser.type === "CUSTOMER" &&

@@ -153,10 +153,12 @@ class ProfilePage extends React.Component {
                 <p><Link to="/profile/13">user4</Link></p>
 
 
+                <Link to={"/"}>
                 <button className="btn btn-warning btn-block"
                         onClick={() => this.props.saveProfile(this.props.currentUser)}>
                     Save
                 </button>
+                </Link>
 
                 <Link to={`/home`} className="btn btn-success btn-block">
                     Home
