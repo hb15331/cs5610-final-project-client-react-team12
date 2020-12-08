@@ -22,11 +22,12 @@ class SearchRecipe extends React.Component {
     }
 
     componentDidMount() {
-        // not sure if this is needed
-        console.log("props in searchRecipe:", this.props )
-        console.log("keyword:", this.state.keyword)
+        /**  Generates the same search results after refresh **/
+
+        // console.log("props in searchRecipe:", this.props )
+        // console.log("keyword:", this.state.keyword)
         if(this.props.match !== undefined) {
-            console.log(this.props.match.params.keyword)
+            //console.log(this.props.match.params.keyword)
             this.setState({
                 keyword: this.props.match.params.keyword
             })
@@ -39,23 +40,28 @@ class SearchRecipe extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        // not sure if this is needed
-        if(prevProps.match.params.keyword !== this.props.match.params.keyword){
-            this.setState({
-                keyword: this.props.match.params.keyword
-            })
-            if(this.props.match.params.keyword) {
-                this.searchRecipes(this.props.match.params.keyword)
+        /** Loads the same search results after refresh or hitting back button **/
+
+        if(this.props.match !== undefined) {
+            if(prevProps.match.params.keyword !== this.props.match.params.keyword){
+                this.setState({
+                    keyword: this.props.match.params.keyword
+                })
+                if(this.props.match.params.keyword) {
+                    this.searchRecipes(this.props.match.params.keyword)
+                }
             }
         }
 
 
+
     }
 
+    /** This method encodes the search keyword to the url **/
     searchByKeyword = (keyword) => {
-        alert("I'm here!")
+
         this.props.history.push(`/search/q=${keyword}/`)
-        console.log("After history push", this.props)
+        // console.log("After history push", this.props)
 
     }
 
@@ -68,24 +74,20 @@ class SearchRecipe extends React.Component {
             .then(data => this.setState({
                 rawRecipes : data.hits
             }))
-         //   .then((data) => this.renderRecipes(data))
-        // fetch(queryUrl)
-        //     .then(response => response.json())
-        //     .then((data) => this.renderRecipes(data))
-
 
     }
 
 
-    // data includes all the info retrieved from api
-    renderRecipes = (data) => {
-        //console.log("hello", data)
-        this.setState(prevState => ({
-            //...prevState,
-            // hits is an array of objects that include the true recipes we want
-            rawRecipes: data.hits
-        }))
-    }
+    /** This method no longer required after implementing the edmamAPIservice **/
+    // // data includes all the info retrieved from api
+    // renderRecipes = (data) => {
+    //     //console.log("hello", data)
+    //     this.setState(prevState => ({
+    //         //...prevState,
+    //         // hits is an array of objects that include the true recipes we want
+    //         rawRecipes: data.hits
+    //     }))
+    // }
 
 
 
@@ -94,7 +96,6 @@ class SearchRecipe extends React.Component {
             <div>
 
                 <h1>Find a recipe</h1>
-                {/* <h5>Choose an ingredient</h5> */}
 
                 <div className="input-group">
 
@@ -103,7 +104,6 @@ class SearchRecipe extends React.Component {
                    <input value={this.state.keyword} onChange={(event) =>
                         //console.log(event.target.value)
                         this.setState(prevState => ({
-                            //...prevState,
                             keyword: event.target.value
                         }))}
                            className="form-control"
@@ -112,19 +112,12 @@ class SearchRecipe extends React.Component {
                            id="search"/>
 
                     <div className="input-group-append">
-                        {/*<Link to={`/search/q=${this.state.keyword}`}>*/}
-                        {/*<button*/}
-                        {/*    onClick={this.searchRecipes}*/}
-                        {/*    className="btn btn-success">*/}
-                        {/*    Search*/}
-                        {/*</button>*/}
-
+                        {/*encode the search keyword to url*/}
                         <button className="btn btn-success"
                             onClick={() => this.searchByKeyword(this.state.keyword)}>
                             Search
                         </button>
 
-                        {/*</Link>*/}
                     </div>
                 </div>
 
@@ -135,9 +128,9 @@ class SearchRecipe extends React.Component {
                             (rawRecipe, index) => {
                                 // extract uri from data and use it as the unique identifier of recipe
                                 const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
-                                //this.setState({recipeUri: recipeUri})
+
                                 const recipeLabel = encodeURIComponent(rawRecipe.recipe.label)
-                                // console.log(recipeUri)
+
 
                                 return (
                                     <div key={index}>

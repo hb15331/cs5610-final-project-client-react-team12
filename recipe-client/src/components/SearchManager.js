@@ -18,20 +18,7 @@ export class SearchManager extends React.Component {
                 <div>
                     <BrowserRouter>
                         <div className="container">
-                            {/*<Link to="/home">*/}
-                            {/*    Home*/}
-                            {/*</Link> |*/}
-                            {/*<Link to="/register">*/}
-                            {/*    Sign Up*/}
-                            {/*</Link> |*/}
-                            {/*/!*<Link to="/login">*!/*/}
-                            {/*/!*</Link>*!/*/}
-                            {/*<Link to="/profile">*/}
-                            {/*    Profile*/}
-                            {/*</Link> |*/}
-                            {/*<Link to="/recipeSearch">*/}
-                            {/*    Search Recipe*/}
-                            {/*</Link>*/}
+
 
                             {/*<Route exact path={["/", "/home", "/recipeSearch/q=:keyword/recipes" ]} component={HomePage}/>*/}
                             <Route exact path={["/", "/home", "/search/q=:keyword/" ]} component={HomePage}/>
@@ -42,11 +29,9 @@ export class SearchManager extends React.Component {
 
                             <Route exact path="/profile/:uid" component={PublicProfilePage}/>
 
-                            {/*<Route exact path="/recipeSearch" component={SearchRecipe}/>*/}
-                            {/*<Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>*/}
-
                             {/*<Route exact path={["/profile", "/profile/:uid"]} component={ProfilePage}/>*/}
                             {/*<Route exact path="/recipeSearch" component={SearchRecipe}/>*/}
+
                             <Route exact path={["/search"]} component={SearchRecipe}/>
                             {/*<Route exact path="/recipeSearch/q=:keyword/recipes/:recipeUri" component={RecipeDetails}/>*/}
                             <Route exact path={["/search/q=:keyword/:recipeUri", "/details/purchases"]} component={RecipeDetails}/>

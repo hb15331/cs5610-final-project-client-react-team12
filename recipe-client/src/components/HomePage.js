@@ -7,6 +7,7 @@ import "../styling/HomePageStyle.css"
 import {connect} from "react-redux";
 import UserActions from "../actions/UserActions";
 import OrderActions from "../actions/OrderActions"
+import edmamApiService from "../services/edmamApiService";
 
 const APP_ID = "e488ff8f"
 const APP_KEY = "922801bd953e0343123e19348ba693fe"
@@ -36,8 +37,12 @@ class HomePage extends React.Component {
 
 
     componentDidMount() {
-        // {this.randomGenerator()}
-        // {this.searchRecipes()}
+
+        // generate recipe of the day
+         {this.randomGenerator()}
+         {this.searchRecipes()}
+
+
         console.log("From home page:", this.props)
         {this.props.profile()}
         {this.props.findAllUsers()}
@@ -64,33 +69,31 @@ class HomePage extends React.Component {
     //     }
     // }
 
-    // min = 1;
-    // max = 18;
-    //
-    // randomGenerator = () => {
-    //     this.setState({random: this.min + (Math.random() * (this.max - this.min))});
-    //     //this.setState({random: 5})
-    // };
-    //
-    // // fetch a list of recipes that match user's search criteria
-    // searchRecipes = () => {
-    //     let ingredient = this.state.ingredients[8]
-    //
-    //     this.state.selectedIngredient = ingredient
-    //     //let cuisineType = this.state.cuisineTypes[2]
-    //     //console.log(ingredient, cuisineType)
-    //     const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=4&to=5`
-    //    // const queryUrl =
-    //     // `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&cuisineType="Indian"&from=0&to=1`
-    //     fetch(queryUrl)
-    //         .then(response => response.json())
-    //         .then((data) => this.renderRecipes(data))
-    //     //.then(this.renderRecipes)
-    //
-    // }
-    //
-    //
-    // // data includes all the info retrieved from api
+    min = 1;
+    max = 18;
+
+    randomGenerator = () => {
+        this.setState({random: this.min + (Math.random() * (this.max - this.min))});
+        //this.setState({random: 5})
+    };
+
+    // fetch a list of recipes that match user's search criteria
+    searchRecipes = () => {
+        let ingredient = this.state.ingredients[8]
+        this.state.selectedIngredient = ingredient
+
+        const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=4&to=5`
+
+        edmamApiService.findRecipesBySearchKeyword(queryUrl)
+            .then(data => this.setState({
+                rawRecipes : data.hits
+            }))
+
+    }
+
+
+    /** This method no longer required **/
+    // data includes all the info retrieved from api
     // renderRecipes = (data) =>
     //     this.setState(prevState => ({
     //         //...prevState,
@@ -229,31 +232,31 @@ class HomePage extends React.Component {
 
                     {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
 
-                    <h1>Recipe of the Day</h1>
+                    <h1>Today's pick</h1>
 
-                    {/*{*/}
-                    {/*    this.state.rawRecipes.map(*/}
-                    {/*        (rawRecipe, index) => {*/}
-                    {/*            // extract uri from data and use it as the unique identifier of recipe*/}
-                    {/*            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)*/}
+                    {
+                        this.state.rawRecipes.map(
+                            (rawRecipe, index) => {
+                                // extract uri from data and use it as the unique identifier of recipe
+                                const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
 
-                    {/*            return (*/}
-                    {/*                <div key={index}>*/}
-                    {/*                    <Link to={`/recipes/${recipeUri}`}>*/}
+                                return (
+                                    <div key={index}>
+                                        <Link to={`/recipes/${recipeUri}`}>
 
-                    {/*                        <h3>{rawRecipe.recipe.label}</h3>*/}
+                                            <h3>{rawRecipe.recipe.label}</h3>
 
-                    {/*                        <li className="container">*/}
-                    {/*                            <img src={rawRecipe.recipe.image}/>*/}
-                    {/*                        </li>*/}
+                                            <li className="container">
+                                                <img src={rawRecipe.recipe.image}/>
+                                            </li>
 
-                    {/*                    </Link>*/}
-                    {/*                </div>*/}
-                    {/*            )*/}
-                    {/*        }*/}
-                    {/*    )*/}
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                        )
 
-                    {/*}*/}
+                    }
 
                     </div>
                     <div className="col-6">
