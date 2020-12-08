@@ -56,15 +56,15 @@ const findAllUsers = () =>
 
 
 
-const findPublicProfileById = (userId) =>
-    fetch(`${API_BASE_URL}/api/profile/${userId}`)
+// const findPublicProfileById = (userId) =>
+//     fetch(`${API_BASE_URL}/api/profile/${userId}`)
         .then(response => response.json()) // may need catch null and throw sth different
 
 
 
-// const findPublicProfileById = (userId) =>
-//     fetch(`${API_BASE_URL}/api/profiles/${userId}`)
-//         .then(response => response.json())
+const findPublicProfileById = (userId) =>
+    fetch(`${API_BASE_URL}/api/profiles/${userId}`)
+        .then(response => response.json())
 
 
 export default {

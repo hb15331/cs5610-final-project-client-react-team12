@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import UserService from "../services/UserService";
 import UserActions from "../actions/UserActions";
 import {connect} from "react-redux";
+import {findOrderForUser} from "../services/OrderService";
+import OrderActions from "../actions/OrderActions";
 
 
 // the private profile page contains both the public info and private info
@@ -11,6 +13,11 @@ class ProfilePage extends React.Component {
 
     componentDidMount() {
         this.props.profile()
+        if(this.props.currentUser != null){
+            const customerId = this.props.currentUser.userId
+            {this.props.findOrderForUser(customerId)}
+        }
+
     }
 
 
@@ -21,7 +28,10 @@ class ProfilePage extends React.Component {
                 this.props.profile()
                 this.props.history.push('/')
             })
-
+    handleClick() {
+        //do some expression
+        window.location = 'http://localhost:3000/search/q=chicken/http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_b79327d05b8e5b838ad6cfd9576b30b6'
+    }
 
     render() {
         if (!this.props.currentUser)
@@ -124,7 +134,18 @@ class ProfilePage extends React.Component {
                         this.props.updateProfile({...this.props.currentUser, location: e.target.value})}
                 />
 
-                <label htmlFor="orders">Orders</label>
+                <label htmlFor="orders">Recent Purchases:</label>
+                {
+                    this.props.orders.map((order =>
+                        <div>
+                    {order.customerId === this.props.currentUser.userId &&
+                     <Link to={`/search/q=identify/${order.recipeUri}`}>
+                    <li >{order.name}</li>
+                    </Link>
+
+                        }
+                        </div>
+                    ))}
 
 
                 {/*links to other users' public profile*/}
@@ -153,13 +174,18 @@ class ProfilePage extends React.Component {
 
 
 const stateToPropertyMapper = (state) => ({
+    order: state.orderReducer.order,
+    orders: state.orderReducer.orders,
     currentUser: state.UserReducer.currentUser
+
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
     updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
-    saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch)
+    saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch),
+    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId)
+
 })
 
 
