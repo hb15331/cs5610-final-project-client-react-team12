@@ -378,7 +378,9 @@ class HomePage extends React.Component {
                         <p>{this.state.latestOrd[this.state.latestOrd.length-1]}</p>
                         {/*<p>{this.props.allOrders[this.props.allOrders.length-1].name} by {this.props.allOrders[this.props.allOrders.length-1].username}</p>*/}
 
-                        <SearchRecipe/>
+                        <SearchRecipe props={this.props}
+                                      match={this.props.match}
+                                      history={this.props.history}/>
 
                     </div>
 
