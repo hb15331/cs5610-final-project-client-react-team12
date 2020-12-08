@@ -18,6 +18,10 @@ const OrderList = (
         {/*    {currentUser.userId ? currentUser.username : "anonymous"}*/}
         {/*</h5>*/}
         {/*<h1>OrderList</h1>*/}
+        <Link to={"/home"}>
+            <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
+
+        </Link>
         <h1>ORDER LIST </h1>
 
         <ul>
@@ -34,6 +38,7 @@ const OrderList = (
                                 // src="https://picsum.photos/300/200"/>
                                  src={order.image}/>
                             {/*{order.customerId}*/}
+
                             <div className="card-body">
 
 
@@ -46,7 +51,9 @@ const OrderList = (
 
 
                         </span>
+
                             </div>
+                            <h6>Deliverer: {order.delivererId}</h6>
                         </div>
                     </div>
 
@@ -62,13 +69,13 @@ const OrderList = (
 
                     <ol>
 
-                        <h5>Please select a deliverer for your order</h5>
+                        {/*<h5>Please select a deliverer for your order</h5>*/}
                         {deliverers.map(deliverer =>
                             <li>
                                 <ul className="list-group">
                                     {console.log("Deliverer: ",deliverer)}
                                     {console.log("Order before assignment: ", order)}
-                                    <Link to={"/cart/orderDetails"}>
+                                    {/*<Link to={"/cart/orderDetails"}>*/}
                                     <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
                                         ...order,
                                         delivererId: deliverer.userId,
@@ -81,7 +88,7 @@ const OrderList = (
                                         Location: {deliverer.location} <br/>
                                         {console.log("new order", order)}
                                     </li>
-                                    </Link>
+                                    {/*</Link>*/}
                                 </ul>
 
                             </li>

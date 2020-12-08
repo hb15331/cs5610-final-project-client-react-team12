@@ -43,8 +43,8 @@ export class OrderDetails extends React.Component {
                 <h4>Your order summary</h4>
                 <h6>Order placed for recipe:</h6>
                 {/*{this.props.order.image}*/}
-                <img className="card-img-top"
-                     src={this.props.order.image}/>
+                {/*<img className="card-img-top"*/}
+                {/*     src={this.props.order.image}/>*/}
                      <span className="row">
                 <h6>Order Id:</h6>
                          <p>{this.props.order.orderId}</p>

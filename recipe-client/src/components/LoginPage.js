@@ -18,7 +18,7 @@ class LoginPage extends React.Component {
             .then(currentUser =>
                 (!currentUser) ?
                     alert("Error: Your login details fail to match our record") :
-                    this.props.history.push('/profile'))
+                    this.props.history.push('/home'))
 
 
     render() {
