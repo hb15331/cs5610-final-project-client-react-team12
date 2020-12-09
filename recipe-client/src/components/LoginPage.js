@@ -19,9 +19,8 @@ class LoginPage extends React.Component {
             .then(currentUser =>
                 (!currentUser) ?
                     alert("Error: Your login details fail to match our record") :
-                    alert ("Logged In")
-                    // this.props.history.push('/home')
-                // <HomePage/>
+                    this.props.history.push('/home')
+
             )
 
 
@@ -69,12 +68,12 @@ class LoginPage extends React.Component {
                     <div className="col-sm-10">
 
                         {/*Sign in link*/}
-                        <Link to="/home">
+
                         <button className="btn btn-success btn-block"
                                 onClick={() => this.handleLogin(this.state)}>
                             Sign in
                         </button>
-                        </Link>
+
                         {/*Cancel link*/}
                         <Link to={`/`} className="btn btn-danger btn-block">
                             Cancel

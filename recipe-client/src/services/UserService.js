@@ -42,6 +42,7 @@ const login = (user) =>
     }).then(response => response.json().catch(error => null))
 
 
+
 const updateProfile = (newProfile) =>
     fetch(`${API_BASE_URL}/api/profiles/${newProfile.userId}`, {
         method: 'PUT',
