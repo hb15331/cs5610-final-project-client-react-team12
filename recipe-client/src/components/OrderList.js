@@ -51,7 +51,12 @@ const OrderList = (
                         </span>
 
                                 </div>
-                                <h3>Your assigned deliverer for this order: Deliverer Id {order.delivererId}</h3>
+                                {order.delivererId &&
+                                <span>
+                                        <h3>Your assigned deliverer for this order: Deliverer Id {order.delivererId}</h3>
+                                    </span>
+                                }
+
                             </div>
                         </div>
 
