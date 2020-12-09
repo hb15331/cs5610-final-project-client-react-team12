@@ -18,6 +18,10 @@ const OrderList = (
         {/*    {currentUser.userId ? currentUser.username : "anonymous"}*/}
         {/*</h5>*/}
         {/*<h1>OrderList</h1>*/}
+        <Link to={"/home"}>
+            <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
+
+        </Link>
         <h1>ORDER LIST </h1>
 
         <ul>
@@ -36,7 +40,6 @@ const OrderList = (
                                 {/*{order.customerId}*/}
                                 <div className="card-body">
 
-
                     <span>
                         <li>
 
@@ -46,9 +49,12 @@ const OrderList = (
 
 
                         </span>
+
                                 </div>
+                                <h3>Your assigned deliverer for this order: Deliverer Id {order.delivererId}</h3>
                             </div>
                         </div>
+
 
                         <div className="col-4">
                             <Link to={{pathname:"/cart"}}>
@@ -62,27 +68,28 @@ const OrderList = (
 
                             <ol>
 
-                                <h5>Please select a deliverer for your order</h5>
+                                {/*<h5>Please select a deliverer for your order</h5>*/}
                                 {deliverers.map(deliverer =>
                                     <li>
                                         <ul className="list-group">
                                             {console.log("Deliverer: ",deliverer)}
                                             {console.log("Order before assignment: ", order)}
-                                            <Link to={"/cart/orderDetails"}>
-                                                <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
-                                                    ...order,
-                                                    delivererId: deliverer.userId,
-                                                    orderId: order.orderId,
-                                                    customerId: order.customerId
-                                                })}
-                                                    className="list-group-item btn">
-                                                    <h4>Deliverer ID: {deliverer.username}</h4>
-                                                    Name: {deliverer.firstname} <br/>
-                                                    Location: {deliverer.location} <br/>
-                                                    {console.log("new order", order)}
-                                                </li>
-                                            </Link>
+
+                                            <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
+                                                ...order,
+                                                delivererId: deliverer.userId,
+                                                orderId: order.orderId,
+                                                customerId: order.customerId
+                                            })}
+                                                className="list-group-item btn">
+                                                <h4>Deliverer ID: {deliverer.username}</h4>
+                                                Name: {deliverer.firstname} <br/>
+                                                Location: {deliverer.location} <br/>
+                                                {console.log("new order", order)}
+                                            </li>
+
                                         </ul>
+
 
                                     </li>
                                 )}
@@ -96,8 +103,6 @@ const OrderList = (
             }
 
         </ul>
-
-
 
     </div>
 

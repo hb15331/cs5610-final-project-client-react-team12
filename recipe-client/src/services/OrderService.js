@@ -26,9 +26,10 @@ export const createOrder = (order) =>
 
 const deleteOrder = (oid) =>
     fetch(`${ORDER_URL}/${oid}`, {
-        method:"DELETE"
-    }).then(response => findOrderForUser())
-    // }).then(response => response.json())
+        method: "DELETE"
+    })
+    //}).then(response => findOrderForUser())
+     //}).then(status => status.json())
 
 
 

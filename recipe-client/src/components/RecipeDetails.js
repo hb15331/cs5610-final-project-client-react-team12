@@ -27,12 +27,27 @@ export class RecipeDetails extends React.Component {
         orders: [],
         usersList: [],
         customIdList: [],
-        purchaseBy : false
+        purchaseBy : false,
+
+        // new addition
+        recipeUri: '',
+        userId: ''
     }
 
     componentDidMount() {
         // retrieve the uri from url
+        console.log(this.props)
         const recipeUri = this.props.match.params.recipeUri
+
+        if(this.props.currentUser != null) {
+            const userId = this.props.currentUser.userId
+
+            this.setState({
+                recipeUri: recipeUri,
+                userId: userId
+            })
+        }
+
         const queryUrl = `${RECIPE_URL}?r=${recipeUri}&app_id=${APP_ID}&app_key=${APP_KEY}`
         // if(this.props.currentUser != null){
         //     const customerId = this.props.currentUser.userId
@@ -49,22 +64,24 @@ export class RecipeDetails extends React.Component {
             })))
     }
 
-    // componentDidUpdate(prevProps, prevState, snapshot) {
+     componentDidUpdate(prevProps, prevState, snapshot) {
 
-    // if (this.props.currentUser !== null) {
-    //         {
-    //             this.props.findAllOrders()
-    //         }
-    // }
-    // if (this.props.currentUser !== null) {
-    //     const customerId = this.props.currentUser.userId
-    //     if (customerId !== this.props.customerId) {
-    //         {
-    //             this.props.findOrderForUser(customerId)
-    //         }
-    //     }
-    // }
-    // }
+        console.log("Props in update:", this.props)
+         if(prevProps.match.params.recipeUri !== this.props.match.params.recipeUri){
+             this.setState({
+                 recipeUri: this.props.match.params.recipeUri
+             })
+             if(this.props.match.params.recipeUri) {
+                 const queryUrl = `${RECIPE_URL}?r=${this.props.match.params.recipeUri}&app_id=${APP_ID}&app_key=${APP_KEY}`
+                 console.log("QueryURL:" , queryUrl)
+                 edmamApiService.findRecipesBySearchKeyword(queryUrl)
+                     .then(recipe => this.setState(preState => ({
+                         ...preState, recipe: recipe[0]
+                     })))
+             }
+         }
+
+     }
 
     addItems = (item) => {
         // itemOrd.push(item)
@@ -99,9 +116,9 @@ export class RecipeDetails extends React.Component {
                 <div>
                     <h1>{this.state.recipe.label}</h1>
                     <img src={this.state.recipe.image}/>
-                    {/*{JSON.stringify(this.state.recipe)}*/}
-                    <p>{this.props.match.params.recipeUri}</p>
-                    {/*<p>{window.location.href}</p>*/}
+
+                    {/*<p>{this.props.match.params.recipeUri}</p>*/}
+
                     <h3>Number of Servings:</h3>
                     <p>{this.state.recipe.yield}</p>
                     <h3>Total Calories(kcal):</h3>
@@ -124,7 +141,7 @@ export class RecipeDetails extends React.Component {
                             )}
                     </ul>
                     <ul>
-                        <h2>Order's List</h2>
+                        <h2>Wish List</h2>
                         {
                             this.state.orders.map((ingredient) =>
                                     <span>
