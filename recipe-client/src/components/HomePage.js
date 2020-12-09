@@ -339,7 +339,7 @@ class HomePage extends React.Component {
 
 
                 {!this.props.currentUser &&
-                //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+
                 <div className="row">
                     <div className="col-6">
 
