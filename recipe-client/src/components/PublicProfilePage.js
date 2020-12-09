@@ -23,6 +23,8 @@ class PublicProfilePage extends React.Component {
         const userId = this.props.match.params.uid
         UserService.findPublicProfileById(userId)
             .then(publicInfo => this.setState({publicInfo: publicInfo}))
+        // const customerId = this.props.currentUser.userId
+        {this.props.findOrderForUser(userId)}
     }
 
 
@@ -75,6 +77,15 @@ class PublicProfilePage extends React.Component {
                     value={this.state.publicInfo.location}
                     readOnly
                 />
+
+                <h4>Orders from {this.state.publicInfo.username}:</h4>
+                {
+                    this.props.orders.map((ord)=>
+                    <li>
+                        {ord.name}
+                    </li>
+                    )
+                }
 
                 <div className="py-3">
                     <button className="btn btn-danger btn-block" onClick={this.props.history.goBack}>Back</button>
