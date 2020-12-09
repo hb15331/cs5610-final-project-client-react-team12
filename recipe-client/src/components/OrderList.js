@@ -14,8 +14,7 @@ const OrderList = (
     }) =>
     <div>
 
-        {/*<h5>Current user:*/}
-        {/*    {currentUser.userId ? currentUser.username : "anonymous"}*/}
+
         {/*</h5>*/}
         {/*<h1>OrderList</h1>*/}
         <Link to={"/home"}>
