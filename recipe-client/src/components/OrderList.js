@@ -8,7 +8,7 @@ import OrderDetails from "./OrderDetails";
 
 const OrderList = (
     {orders = [],
-        currentUser, customerId, delivererId, deliverers = [],
+        currentUser, customerId, delivererId, deliverers = [], userId,
         deleteOrder,
         findDeliverersForOrder, assignDelivererToOrder
     }) =>

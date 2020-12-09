@@ -5,23 +5,37 @@
  import {findAllOrders} from "../services/OrderService"
  import {findOrderForUser} from "../services/OrderService"
  import UserActions from "../actions/UserActions";
+ import edmamApiService from "../services/edmamApiService";
 
 
  class orderListContainer extends React.Component {
         state={
             orders: [],
-            label: ''
+            label: '',
+            userId: ''
         }
 
      componentDidMount() {
             //TODO: findOrdersByCustomerId
-         const customerId = this.props.currentUser.userId
+         if(this.props.currentUser){
+             const customerId = this.props.currentUser.userId
+             if(customerId) {
+                 this.setState({
+                     userId: customerId,
+                     orders: this.props.orders
+                 })
+             }
+             this.props.findOrderForUser(customerId)
+         }
+
          const orderId = this.props.match.params.orderId
+
+
          // if(customerId){
          //     this.props.findOrderForUser(customerId)
          // }
          // if(12){
-             this.props.findOrderForUser(customerId)
+         //     this.props.findOrderForUser(customerId)
          // }
          // this.props.findAllOrders()
 
@@ -30,19 +44,34 @@
          // console.log("hello:"+this.props.location.state.orders)
      }
      componentDidUpdate(prevProps, prevState, snapshot) {
-         const customerId = this.props.currentUser.userId
-            const orderId = this.props.match.params.orderId
-         // if(customerId !== prevProps.currentUser) {
+
+         if(prevProps.currentUser.userId !== this.props.currentUser.userId){
+             this.setState({
+                 userId: this.props.currentUser.userId,
+                 orders: this.props.orders
+             })
+             if(this.props.currentUser.userId) {
+                 this.props.findOrderForUser(this.props.currentUser.userId)
+             }
+         }
+
+         // const customerId = this.props.currentUser.userId
+         //    const orderId = this.props.match.params.orderId
+         // // if(customerId !== prevProps.currentUser) {
+         // //     this.props.findOrderForUser(customerId)
+         // // }
          //     this.props.findOrderForUser(customerId)
-         // }
-             this.props.findOrderForUser(customerId)
      }
      render() {
+
+         console.log("Props in OrderListContainer", this.props)
+         console.log("State in orderListContainer", this.state)
 
          return(
 
              <div class="container-fluid">
-                 <OrderList/>
+                 <OrderList orders={this.state.orders}
+                     customerId={this.state.userId}/>
              </div>
 
          )
@@ -54,6 +83,7 @@
  const stateToPropertyMapper = (state) => ({
      // course: state.courseReducer.course
      order: state.orderReducer.order,
+     orders: state.orderReducer.orders,     // new addition
      currentUser: state.UserReducer.currentUser
  })
 
