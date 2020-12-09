@@ -193,11 +193,24 @@ export class RecipeDetails extends React.Component {
                     </ul>
 
 
-                    <i className="fa fa-cart-plus fa-2x btn" aria-hidden="true"
-                       onClick={()=>this.props.createOrder(this.props.currentUser.username,
-                           this.state.recipe.label,this.state.orders.toString(),this.props.currentUser.userId,
-                           this.state.recipe.image,this.props.match.params.recipeUri)}
-                    >Add to cart</i>
+                    <div>
+                    {this.props.currentUser &&
+                    <i className="fa fa-cart-plus fa-2x fa-fw btn" aria-hidden="true"
+                       onClick={() => this.props.createOrder(this.props.currentUser.username,
+                           this.state.recipe.label, this.state.orders.toString(), this.props.currentUser.userId,
+                           this.state.recipe.image, this.props.match.params.recipeUri)}>
+                        Add to cart
+                    </i>
+                    }
+                    {!this.props.currentUser &&
+                        <Link to="/login">
+                    <i className="fa fa-cart-plus fa-2x fa-fw btn" aria-hidden="true"
+                       onClick={() => alert("Please register/log in to place an order!")}>
+                        Add to cart
+                    </i>
+                        </Link>
+                    }
+                    </div>
                 </div>
 
 
