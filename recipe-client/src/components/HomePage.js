@@ -298,7 +298,7 @@ class HomePage extends React.Component {
                                 <ol>
                                     {this.props.currentUser.userId === ord.delivererId &&
                                     <div>
-                                        {ord.name}
+                                        {ord.name}: {ord.items}
                                     </div>
                                     }
                                 </ol>
