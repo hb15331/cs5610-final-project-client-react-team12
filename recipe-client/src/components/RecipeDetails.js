@@ -31,7 +31,8 @@ export class RecipeDetails extends React.Component {
 
         // new addition
         recipeUri: '',
-        userId: ''
+        userId: '',
+        keyword: ''
     }
 
     componentDidMount() {
@@ -41,13 +42,16 @@ export class RecipeDetails extends React.Component {
 
         if(this.props.currentUser != null) {
             const userId = this.props.currentUser.userId
+            const keyword = this.props.match.params.keyword
 
             this.setState({
                 recipeUri: recipeUri,
-                userId: userId
+                userId: userId,
+                keyword: keyword
             })
         }
 
+        //const recipeUri = this.props.match.params.recipeUri
         const queryUrl = `${RECIPE_URL}?r=${recipeUri}&app_id=${APP_ID}&app_key=${APP_KEY}`
         // if(this.props.currentUser != null){
         //     const customerId = this.props.currentUser.userId
@@ -193,21 +197,24 @@ export class RecipeDetails extends React.Component {
                     </ul>
 
 
-                    <div>
+                    <div className="col-12">
                     {this.props.currentUser &&
-                    <i className="fa fa-cart-plus fa-2x fa-fw btn" aria-hidden="true"
+                        <Link to="/cart">
+                    <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
                        onClick={() => this.props.createOrder(this.props.currentUser.username,
                            this.state.recipe.label, this.state.orders.toString(), this.props.currentUser.userId,
                            this.state.recipe.image, this.props.match.params.recipeUri)}>
                         Add to cart
-                    </i>
+                    </button>
+                        </Link>
+
                     }
                     {!this.props.currentUser &&
                         <Link to="/login">
-                    <i className="fa fa-cart-plus fa-2x fa-fw btn" aria-hidden="true"
+                    <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
                        onClick={() => alert("Please register/log in to place an order!")}>
                         Add to cart
-                    </i>
+                    </button>
                         </Link>
                     }
                     </div>

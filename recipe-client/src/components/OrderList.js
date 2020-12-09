@@ -22,40 +22,35 @@ const OrderList = (
             <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
 
         </Link>
-        <h1>ORDER LIST </h1>
+        <h1>Order History</h1>
+        <h6>Scroll down to see your latest order</h6>
 
-        <ul>
+        <ol>
             {
                 orders.map(order =>
 
                     <div className="row">
                         <div className="col-8">
-                            <div className="card order-card-style">
-                                {/*<div className="col-md-4">*/}
+
+                            <div className="card card-img-top">
+                                <li>
                                 <i className="fa fa-times fa-2x btn float-right"
                                    onClick={()=>deleteOrder(order.orderId)}></i>
-                                <img className="card-img-top"
-                                    // src="https://picsum.photos/300/200"/>
+                                <img className="img-thumbnail"
+                                     height="400px"
+                                     width="auto"
                                      src={order.image}/>
                                 {/*{order.customerId}*/}
-                                <div className="card-body">
+                                <div className="card-body row">
 
-                    <span>
-                        <li>
-
-                            {order.items}
-
-                        </li>
-
-
-                        </span>
-
+                                    <h6>{order.items}</h6>
                                 </div>
                                 {order.delivererId &&
                                 <span>
-                                        <h3>Your assigned deliverer for this order: Deliverer Id {order.delivererId}</h3>
-                                    </span>
+                                    <h3>Your assigned deliverer for this order: Deliverer Id {order.delivererId}</h3>
+                                </span>
                                 }
+                                </li>
 
                             </div>
                         </div>
@@ -107,7 +102,7 @@ const OrderList = (
                 )
             }
 
-        </ul>
+        </ol>
 
     </div>
 

@@ -23,28 +23,40 @@ class HomePage extends React.Component {
     state = {
 
         imageUrl: "https://image.shutterstock.com/image-photo/healthy-food-clean-eating-selection-600w-722718097.jpg",
-        cuisineTypes: ["American", "Asian", "British", "Caribbean", "Central Europe", "Chinese", "Eastern Europe",
-            "French", "Indian", "Italian", "Japanese", "Kosher", "Mediterranean", "Mexican", "Middle Eastern", "Nordic",
-            "South American", "South East Asian"],
+        // cuisineTypes: ["American", "Asian", "British", "Caribbean", "Central Europe", "Chinese", "Eastern Europe",
+        //     "French", "Indian", "Italian", "Japanese", "Kosher", "Mediterranean", "Mexican", "Middle Eastern", "Nordic",
+        //     "South American", "South East Asian"],
         ingredients: ["chicken", "pork", "tomatoes", "cheese", "flour", "milk", "potato", "onion", "avocado", "beans",
         "pasta", "pepper", "nuts", "beef", "vegetables", "bread", "egg", "fish"],
         selectedIngredient: "",
         recipeOfTheDay: "",
         rawRecipes: [],
         recipeUri: "",
-        random: 0,
-        latestOrd: []
+        randomRecipes: [],
+        latestOrd: [],
+        currentUser: {}
     }
 
 
     componentDidMount() {
 
-        // generate recipe of the day
-         {this.randomGenerator()}
-         {this.searchRecipes()}
-
-
+        // generate recipe of the day - new addition
         console.log("From home page:", this.props)
+        if(this.props.currentUser === null){
+            this.setState({
+                currentUser: {
+                    userId: "000",
+                    username: "anonymous"
+                }
+            })
+        }
+
+        if(this.state.currentUser !== null){
+            {this.searchRecipes()}
+        }
+
+
+
         {this.props.profile()}
         {this.props.findAllUsers()}
         if(this.props.currentUser != null){
@@ -59,25 +71,25 @@ class HomePage extends React.Component {
 
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("State after refresh of homePage: ", this.state)
 
-    min = 1;
-    max = 18;
+    }
 
-    randomGenerator = () => {
-        this.setState({random: this.min + (Math.random() * (this.max - this.min))});
-        //this.setState({random: 5})
-    };
+
+
 
     // fetch a list of recipes that match user's search criteria
     searchRecipes = () => {
-        let ingredient = this.state.ingredients[8]
+        let random = Math.floor(Math.random() * 18)
+        let ingredient = this.state.ingredients[random]
         this.state.selectedIngredient = ingredient
 
         const queryUrl = `${RECIPE_URL}?q=${ingredient}&app_id=${APP_ID}&app_key=${APP_KEY}&from=4&to=5`
 
         edmamApiService.findRecipesBySearchKeyword(queryUrl)
             .then(data => this.setState({
-                rawRecipes : data.hits
+                randomRecipes : data.hits
             }))
 
     }
@@ -91,15 +103,6 @@ class HomePage extends React.Component {
             })
 
 
-    /** This method no longer required **/
-    // data includes all the info retrieved from api
-    // renderRecipes = (data) =>
-    //     this.setState(prevState => ({
-    //         //...prevState,
-    //         // hits is an array of objects that include the true recipes we want
-    //         rawRecipes: data.hits
-    //
-    //     }))
 
     // current logged in user is not allowed to login or register again unless log out first
     blockLoginOrRegister = (e) => {
@@ -251,14 +254,14 @@ class HomePage extends React.Component {
                     <h1>Today's pick</h1>
 
                     {
-                        this.state.rawRecipes.map(
+                        this.state.randomRecipes.map(
                             (rawRecipe, index) => {
                                 // extract uri from data and use it as the unique identifier of recipe
                                 const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
 
                                 return (
                                     <div key={index}>
-                                        <Link to={`/recipes/${recipeUri}`}>
+                                        <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
 
                                             <h3>{rawRecipe.recipe.label}</h3>
 
@@ -347,7 +350,7 @@ class HomePage extends React.Component {
 
 
                         {
-                            this.state.rawRecipes.map(
+                            this.state.randomRecipes.map(
                                 (rawRecipe, index) => {
                                     // extract uri from data and use it as the unique identifier of recipe
                                     const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
@@ -358,7 +361,7 @@ class HomePage extends React.Component {
                                             {/*<Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>*/}
 
                                             {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
-                                            <Link to={`/search/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>
+                                            <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
 
 
                                                 <h3>{rawRecipe.recipe.label}</h3>
