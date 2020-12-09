@@ -1,6 +1,11 @@
 const ORDER_URL = "http://localhost:8080/api/orders"
 const USER_URL = "http://localhost:8080/api/profiles"
 
+// const ORDER_URL = "https://tranquil-lake-30486.herokuapp.com//api/orders"
+// const USER_URL = "https://tranquil-lake-30486.herokuapp.com//api/profiles"
+
+
+
 export const findAllOrders = () =>
     fetch(ORDER_URL)
         .then(response => response.json())

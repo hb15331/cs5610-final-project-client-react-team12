@@ -1,5 +1,7 @@
 const API_BASE_URL = "http://localhost:8080"
 
+// const API_BASE_URL = "https://tranquil-lake-30486.herokuapp.com/"
+
 
 const register = (newUser) =>
     fetch(`${API_BASE_URL}/register`, {
