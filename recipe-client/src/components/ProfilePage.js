@@ -134,7 +134,8 @@ class ProfilePage extends React.Component {
                         this.props.updateProfile({...this.props.currentUser, location: e.target.value})}
                 />
 
-                <label htmlFor="orders">Recent Purchases:</label>
+                <label htmlFor="orders">Recent Purchases</label>
+                <div className="container">
                 {
                     this.props.orders.map((order =>
                         <div>
@@ -146,11 +147,12 @@ class ProfilePage extends React.Component {
                         }
                         </div>
                     ))}
+                </div>
 
 
                 {/*links to other users' public profile*/}
-                <p><Link to="/profile/12">user3</Link></p>
-                <p><Link to="/profile/13">user4</Link></p>
+                {/*<p><Link to="/profile/12">user3</Link></p>*/}
+                {/*<p><Link to="/profile/13">user4</Link></p>*/}
 
 
                 <Link to={"/"}>
