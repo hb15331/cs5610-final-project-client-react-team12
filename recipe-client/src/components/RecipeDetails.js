@@ -193,7 +193,7 @@ export class RecipeDetails extends React.Component {
 
 
                     <div className="col-12">
-                    {this.props.currentUser &&
+                    {this.props.currentUser === "CUSTOMER" &&
                         <Link to="/cart">
                     <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
                        onClick={() => this.props.createOrder(this.props.currentUser.username,

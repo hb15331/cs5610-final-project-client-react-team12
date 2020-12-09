@@ -48,7 +48,7 @@ const OrderList = (
                                 </div>
                                 {order.delivererId &&
                                 <span>
-                                    <h3>Your assigned deliverer for this order: Deliverer Id {order.delivererId}</h3>
+                                    <h3>Your assigned deliverer for this order: DelivererId {order.delivererId}</h3>
                                 </span>
                                 }
                                 </li>
@@ -84,8 +84,8 @@ const OrderList = (
                                                 customerId: order.customerId
                                             })}
                                                 className="list-group-item btn">
-                                                <h4>Deliverer ID: {deliverer.username}</h4>
-                                                Name: {deliverer.firstname} <br/>
+                                                <h4>Deliverer: {deliverer.username}</h4>
+                                                Name: {deliverer.firstName} <br/>
                                                 Location: {deliverer.location} <br/>
                                                 {console.log("new order", order)}
                                             </li>
