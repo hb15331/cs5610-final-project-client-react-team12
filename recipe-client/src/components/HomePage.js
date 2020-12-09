@@ -33,7 +33,7 @@ class HomePage extends React.Component {
         rawRecipes: [],
         recipeUri: "",
         randomRecipes: [],
-        latestOrd: [],
+        latestOrd: "",
         currentUser: {}
     }
 
@@ -63,11 +63,9 @@ class HomePage extends React.Component {
             const customerId = this.props.currentUser.userId
             {this.props.findOrderForUser(customerId)}
         }
-        if(this.props.allOrders != null) {
             {
                 this.props.findAllOrders()
             }
-        }
 
     }
 
@@ -366,18 +364,16 @@ class HomePage extends React.Component {
 
 
                     <div className="col-6">
-                        <h1>Latest Recipe purchased:</h1>
-                        <div className="container">
-                        {this.props.allOrders.map((ord) =>
-                        <div className="container">
-                            {this.state.latestOrd.includes(ord.name) === false &&
-                                <div className="container">{this.state.latestOrd.push(ord.name)}</div>
 
-                            }
-                        </div>
+                        <h1>Latest Recipe purchased:</h1>
+{/*<ul>*/}
+                        {this.props.allOrders.map((ord) =>
+                       <div hidden>{this.state.latestOrd = ord.name}</div>
                         )}
-                        </div>
-                        <p>{this.state.latestOrd[this.state.latestOrd.length-1]}</p>
+{/*</ul>*/}
+{/*                        {this.setState({latestOrd:this.props.allOrders[this.props.allOrders.length-1].name})}*/}
+{/*                        <p>{this.state.latestOrd[this.state.latestOrd.length-1].name}</p>*/}
+<p>{this.state.latestOrd}</p>
 
 
                         <SearchRecipe props={this.props}
