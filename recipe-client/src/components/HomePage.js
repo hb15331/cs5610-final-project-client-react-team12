@@ -243,7 +243,7 @@ class HomePage extends React.Component {
                     <div className="row">
                     <div className="col-6">
                     <h1>Recent Orders:</h1>
-                    <p>Length:{this.props.orders.length}</p>
+
 
                     {/*diplay most recent order for the user*/}
                         {this.props.orders.map((order =>
@@ -295,7 +295,7 @@ class HomePage extends React.Component {
                 <div className="row">
                     <div className="col-6">
                         <h1>Recent Orders For Delivery:</h1>
-                        <p>Length:{this.props.orders.length}</p>
+
                         {/*diplay most recent order for the user*/}
                         {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
 
@@ -342,7 +342,7 @@ class HomePage extends React.Component {
 
 
                 {!this.props.currentUser &&
-                //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+
                 <div className="row">
                     <div className="col-6">
 

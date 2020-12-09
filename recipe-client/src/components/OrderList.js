@@ -21,6 +21,7 @@ const OrderList = (
         <Link to={"/home"}>
             <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
 
+
         </Link>
         <h1>Order History</h1>
         <h6>Scroll down to see your latest order</h6>
@@ -41,6 +42,7 @@ const OrderList = (
                                      width="auto"
                                      src={order.image}/>
                                 {/*{order.customerId}*/}
+
                                 <div className="card-body row">
 
                                     <h6>{order.items}</h6>
@@ -53,6 +55,7 @@ const OrderList = (
                                 </li>
 
                             </div>
+
                         </div>
 
 
@@ -105,6 +108,7 @@ const OrderList = (
         </ol>
 
     </div>
+
 
 //
 const stateToPropertyMapper = (state) => ({

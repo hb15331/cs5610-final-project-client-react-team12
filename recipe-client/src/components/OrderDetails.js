@@ -62,35 +62,30 @@ export class OrderDetails extends React.Component {
     render() {
         return (
 
-                    <div>
-                        {
-                            this.props.order &&
-                    <span>
-                        <h4>Your order summary</h4>
-                        <h6>Order placed for recipe:</h6>
-                        <img className="card-img-top"
-                             width="50px"
-                             height="200px"
-                             src={this.props.order.image}/>
-                        <span className="row">
-                    <h6>Order Id:</h6>
-                    <p>{this.props.order.orderId}</p>
-                    </span>
-                        <span className="row">
-                    <h6>Order details:</h6>
-                            {this.props.order.items}
-                    </span>
-                        <span className="row">
-                    <h6>Assigned deliverer:</h6>
-                            {this.props.order.delivererId}
-                    </span>
-                        <div className="py-3">
-                    <button className="btn btn-danger btn-block" onClick={this.props.history.goBack}>Back</button>
-                </div>
-                        </span>
-                        }
-                    </div>
+            <div>
 
+
+                <h4>Your order summary</h4>
+                <h6>Order placed for recipe:</h6>
+                {/*{this.props.order.image}*/}
+                {/*<img className="card-img-top"*/}
+                {/*     src={this.props.order.image}/>*/}
+                     <span className="row">
+                <h6>Order Id:</h6>
+                         <p>{this.props.order.orderId}</p>
+                </span>
+                <span className="row">
+                <h6>Order details:</h6>
+                {this.props.order.items}
+                </span>
+                <span className="row">
+                <h6>Assigned deliverer:</h6>
+                    {this.props.order.delivererId}
+                </span>
+
+
+
+            </div>
         )
     }
 }
