@@ -295,38 +295,17 @@ class HomePage extends React.Component {
                 <div className="row">
                     <div className="col-6">
                         <h1>Recent Orders For Delivery:</h1>
-
-                        {/*diplay most recent order for the user*/}
-                        {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
-
-                        {/*<h1>Recipe of the Day</h1>*/}
-
-                        {/*{*/}
-                        {/*    this.state.rawRecipes.map(*/}
-                        {/*        (rawRecipe, index) => {*/}
-                        {/*            // extract uri from data and use it as the unique identifier of recipe*/}
-                        {/*            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)*/}
-                        {/*            // console.log(recipeUri)*/}
-
-                        {/*            return (*/}
-                        {/*                <div key={index}>*/}
-                        {/*                    /!*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*!/*/}
-                        {/*                    <Link to={`/recipes/${recipeUri}`}>*/}
-
-                        {/*                        <h3>{rawRecipe.recipe.label}</h3>*/}
-
-                        {/*                        <li className="container">*/}
-                        {/*                            /!*{JSON.stringify(rawRecipe)}*!/*/}
-                        {/*                            <img src={rawRecipe.recipe.image}/>*/}
-                        {/*                        </li>*/}
-
-                        {/*                    </Link>*/}
-                        {/*                </div>*/}
-                        {/*            )*/}
-                        {/*        }*/}
-                        {/*    )*/}
-
-                        {/*}*/}
+                        <div className="container">
+                            {this.props.allOrders.map((ord)=>
+                                <ol>
+                                    {this.props.currentUser.userId === ord.delivererId &&
+                                    <div>
+                                        {ord.name}
+                                    </div>
+                                    }
+                                </ol>
+                            )}
+                        </div>
 
                     </div>
                     <div className="col-6">
@@ -366,9 +345,13 @@ class HomePage extends React.Component {
 
                                                 <h3>{rawRecipe.recipe.label}</h3>
 
-                                                <li className="container">
-                                                    <img src={rawRecipe.recipe.image}/>
-                                                </li>
+                                                <div className="container">
+                                                    <img
+                                                        className="img-thumbnail"
+                                                        height="400px"
+                                                        width="auto"
+                                                        src={rawRecipe.recipe.image}/>
+                                                </div>
 
                                             </Link>
                                         </div>
@@ -386,7 +369,7 @@ class HomePage extends React.Component {
                         <h1>Latest Recipe purchased:</h1>
                         <div className="container">
                         {this.props.allOrders.map((ord) =>
-                        <div>
+                        <div className="container">
                             {this.state.latestOrd.includes(ord.name) === false &&
                                 <div className="container">{this.state.latestOrd.push(ord.name)}</div>
 

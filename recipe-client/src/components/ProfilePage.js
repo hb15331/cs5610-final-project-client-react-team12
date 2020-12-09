@@ -17,7 +17,11 @@ class ProfilePage extends React.Component {
             const customerId = this.props.currentUser.userId
             {this.props.findOrderForUser(customerId)}
         }
-
+        if(this.props.allOrders != null) {
+            {
+                this.props.findAllOrders()
+            }
+        }
     }
 
 
@@ -134,25 +138,47 @@ class ProfilePage extends React.Component {
                         this.props.updateProfile({...this.props.currentUser, location: e.target.value})}
                 />
 
+                {this.props.currentUser &&
+                this.props.currentUser.type === "CUSTOMER" &&
+                    <div className="container">
                 <label htmlFor="orders">Recent Purchases</label>
+                    <div className="container">
+                    {
+                        this.props.orders.map((order =>
+                                <div>
+                                    {order.customerId === this.props.currentUser.userId &&
+                                    <Link to={`/search/q=identify/${order.recipeUri}`}>
+                                        <li>{order.name}</li>
+                                    </Link>
+
+                                    }
+                                </div>
+                        ))}
+                    </div>
+                    </div>
+                }
+
+                {this.props.currentUser &&
+                this.props.currentUser.type === "DELIVERER" &&
                 <div className="container">
-                {
-                    this.props.orders.map((order =>
-                        <div>
-                    {order.customerId === this.props.currentUser.userId &&
-                     <Link to={`/search/q=identify/${order.recipeUri}`}>
-                    <li >{order.name}</li>
-                    </Link>
+                    <label htmlFor="orders">Recent Purchases</label>
+                    <div className="container">
 
-                        }
-                        </div>
-                    ))}
+                            {this.props.allOrders.map((ord)=>
+                                <ul>
+                                    {this.props.currentUser.userId === ord.delivererId &&
+                                    <Link to={`/search/q=identify/${ord.recipeUri}`}>
+                                    <li>
+                                        {ord.name}
+                                    </li>
+                                    </Link>
+                                    }
+                                </ul>
+                            )}
+
+                    </div>
                 </div>
-
-
-                {/*links to other users' public profile*/}
-                {/*<p><Link to="/profile/12">user3</Link></p>*/}
-                {/*<p><Link to="/profile/13">user4</Link></p>*/}
+                }
 
 
                 <Link to={"/"}>
@@ -180,7 +206,9 @@ class ProfilePage extends React.Component {
 const stateToPropertyMapper = (state) => ({
     order: state.orderReducer.order,
     orders: state.orderReducer.orders,
-    currentUser: state.UserReducer.currentUser
+    currentUser: state.UserReducer.currentUser,
+    allOrders: state.orderReducer.allOrders,
+
 
 })
 
@@ -188,7 +216,8 @@ const propertyToDispatchMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
     updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
     saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch),
-    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId)
+    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId),
+    findAllOrders: () => OrderActions.findAllOrders(dispatch)
 
 })
 
