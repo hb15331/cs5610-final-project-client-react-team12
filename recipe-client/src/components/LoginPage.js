@@ -69,10 +69,14 @@ class LoginPage extends React.Component {
 
                         {/*Sign in link*/}
 
+
+                        <Link to="/">
                         <button className="btn btn-success btn-block"
                                 onClick={() => this.handleLogin(this.state)}>
                             Sign in
                         </button>
+                        </Link>
+
 
                         {/*Cancel link*/}
                         <Link to={`/`} className="btn btn-danger btn-block">
