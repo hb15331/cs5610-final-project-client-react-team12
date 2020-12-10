@@ -237,7 +237,7 @@ class HomePage extends React.Component {
 
                 {this.props.currentUser &&
                 this.props.currentUser.type === "CUSTOMER" &&
-                    //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+
                     <div className="row">
                     <div className="col-6">
                     <h1>Recent Orders:</h1>
@@ -380,6 +380,62 @@ class HomePage extends React.Component {
                                       match={this.props.match}
                                       history={this.props.history}/>
 
+                    </div>
+
+                </div>
+
+                }
+
+
+                {this.props.currentUser &&
+                this.props.currentUser.type === "ADMIN" &&
+                //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+                <div className="row">
+                    <div className="col-6">
+                        <h1>Most Recent User:</h1>
+                        {this.props.users != null &&
+                            // this.props.users.map(use =>
+                            // <li>{use.username}</li>)
+                            <Link to={`/profile/${this.props.users[this.props.users.length-1].userId}`}>
+                            <p>{this.props.users[this.props.users.length-1].username}</p>
+                                </Link>
+                        }
+
+
+                        {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
+
+                        <h1>Today's pick</h1>
+
+                        {
+                            this.state.randomRecipes.map(
+                                (rawRecipe, index) => {
+                                    // extract uri from data and use it as the unique identifier of recipe
+                                    const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+
+                                    return (
+                                        <div key={index}>
+                                            <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
+
+                                                <h3>{rawRecipe.recipe.label}</h3>
+                                                <ul>
+                                                <li className="container">
+                                                    <img src={rawRecipe.recipe.image}/>
+                                                </li>
+                                                </ul>
+                                            </Link>
+                                        </div>
+                                    )
+                                }
+                            )
+
+                        }
+
+                    </div>
+                    <div className="col-6">
+
+                        <SearchRecipe props={this.props}
+                                      match={this.props.match}
+                                      history={this.props.history}/>
                     </div>
 
                 </div>

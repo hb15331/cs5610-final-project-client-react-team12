@@ -161,7 +161,10 @@ class ProfilePage extends React.Component {
                 {this.props.currentUser &&
                 this.props.currentUser.type === "DELIVERER" &&
                 <div className="container">
-                    <label htmlFor="orders">Recent Purchases</label>
+
+                    <label htmlFor="orders">
+                        <h4>Orders to be Delivered: </h4>
+                    </label>
                     <div className="container">
 
                             {this.props.allOrders.map((ord)=>
@@ -181,7 +184,7 @@ class ProfilePage extends React.Component {
                 }
 
 
-                <Link to={"/"}>
+                <Link to={"/"} className="btn btn-warning btn-block">
                 <button className="btn btn-warning btn-block"
                         onClick={() => this.props.saveProfile(this.props.currentUser)}>
                     Save

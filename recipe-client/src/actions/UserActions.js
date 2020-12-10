@@ -26,10 +26,10 @@ const saveProfile = (newProfile, dispatch) =>
 
 const findAllUsers = (dispatch) =>
     UserService.findAllUsers()
-        .then(users => {console.log(users)
-            dispatch({type: "FIND_ALL_USERS",
-                users
+        .then(users => dispatch({
+            type: "FIND_ALL_USERS",
+            users
 
-        })})
+        }))
 
 export default {profile, saveProfile, updateProfile, findAllUsers}

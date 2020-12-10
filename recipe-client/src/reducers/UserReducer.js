@@ -1,6 +1,6 @@
 const initialState = {
     users: [],
-    currentUser: null,
+    currentUser: null
 
 }
 
