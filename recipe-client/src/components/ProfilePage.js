@@ -22,6 +22,7 @@ class ProfilePage extends React.Component {
                 this.props.findAllOrders()
             }
         }
+        {this.props.findAllUsers()}
     }
 
 
@@ -184,6 +185,50 @@ class ProfilePage extends React.Component {
                 }
 
 
+                {this.props.currentUser &&
+                this.props.currentUser.type === "ADMIN" &&
+                <div className="container">
+
+                    <label htmlFor="orders">
+                        <h4>Recent Orders </h4>
+                    </label>
+                    <div className="container">
+
+                        {/*{this.props.allOrders.map((ord)=>*/}
+                            <p>
+
+                                {this.props.allOrders[this.props.allOrders.length-1].recipeUri != null ?
+                                <Link to={`/search/q=identify/${this.props.allOrders[this.props.allOrders.length-1].recipeUri}`}>
+                                    {/*<li>*/}
+                                    {/*    {ord.name}*/}
+                                    {/*</li>*/}
+                                    <p>{this.props.allOrders[this.props.allOrders.length-1].name}</p>
+                                </Link> : <p>{this.props.allOrders[this.props.allOrders.length-1].name}</p>
+                                }
+                            </p>
+                        {/*)}*/}
+
+                    </div>
+
+                    <label htmlFor="orders">
+                        <h4>Recent Users </h4>
+                    </label>
+                    <div className="container">
+
+
+                            {this.props.users != null &&
+                            // this.props.users.map(use =>
+                            // <li>{use.username}</li>)
+                            <Link to={`/profile/${this.props.users[this.props.users.length-1].userId}`}>
+                                <p>{this.props.users[this.props.users.length-1].username}</p>
+                            </Link>
+                            }
+
+                    </div>
+                </div>
+                }
+
+
                 <Link to={"/"} className="btn btn-warning btn-block">
                 <button className="btn btn-warning btn-block"
                         onClick={() => this.props.saveProfile(this.props.currentUser)}>
@@ -210,6 +255,8 @@ const stateToPropertyMapper = (state) => ({
     order: state.orderReducer.order,
     orders: state.orderReducer.orders,
     currentUser: state.UserReducer.currentUser,
+    user: state.UserReducer.user,
+    users: state.UserReducer.users,
     allOrders: state.orderReducer.allOrders,
 
 
@@ -220,7 +267,8 @@ const propertyToDispatchMapper = (dispatch) => ({
     updateProfile: (newProfile) => UserActions.updateProfile(newProfile, dispatch),
     saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch),
     findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId),
-    findAllOrders: () => OrderActions.findAllOrders(dispatch)
+    findAllOrders: () => OrderActions.findAllOrders(dispatch),
+    findAllUsers: () => UserActions.findAllUsers(dispatch)
 
 })
 
