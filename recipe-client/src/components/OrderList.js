@@ -5,26 +5,32 @@ import orderService from "../services/OrderService";
 import UserActions from "../actions/UserActions";
 import {Link} from "react-router-dom";
 import OrderDetails from "./OrderDetails";
+import OrderActions from "../actions/OrderActions";
 
 const OrderList = (
     {orders = [],
         currentUser, customerId, delivererId, deliverers = [], userId,
         deleteOrder,
-        findDeliverersForOrder, assignDelivererToOrder
+        findDeliverersForOrder, assignDelivererToOrder,
+        allOrders,
     }) =>
     <div>
 
 
-        {/*</h5>*/}
-        {/*<h1>OrderList</h1>*/}
-        <Link to={"/home"}>
-            <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
+            <Link to={"/home"}>
+                <i className="fa fa-home fa-2x btn pull-right btn-sm"></i>
+            </Link>
+        {currentUser &&
+        currentUser.type === "CUSTOMER" &&
+        <h1>Order History</h1>}
+        {currentUser &&
+        currentUser.type === "DELIVERER" &&
+        <h1>Order to Deliver</h1>}
 
+            <h6>Scroll down to see your latest order</h6>
 
-        </Link>
-        <h1>Order History</h1>
-        <h6>Scroll down to see your latest order</h6>
-
+        {currentUser &&
+        currentUser.type === "CUSTOMER" &&
         <ol>
             {
                 orders.map(order =>
@@ -34,23 +40,23 @@ const OrderList = (
 
                             <div className="card card-img-top">
                                 <li>
-                                <i className="fa fa-times fa-2x btn float-right"
-                                   onClick={()=>deleteOrder(order.orderId)}></i>
-                                <img className="img-thumbnail"
-                                     height="400px"
-                                     width="auto"
-                                     src={order.image}/>
-                                {/*{order.customerId}*/}
+                                    <i className="fa fa-times fa-2x btn float-right"
+                                       onClick={() => deleteOrder(order.orderId)}></i>
+                                    <img className="img-thumbnail"
+                                         height="400px"
+                                         width="auto"
+                                         src={order.image}/>
+                                    {/*{order.customerId}*/}
 
-                                <div className="card-body row">
+                                    <div className="card-body row">
 
-                                    <h6>{order.items}</h6>
-                                </div>
-                                {order.delivererId &&
-                                <span>
+                                        <h6>{order.items}</h6>
+                                    </div>
+                                    {order.delivererId &&
+                                    <span>
                                     <h3>Your assigned deliverer for this order: DelivererId {order.delivererId}</h3>
                                 </span>
-                                }
+                                    }
                                 </li>
 
                             </div>
@@ -59,7 +65,7 @@ const OrderList = (
 
 
                         <div className="col-4">
-                            <Link to={{pathname:"/cart"}}>
+                            <Link to={{pathname: "/cart"}}>
                                 {console.log(customerId)}
                                 <button className="btn btn-block btn-outline-info"
                                         onClick={() => findDeliverersForOrder(customerId)}>
@@ -74,7 +80,7 @@ const OrderList = (
                                 {deliverers.map(deliverer =>
                                     <li>
                                         <ul className="list-group">
-                                            {console.log("Deliverer: ",deliverer)}
+                                            {console.log("Deliverer: ", deliverer)}
                                             {console.log("Order before assignment: ", order)}
 
                                             <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
@@ -99,12 +105,54 @@ const OrderList = (
 
                         </div>
                     </div>
-
-
                 )
             }
 
         </ol>
+        }
+
+
+        {currentUser &&
+        currentUser.type === "DELIVERER" &&
+        <ul>
+            {
+                allOrders.map(order =>
+
+                    <div className="row">
+                        <div className="col-8">
+
+                            <div className="card card-img-top">
+                                {currentUser.userId === order.delivererId &&
+                                <li>
+                                    {/*<i className="fa fa-times fa-2x btn float-right"*/}
+                                    {/*   onClick={() => deleteOrder(order.orderId)}></i>*/}
+                                    <img className="img-thumbnail"
+                                         height="400px"
+                                         width="auto"
+                                         src={order.image}/>
+                                    {/*{order.customerId}*/}
+
+                                    <div className="card-body row">
+
+                                        <h6>{order.items}</h6>
+                                    </div>
+
+                                </li>
+                                }
+
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                )
+            }
+
+        </ul>
+        }
 
     </div>
 
@@ -120,6 +168,7 @@ const stateToPropertyMapper = (state) => ({
 
 const dispatchToPropertyMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
+
 
     deleteOrder: (orderId) =>
         orderService.deleteOrder(orderId)
@@ -147,25 +196,6 @@ const dispatchToPropertyMapper = (dispatch) => ({
                 order: newOrder
             }))
 
-
-    // assignDelivererToOrder: (orderId, newOrder) =>
-    //     orderService.updateOrder(orderId, newOrder)
-    //         .then(status => dispatch({
-    //             type: "UPDATE_ORDER",
-    //             orderId: orderId,
-    //             order: newOrder
-    //         }))
-
-
-
-
-
-    // createOrder: (userName, password, type) =>
-    //     orderService.createOrder()
-    //         .then(actualOrder => dispatch({
-    //             type: "CREATE_ORDER",
-    //             order: actualOrder
-    //         }))
 })
 
 export default connect

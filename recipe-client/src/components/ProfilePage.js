@@ -148,7 +148,8 @@ class ProfilePage extends React.Component {
                         this.props.orders.map((order =>
                                 <div>
                                     {order.customerId === this.props.currentUser.userId &&
-                                    <Link to={`/search/q=identify/${order.recipeUri}`}>
+                                    // <Link to={`/search/q=identify/${order.recipeUri}`}>
+                                    <Link to="/cart">
                                         <li>{order.name}</li>
                                     </Link>
 
@@ -171,7 +172,8 @@ class ProfilePage extends React.Component {
                             {this.props.allOrders.map((ord)=>
                                 <ul>
                                     {this.props.currentUser.userId === ord.delivererId &&
-                                    <Link to={`/search/q=identify/${ord.recipeUri}`}>
+                                    // <Link to={`/search/q=identify/${ord.recipeUri}`}>
+                                    <Link to="/cart">
                                     <li>
                                         {ord.name}
                                     </li>

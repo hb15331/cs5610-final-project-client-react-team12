@@ -6,6 +6,7 @@
  import {findOrderForUser} from "../services/OrderService"
  import UserActions from "../actions/UserActions";
  import edmamApiService from "../services/edmamApiService";
+ import OrderActions from "../actions/OrderActions";
 
 
  class orderListContainer extends React.Component {
@@ -27,6 +28,10 @@
              }
              this.props.findOrderForUser(customerId)
          }
+         {
+             this.props.findAllOrders()
+         }
+
 
          const orderId = this.props.match.params.orderId
 
@@ -71,7 +76,9 @@
 
              <div class="container-fluid">
                  <OrderList orders={this.state.orders}
-                     customerId={this.state.userId}/>
+                            customerId={this.state.userId}
+                            allOrders={this.props.allOrders}
+                            currentUser={this.props.currentUser}/>
              </div>
 
          )
@@ -84,11 +91,13 @@
      // course: state.courseReducer.course
      order: state.orderReducer.order,
      orders: state.orderReducer.orders,     // new addition
+     allOrders: state.orderReducer.allOrders,
      currentUser: state.UserReducer.currentUser
  })
 
  const propertyToDispatchMapper = (dispatch) => ({
      profile: () => UserActions.profile(dispatch),
+     findAllOrders: () => OrderActions.findAllOrders(dispatch),
      // findAllOrders: () =>findAllOrders()
      //         .then(orders => dispatch({
      //             // type: "FIND_ALL_WIDGETS",
