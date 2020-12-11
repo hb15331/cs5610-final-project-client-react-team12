@@ -11,6 +11,7 @@ import SearchRecipe from "./SearchRecipe";
 import LoginPage from "./LoginPage";
 import orderListContainer from "../containers/OrderListContainer"
 import PublicProfilePage from "./PublicProfilePage";
+
 export class SearchManager extends React.Component {
 
     render() {
@@ -40,6 +41,7 @@ export class SearchManager extends React.Component {
                             <Route exact path="/cart" component={orderListContainer}/>
                             <Route exact path="/cart/orderDetails" component={OrderDetails}/>
                             {/*<Route exact path="/cart" component={orderList}/>*/}
+
 
 
                         </div>

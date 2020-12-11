@@ -23,8 +23,19 @@ class ProfilePage extends React.Component {
             }
         }
         {this.props.findAllUsers()}
+
     }
 
+    // handleUser =() =>
+    // {this.props.users != null &&
+    // this.props.users.map((user)=>
+    //
+    //     <li>
+    //         {user.userId === this.props.currentUser.userId &&
+    //         this.props.deleteUser(user.userId)}
+    //
+    //     </li>
+    // )}
 
     logout = () =>
         UserService.logout()
@@ -246,6 +257,12 @@ class ProfilePage extends React.Component {
                     Logout
                 </button>
 
+                {/*<Link to={"/profile"} className="btn btn-danger btn-block">*/}
+                <button className="btn btn-danger btn-block" onClick={()=>{this.props.deleteUser(this.props.currentUser.userId); this.logout()}}>
+                    Delete Account
+                </button>
+                {/*</Link>*/}
+
             </div>
 
         )
@@ -270,7 +287,14 @@ const propertyToDispatchMapper = (dispatch) => ({
     saveProfile: (newProfile) => UserActions.saveProfile(newProfile, dispatch),
     findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId),
     findAllOrders: () => OrderActions.findAllOrders(dispatch),
-    findAllUsers: () => UserActions.findAllUsers(dispatch)
+    findAllUsers: () => UserActions.findAllUsers(dispatch),
+    // deleteUser: (userId) => UserActions.deleteUser(userId,dispatch)
+    deleteUser: (userId) =>
+        UserService.deleteUser(userId)
+            .then(status => dispatch({
+                type: "DELETE_USER",
+                userId
+            }))
 
 })
 

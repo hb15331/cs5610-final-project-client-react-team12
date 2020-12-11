@@ -1,4 +1,5 @@
 import UserService from "../services/UserService";
+import orderService from "../services/OrderService";
 
 const profile = (dispatch) =>
     UserService.profile()
@@ -32,4 +33,11 @@ const findAllUsers = (dispatch) =>
 
         }))
 
-export default {profile, saveProfile, updateProfile, findAllUsers}
+const deleteUser = (userId, dispatch) =>
+    UserService.deleteUser(userId)
+        .then(status => dispatch({
+            type: "DELETE_USER",
+            userId
+        }))
+
+export default {profile, saveProfile, updateProfile, findAllUsers, deleteUser}

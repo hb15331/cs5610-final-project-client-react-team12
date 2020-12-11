@@ -65,7 +65,12 @@ const findPublicProfileById = (userId) =>
     fetch(`${API_BASE_URL}/api/profiles/${userId}`)
         .then(response => response.json())
 
+const deleteUser = (userId) =>
+    fetch(`${API_BASE_URL}/api/profiles/${userId}`, {
+        method: "DELETE"
+    })
+
 
 export default {
-    register, profile, logout, login, updateProfile, findAllUsers, findPublicProfileById
+    register, profile, logout, login, updateProfile, findAllUsers, findPublicProfileById,deleteUser
 }
