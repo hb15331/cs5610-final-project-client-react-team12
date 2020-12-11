@@ -12,7 +12,7 @@ const OrderList = (
         currentUser, customerId, delivererId, deliverers = [], userId,
         deleteOrder,
         findDeliverersForOrder, assignDelivererToOrder,
-        allOrders,
+        allOrders, updateOrder, delivered
     }) =>
     <div>
 
@@ -115,35 +115,51 @@ const OrderList = (
         {currentUser &&
         currentUser.type === "DELIVERER" &&
         <ul>
-            {
+            { allOrders != null &&
                 allOrders.map(order =>
 
                     <div className="row">
                         <div className="col-8">
-
+                            {currentUser.userId === order.delivererId &&
                             <div className="card card-img-top">
-                                {currentUser.userId === order.delivererId &&
+
                                 <li>
-                                    {/*<i className="fa fa-times fa-2x btn float-right"*/}
-                                    {/*   onClick={() => deleteOrder(order.orderId)}></i>*/}
+
                                     <img className="img-thumbnail"
                                          height="400px"
                                          width="auto"
                                          src={order.image}/>
-                                    {/*{order.customerId}*/}
 
                                     <div className="card-body row">
 
                                         <h6>{order.items}</h6>
+                                        <p>{order.orderId}</p>
+                                        <p>{order.delivererId}</p>
+                                        <p>{order.comments}</p>
+
+
+
                                     </div>
 
+
                                 </li>
-                                }
+                                <div>
+
+                                <i className="fa fa-truck"
+                                   onClick={() => updateOrder(order.orderId, order.delivererId, {
+                                       ...order,
+                                       delivererId: order.delivererId,
+                                       orderId: order.orderId,
+                                       comments: "delivered"
+                                   })}
+                                >Delivered</i>
+
+                                </div>
 
                             </div>
 
 
-
+                            }
 
 
                         </div>
@@ -162,13 +178,25 @@ const stateToPropertyMapper = (state) => ({
     orders: state.orderReducer.orders,
     customerId: state.orderReducer.customerId,
     deliverers: state.orderReducer.deliverers,
-    currentUser: state.UserReducer.currentUser
+    currentUser: state.UserReducer.currentUser,
+    allOrders: state.orderReducer.allOrders
 })
 
 
 const dispatchToPropertyMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
+    updateOrder: (orderId,delivererId,newOrder) =>
 
+        orderService.updateOrder(orderId, delivererId,{
+            ...newOrder, delivered: true
+        })
+            .then(status => dispatch({
+                type: "UPDATE_ORDER",
+                orderId: orderId,
+                delivererId: delivererId,
+                order: newOrder
+            }))
+    ,
 
     deleteOrder: (orderId) =>
         orderService.deleteOrder(orderId)
