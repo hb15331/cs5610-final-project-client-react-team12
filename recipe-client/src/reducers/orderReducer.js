@@ -59,6 +59,28 @@ const orderReducer = (state=initialState, action) => {
                 delivererId: action.order.delivererId,
                 //orderPlaced: action.order.orderPlaced
             }
+
+        case "UPDATE_ORDER_AS_COMPLETE":
+            return {
+                allOrders: state.allOrders.map(
+                    order => order.orderId === action.order.orderId ?
+                        action.order : order),
+                orderId: action.orderId,
+                customerId: action.order.customerId,
+                delivererId: action.order.delivererId,
+                delivered: true
+            }
+
+        // case "UPDATE_ORDER_AS_COMPLETE":
+        //     return {
+        //         orders: state.orders.map(
+        //             order => order.orderId === action.order.orderId ?
+        //                 action.order : order),
+        //         orderId: action.orderId,
+        //         customerId: action.order.customerId,
+        //         delivererId: action.order.delivererId,
+        //         delivered: true
+        //     }
         default:
             return state
     }

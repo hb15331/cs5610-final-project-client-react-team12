@@ -47,6 +47,14 @@ const updateOrder = (orderId, delivererId, newOrder) =>
         }
     }).then(response => response.json())
 
+const updateOrderAsComplete = (orderId, delivererId, newOrder) =>
+    fetch(`${ORDER_URL}/${orderId}`, {
+        method: "PUT",
+        body: JSON.stringify(newOrder),
+        headers: {
+            "content-type": "application/json"
+        }
+    }).then(response => response.json())
 
 const findDeliverersForOrder = (userId) =>
     fetch(`${USER_URL}/${userId}/deliverers`)
@@ -54,6 +62,7 @@ const findDeliverersForOrder = (userId) =>
 
 export default {
 
-    createOrder, findOrderForUser, deleteOrder, findAllOrders,findDeliverersForOrder, updateOrder, findOrderById
+    createOrder, findOrderForUser, deleteOrder, findAllOrders,findDeliverersForOrder, updateOrder, findOrderById,
+    updateOrderAsComplete
 
 }
