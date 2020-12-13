@@ -114,7 +114,7 @@ class HomePage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="container-fluid">
                 {this.props.currentUser &&
                 <nav class="navbar navbar-light">
 
@@ -123,11 +123,16 @@ class HomePage extends React.Component {
                             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
-
                     <a className="navbar-brand" href="#">
-                        <h1>Foodify</h1>
+
+
+                        <span>
+                            <h1>Foodify</h1>
+                            <h5>Bringing meals to your doors</h5></span>
+
                     </a>
 
+                    {/*<h6>Bringing meals to your doors</h6>*/}
 
                     <h5>Welcome {this.props.currentUser ? this.props.currentUser.username : "anonymous"}</h5>
 
@@ -187,12 +192,14 @@ class HomePage extends React.Component {
                     </button>
 
                     <a className="navbar-brand" href="#">
-                        <h1>Foodify</h1>
+                        <span>
+                            <h1>Foodify</h1>
+                            <h5>Bringing meals to your doors</h5></span>
                     </a>
 
 
-                    <h5>Current user:
-                        {this.props.currentUser ? this.props.currentUser.username : "anonymous"}
+                    <h5>WELCOME
+                        {this.props.currentUser ? this.props.currentUser.username : ""}
                     </h5>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
@@ -235,9 +242,13 @@ class HomePage extends React.Component {
 
 
 
+
+
+
                 {this.props.currentUser &&
                 this.props.currentUser.type === "CUSTOMER" &&
-
+                    <div>
+                <div class="container-fluid d-none d-md-block">
                     <div className="row">
                     <div className="col-6">
                     <h1>Recent Orders:</h1>
@@ -262,11 +273,11 @@ class HomePage extends React.Component {
                                         <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
 
                                             <h3>{rawRecipe.recipe.label}</h3>
-
+                                                <ul>
                                             <li className="container">
                                                 <img src={rawRecipe.recipe.image}/>
                                             </li>
-
+                                                </ul>
                                         </Link>
                                     </div>
                                 )
@@ -284,26 +295,111 @@ class HomePage extends React.Component {
                     </div>
 
                     </div>
+                </div>
 
+
+
+                    <div className="container-fluid d-block d-md-none">
+                    <div className="row">
+                    <div className="col-12">
+                    <h1>Recent Orders:</h1>
+
+
+                    {/*diplay most recent order for the user*/}
+                    {this.props.orders.map((order =>
+                        <li>{order.items}</li>))}
+                        <SearchRecipe props={this.props}
+                                      match={this.props.match}
+                                      history={this.props.history}/>
+                    {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
+
+                    <h1>Today's pick (small)</h1>
+
+                    {
+                        this.state.randomRecipes.map(
+                            (rawRecipe, index) => {
+                                // extract uri from data and use it as the unique identifier of recipe
+                                const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+
+                                return (
+                                    <div key={index}>
+                                        <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
+
+                                            <h3>{rawRecipe.recipe.label}</h3>
+                                                <ul>
+                                            <li className="container">
+                                                <img src={rawRecipe.recipe.image}/>
+                                            </li>
+                                                </ul>
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                        )
+
+                    }
+
+                    {/*</div>*/}
+                    {/*<div className="col-6">*/}
+
+
+                    </div>
+
+                    </div>
+                    </div>
+                    </div>
                 }
+
+
+
+
+
+
+
 
                 {this.props.currentUser &&
                 this.props.currentUser.type === "DELIVERER" &&
-                //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+                <div>
+                    <div className="container-fluid d-none d-md-block">
                 <div className="row">
                     <div className="col-6">
                         <h1>Recent Orders For Delivery:</h1>
-                        <div className="container">
+                        <div className="container-fluid">
                             {this.props.allOrders.map((ord)=>
-                                <ol>
+                                <div className="container-fluid">
                                     {this.props.currentUser.userId === ord.delivererId &&
-                                    <div>
+                                    <li>
                                         {ord.name}: {ord.items}
-                                    </div>
+                                    </li>
                                     }
-                                </ol>
+                                 </div>
                             )}
                         </div>
+                        <h1>Today's pick</h1>
+
+                        {
+                            this.state.randomRecipes.map(
+                                (rawRecipe, index) => {
+                                    // extract uri from data and use it as the unique identifier of recipe
+                                    const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+
+                                    return (
+                                        <div key={index}>
+                                            <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
+
+                                                <h3>{rawRecipe.recipe.label}</h3>
+                                                <ul>
+                                                    <li className="container">
+                                                        <img src={rawRecipe.recipe.image}/>
+                                                    </li>
+                                                </ul>
+                                            </Link>
+                                        </div>
+                                    )
+                                }
+                            )
+
+                        }
 
                     </div>
                     <div className="col-6">
@@ -314,12 +410,67 @@ class HomePage extends React.Component {
                     </div>
 
                 </div>
+                    </div>
+
+
+                    <div className="container-fluid d-block d-md-none">
+                    <div className="row">
+                    <div className="col-12">
+                    <h1>Recent Orders For Delivery:</h1>
+                    <div className="container-fluid">
+                    {this.props.allOrders.map((ord)=>
+                        <div className="container-fluid">
+                            {this.props.currentUser.userId === ord.delivererId &&
+                            <li>
+                                {ord.name}: {ord.items}
+                            </li>
+                            }
+                        </div>
+                    )}
+                    </div>
+
+                    {/*</div>*/}
+                    {/*<div className="col-6">*/}
+                    <SearchRecipe props={this.props}
+                    match={this.props.match}
+                    history={this.props.history}/>
+                        <h1>Today's pick</h1>
+
+                        {
+                            this.state.randomRecipes.map(
+                                (rawRecipe, index) => {
+                                    // extract uri from data and use it as the unique identifier of recipe
+                                    const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+
+                                    return (
+                                        <div key={index}>
+                                            <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
+
+                                                <h3>{rawRecipe.recipe.label}</h3>
+                                                <ul>
+                                                    <li className="container">
+                                                        <img src={rawRecipe.recipe.image}/>
+                                                    </li>
+                                                </ul>
+                                            </Link>
+                                        </div>
+                                    )
+                                }
+                            )
+
+                        }
+                    </div>
+
+                    </div>
+                    </div>
+                </div>
 
                 }
 
 
                 {!this.props.currentUser &&
-
+                <div>
+                    <div className="container-fluid d-none d-md-block">
                 <div className="row">
                     <div className="col-6">
 
@@ -384,12 +535,87 @@ class HomePage extends React.Component {
 
                 </div>
 
+                    </div>
+
+
+                    <div className="container-fluid d-block d-md-none">
+                        <div className="row">
+                            <div className="col-12">
+
+
+
+
+
+                            {/*<div className="col-6">*/}
+
+                                <h1>Latest Recipe purchased:</h1>
+                                {/*<ul>*/}
+                                {this.props.allOrders.map((ord) =>
+                                    <div hidden>{this.state.latestOrd = ord.name}</div>
+                                )}
+                                {/*</ul>*/}
+                                {/*                        {this.setState({latestOrd:this.props.allOrders[this.props.allOrders.length-1].name})}*/}
+                                {/*                        <p>{this.state.latestOrd[this.state.latestOrd.length-1].name}</p>*/}
+                                <p>{this.state.latestOrd}</p>
+
+
+                                <SearchRecipe props={this.props}
+                                              match={this.props.match}
+                                              history={this.props.history}/>
+
+                                <h1>Today's pick</h1>
+
+
+                                {
+                                    this.state.randomRecipes.map(
+                                        (rawRecipe, index) => {
+                                            // extract uri from data and use it as the unique identifier of recipe
+                                            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+
+                                            return (
+                                                <div key={index}>
+
+                                                    {/*<Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>*/}
+
+                                                    {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
+                                                    <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
+
+
+                                                        <h3>{rawRecipe.recipe.label}</h3>
+
+                                                        <div className="container">
+                                                            <img
+                                                                className="img-thumbnail"
+                                                                height="400px"
+                                                                width="auto"
+                                                                src={rawRecipe.recipe.image}/>
+                                                        </div>
+
+                                                    </Link>
+                                                </div>
+                                            )
+                                        }
+                                    )
+
+                                }
+
+                                {/*</div>*/}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
                 }
 
 
                 {this.props.currentUser &&
                 this.props.currentUser.type === "ADMIN" &&
-                //TODO:Need to make sure to check which user...if deliverer...change to most recent delivery query
+                <div>
+                    <div className="container-fluid d-none d-md-block">
                 <div className="row">
                     <div className="col-6">
                         <h1>Most Recent User:</h1>
@@ -436,6 +662,63 @@ class HomePage extends React.Component {
                         <SearchRecipe props={this.props}
                                       match={this.props.match}
                                       history={this.props.history}/>
+                    </div>
+
+                </div>
+                    </div>
+
+
+
+                    <div className="container-fluid d-block d-md-none">
+                        <div className="row">
+                            <div className="col-12">
+                                <h1>Most Recent User:</h1>
+                                {this.props.users != null &&
+                                // this.props.users.map(use =>
+                                // <li>{use.username}</li>)
+                                <Link to={`/profile/${this.props.users[this.props.users.length-1].userId}`}>
+                                    <p>{this.props.users[this.props.users.length-1].username}</p>
+                                </Link>
+                                }
+                                <SearchRecipe props={this.props}
+                                              match={this.props.match}
+                                              history={this.props.history}/>
+
+                                {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
+
+                                <h1>Today's pick</h1>
+
+                                {
+                                    this.state.randomRecipes.map(
+                                        (rawRecipe, index) => {
+                                            // extract uri from data and use it as the unique identifier of recipe
+                                            const recipeUri = encodeURIComponent(rawRecipe.recipe.uri)
+
+                                            return (
+                                                <div key={index}>
+                                                    <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
+
+                                                        <h3>{rawRecipe.recipe.label}</h3>
+                                                        <ul>
+                                                            <li className="container">
+                                                                <img src={rawRecipe.recipe.image}/>
+                                                            </li>
+                                                        </ul>
+                                                    </Link>
+                                                </div>
+                                            )
+                                        }
+                                    )
+
+                                }
+
+                            {/*</div>*/}
+                            {/*<div className="col-6">*/}
+
+
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
