@@ -18,6 +18,10 @@ ul{
     list-style-type: none;
 }
 
+.centerImg{
+    text-align: center;
+}
+
 .fa-plus-square{
     color: green;
     padding-right: 10px;
@@ -31,3 +35,6 @@ ul{
     color:darkslategray;
 }
 
+.title{
+    padding-left: 100px;
+}

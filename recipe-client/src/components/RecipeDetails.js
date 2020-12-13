@@ -103,7 +103,7 @@ export class RecipeDetails extends React.Component {
         return (
 
             <div className="container">
-
+                <div>
                 <div>
 
                     <Link to={{pathname:"/cart",}}>
@@ -114,15 +114,31 @@ export class RecipeDetails extends React.Component {
 
                     </Link>
                 </div>
+
                 {/*<h5>Current user:*/}
                 {/*    {this.props.currentUser.userId ? this.props.currentUser.username : "anonymous"}*/}
                 {/*</h5>*/}
-                <div>
-                    <h1>{this.state.recipe.label}</h1>
+                {/*<div>*/}
+                    <div className="container-fluid d-none d-md-block">
+                         <p className="centerImg">
+                    <h1 className="title">{this.state.recipe.label}</h1>
+
                     <img src={this.state.recipe.image}/>
+                    </p>
+                        </div>
+                    <div className="container-fluid d-block d-md-none">
+                        <p className="centerImg">
+                            <h1 >{this.state.recipe.label}</h1>
 
+                            <img src={this.state.recipe.image}/>
+                        </p>
+                    </div>
+                </div>
                     {/*<p>{this.props.match.params.recipeUri}</p>*/}
-
+                    <div>
+                        <div className="container-fluid d-none d-md-block">
+                            <div className="row">
+                                <div className="col-6">
                     <h3>Number of Servings:</h3>
                     <p>{this.state.recipe.yield}</p>
                     <h3>Total Calories(kcal):</h3>
@@ -144,7 +160,10 @@ export class RecipeDetails extends React.Component {
                         </span>
                             )}
                     </ul>
-                    <ul>
+                                </div>
+                                <div className="col-6">
+                                    <ul>
+
                         <h2>Wish List</h2>
                         {
                             this.state.orders.map((ingredient) =>
@@ -190,33 +209,170 @@ export class RecipeDetails extends React.Component {
                         )}
 
                     </ul>
+                                    {this.props.currentUser && this.props.currentUser.type === "CUSTOMER" &&
+                                    <Link to="/cart">
+                                        <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
+                                                onClick={() => this.props.createOrder(this.props.currentUser.username,
+                                                    this.state.recipe.label, this.state.orders.toString(), this.props.currentUser.userId,
+                                                    this.state.recipe.image, this.props.match.params.recipeUri)}>
+                                            Add to cart
+                                        </button>
+                                    </Link>
 
+                                    }
+                                    {this.props.currentUser && this.props.currentUser.type === "DELIVERER" &&
+                                    <Link to="/login">
+                                        <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
+                                                onClick={() => alert("Please sign in as a Customer. Thank you!")}>
+                                            Add to cart
+                                        </button>
+                                    </Link>
+                                    }
+                                    {!this.props.currentUser &&
+                                    <Link to="/login">
+                                        <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
+                                                onClick={() => alert("Please register/log in to place an order!")}>
+                                            Add to cart
+                                        </button>
+                                    </Link>
+                                    }
+                                </div>
 
                     <div className="col-12">
-                    {this.props.currentUser && this.props.currentUser.type === "CUSTOMER" &&
-                        <Link to="/cart">
-                    <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
-                       onClick={() => this.props.createOrder(this.props.currentUser.username,
-                           this.state.recipe.label, this.state.orders.toString(), this.props.currentUser.userId,
-                           this.state.recipe.image, this.props.match.params.recipeUri)}>
-                        Add to cart
-                    </button>
-                        </Link>
+                    {/*{this.props.currentUser && this.props.currentUser.type === "CUSTOMER" &&*/}
+                    {/*    <Link to="/cart">*/}
+                    {/*<button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"*/}
+                    {/*   onClick={() => this.props.createOrder(this.props.currentUser.username,*/}
+                    {/*       this.state.recipe.label, this.state.orders.toString(), this.props.currentUser.userId,*/}
+                    {/*       this.state.recipe.image, this.props.match.params.recipeUri)}>*/}
+                    {/*    Add to cart*/}
+                    {/*</button>*/}
+                    {/*    </Link>*/}
 
-                    }
-                    {!this.props.currentUser &&
-                        <Link to="/login">
-                    <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
-                       onClick={() => alert("Please register/log in to place an order!")}>
-                        Add to cart
-                    </button>
-                        </Link>
-                    }
+                    {/*}*/}
+
+
+
                     </div>
-                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div className="container-fluid d-block d-md-none">
+                            <div className="row">
+                                <div className="col-12">
+                                    <h3>Number of Servings:</h3>
+                                    <p>{this.state.recipe.yield}</p>
+                                    <h3>Total Calories(kcal):</h3>
+                                    <p>{this.state.recipe.calories}</p>
+                                    <h3>Total Weight(g):</h3>
+                                    <p>{this.state.recipe.totalWeight}</p>
+
+                                    <h3>Ingredients:</h3>
+                                    <ul>
+                                        {
+                                            this.state.recipe.ingredients.map((ingredient) =>
+                                                    <span>
+                        <li>
+                            <i className="fa fa-plus-square fa-plus-square fa-lg"
+                               onClick={()=>this.addItems(ingredient.text)}></i>
+                            {ingredient.text}
+                        </li>
+
+                        </span>
+                                            )}
+                                    </ul>
+                                {/*</div>*/}
+                                {/*<div className="col-6">*/}
+                                    <ul>
+
+                                        <h2>Wish List</h2>
+                                        {
+                                            this.state.orders.map((ingredient) =>
+                                                    <span>
+                        <li>
+
+                            {ingredient}
+                        </li>
+
+                        </span>
+                                            )}
+                                    </ul>
+                                    <ul>
+                                        <Link to={`/details/purchases`}
+                                              onClick={this.showCustomers}>
+                                            <h5>Also purchased by:</h5>
+                                        </Link>
+
+                                        {
+                                            this.state.purchaseBy === true &&
+                                            this.props.allOrders.map((user) =>
+
+                                                <li>
+                                                    {(this.state.recipe.label === user.name) && (this.state.usersList.includes(user.username) === false) &&
+                                                    <div>
+
+                                                        {this.state.usersList.push(user.username)}
+                                                        {this.state.customIdList.push(user.customerId)}
+
+                                                    </div>
+                                                    }
+                                                </li>
+
+                                            )
+
+                                        }
+
+                                        {this.state.usersList.map((userL,index) =>
+                                            <Link to={`/profile/${this.state.customIdList[index]}`}>
+                                                <li>{userL}</li>
+                                            </Link>
+
+                                        )}
+
+                                    </ul>
+                                    {this.props.currentUser && this.props.currentUser.type === "CUSTOMER" &&
+                                    <Link to="/cart">
+                                        <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
+                                                onClick={() => this.props.createOrder(this.props.currentUser.username,
+                                                    this.state.recipe.label, this.state.orders.toString(), this.props.currentUser.userId,
+                                                    this.state.recipe.image, this.props.match.params.recipeUri)}>
+                                            Add to cart
+                                        </button>
+                                    </Link>
+
+                                    }
+                                </div>
+
+                                <div className="col-12">
+                                    {this.props.currentUser && this.props.currentUser.type === "DELIVERER" &&
+                                    <Link to="/login">
+                                        <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
+                                                onClick={() => alert("Please sign in as a Customer. Thank you!")}>
+                                            Add to cart
+                                        </button>
+                                    </Link>
+                                    }
+
+                                    {!this.props.currentUser &&
+                                    <Link to="/login">
+                                        <button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"
+                                                onClick={() => alert("Please register/log in to place an order!")}>
+                                            Add to cart
+                                        </button>
+                                    </Link>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                {/*</div>*/}
 
 
             </div>
+
 
         )
     }
