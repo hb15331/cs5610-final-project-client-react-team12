@@ -313,7 +313,7 @@ class HomePage extends React.Component {
                                       history={this.props.history}/>
                     {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
 
-                    <h1>Today's pick (small)</h1>
+                    <h1>Today's pick</h1>
 
                     {
                         this.state.randomRecipes.map(
