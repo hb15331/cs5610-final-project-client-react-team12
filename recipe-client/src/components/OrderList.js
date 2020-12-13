@@ -7,13 +7,12 @@ import {Link} from "react-router-dom";
 import OrderDetails from "./OrderDetails";
 import OrderActions from "../actions/OrderActions";
 
-let delivery = false;
 const OrderList = (
     {orders = [],
         currentUser, customerId, delivererId, deliverers = [], userId, orderStatus,
-        deleteOrder, comment,
+        deleteOrder,
         findDeliverersForOrder, assignDelivererToOrder, markOrderCompleted,
-        allOrders = [], ordered= [], updateDelivery
+        allOrders = [], updateOrder, delivered
     }) =>
     <div>
 
@@ -122,20 +121,18 @@ const OrderList = (
         </ol>
         }
 
-
+        {console.log("I am there", allOrders)}
 
 
         {currentUser &&
         currentUser.type === "DELIVERER" &&
         <ul>
-            {console.log("I am there", allOrders)}
             { allOrders !== undefined &&
             allOrders.map(order =>
 
                 <div className="row">
                     <div className="col-8">
                         {currentUser.userId === order.delivererId &&
-
                         <div className="card card-img-top">
 
                             <li>
@@ -155,26 +152,45 @@ const OrderList = (
                                     <p>Order status: Pending</p>
                                     }
                                     {order.delivered &&
-                                        <div>
-
                                     <p>Order status: Delivered</p>
-                                        </div>
                                     }
 
+                                    {/*<Link to="/cart">*/}
+                                    {/*    <i className="fa fa-truck btn" aria-hidden="true"*/}
+                                    {/*       onClick={() => alert("Order delivered!")}>*/}
+                                    {/*        Mark as delivered*/}
+                                    {/*    </i>*/}
+                                    {/*</Link>*/}
 
+                                    {/*{!order.delivered &&*/}
                                     <Link to="/cart">
                                         <i className="fa fa-truck btn btn-outline-success" aria-hidden="true"
-                                           onClick={() => {markOrderCompleted(order.delivererId, order); updateDelivery()}}
-                                        >
+                                           onClick={() => markOrderCompleted(order, order.delivererId)}>
                                             Mark as delivered
+                                            {console.log("Order delivered:", order)}
                                         </i>
                                     </Link>
+                                    {/*}*/}
 
                                 </div>
 
 
                             </li>
+                            {/*<div>*/}
 
+                            {/*    <Link to="/cart">*/}
+                            {/*<i className="fa fa-truck btn" aria-hidden="true"*/}
+                            {/*   onClick={() => markOrderCompleted(order.orderId, order.delivererId, {*/}
+                            {/*       ...order,*/}
+                            {/*       delivererId: order.delivererId,*/}
+                            {/*       orderId: order.orderId,*/}
+                            {/*       orderStatus: "DELIVERED"*/}
+                            {/*   })}>*/}
+                            {/*    Mark as delivered*/}
+                            {/*</i>*/}
+                            {/*    </Link>*/}
+
+                            {/*</div>*/}
 
                         </div>
 
@@ -206,8 +222,8 @@ const stateToPropertyMapper = (state) => ({
 
 const dispatchToPropertyMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
-    updateDelivery:()=>{delivery = true},
-    
+
+
     // updateOrder: (orderId,delivererId,newOrder) =>
 
     // orderService.updateOrder(orderId, delivererId,{
@@ -246,16 +262,16 @@ const dispatchToPropertyMapper = (dispatch) => ({
             })).then(newOrder => console.log("New order", newOrder)),
 
 
-    markOrderCompleted: (delivererId,order) =>
-     orderService.updateOrderAsComplete(order.orderId, delivererId, {
-            ...order, delivered: true, comments:"delivered"
+    markOrderCompleted: (order,delivererId) =>
+        orderService.updateOrderAsComplete(order.orderId, delivererId, {
+            ...order, delivered: true
         })
             .then(status => dispatch({
                 type: "UPDATE_ORDER_AS_COMPLETE",
                 orderId: order.orderId,
                 delivererId: delivererId,
-                order: {...order, delivered: true, comments:"delivered"}
-            })).then(order => console.log("New order", order)),
+                order: {...order, delivered: true}
+            }))
 
 
 
