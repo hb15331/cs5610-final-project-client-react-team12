@@ -51,17 +51,13 @@ export class RecipeDetails extends React.Component {
             })
         }
 
-        //const recipeUri = this.props.match.params.recipeUri
+
         const queryUrl = `${RECIPE_URL}?r=${recipeUri}&app_id=${APP_ID}&app_key=${APP_KEY}`
-        // if(this.props.currentUser != null){
-        //     const customerId = this.props.currentUser.userId
-        //     {this.props.findOrderForUser(customerId)}
-        // }
+
         if(this.props.currentUser != null){
             {this.props.findAllOrders()}
         }
-        // findRecipeById
-        //
+
         edmamApiService.findRecipesBySearchKeyword(queryUrl)
             .then(recipe => this.setState(preState => ({
                 ...preState, recipe: recipe[0]
@@ -88,8 +84,7 @@ export class RecipeDetails extends React.Component {
      }
 
     addItems = (item) => {
-        // itemOrd.push(item)
-        // this.setState({orders: itemOrd})
+
         let itemOrd = [];
         itemOrd = this.state.orders.concat(item);
         this.setState({orders: itemOrd})
@@ -115,10 +110,7 @@ export class RecipeDetails extends React.Component {
                     </Link>
                 </div>
 
-                {/*<h5>Current user:*/}
-                {/*    {this.props.currentUser.userId ? this.props.currentUser.username : "anonymous"}*/}
-                {/*</h5>*/}
-                {/*<div>*/}
+
                     <div className="container-fluid d-none d-md-block">
                          <p className="centerImg">
                     <h1 className="title">{this.state.recipe.label}</h1>
@@ -134,7 +126,7 @@ export class RecipeDetails extends React.Component {
                         </p>
                     </div>
                 </div>
-                    {/*<p>{this.props.match.params.recipeUri}</p>*/}
+
                     <div>
                         <div className="container-fluid d-none d-md-block">
                             <div className="row">
@@ -239,17 +231,6 @@ export class RecipeDetails extends React.Component {
                                 </div>
 
                     <div className="col-12">
-                    {/*{this.props.currentUser && this.props.currentUser.type === "CUSTOMER" &&*/}
-                    {/*    <Link to="/cart">*/}
-                    {/*<button className="fa fa-cart-plus fa-2x btn-success" aria-hidden="true"*/}
-                    {/*   onClick={() => this.props.createOrder(this.props.currentUser.username,*/}
-                    {/*       this.state.recipe.label, this.state.orders.toString(), this.props.currentUser.userId,*/}
-                    {/*       this.state.recipe.image, this.props.match.params.recipeUri)}>*/}
-                    {/*    Add to cart*/}
-                    {/*</button>*/}
-                    {/*    </Link>*/}
-
-                    {/*}*/}
 
 
 
@@ -283,8 +264,7 @@ export class RecipeDetails extends React.Component {
                         </span>
                                             )}
                                     </ul>
-                                {/*</div>*/}
-                                {/*<div className="col-6">*/}
+
                                     <ul>
 
                                         <h2>Wish List</h2>

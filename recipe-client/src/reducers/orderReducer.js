@@ -71,16 +71,7 @@ const orderReducer = (state=initialState, action) => {
                 delivered: true
             }
 
-        // case "UPDATE_ORDER_AS_COMPLETE":
-        //     return {
-        //         orders: state.orders.map(
-        //             order => order.orderId === action.order.orderId ?
-        //                 action.order : order),
-        //         orderId: action.orderId,
-        //         customerId: action.order.customerId,
-        //         delivererId: action.order.delivererId,
-        //         delivered: true
-        //     }
+
         default:
             return state
     }

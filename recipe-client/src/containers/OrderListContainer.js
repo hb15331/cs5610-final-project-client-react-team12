@@ -34,26 +34,11 @@ class orderListContainer extends React.Component {
         }
         {
             this.props.findAllOrders()
-            // .then(allOrders => this.setState({
-            //     allOrders: allOrders
-            // }))
-        }
 
+        }
 
         const orderId = this.props.match.params.orderId
 
-
-        // if(customerId){
-        //     this.props.findOrderForUser(customerId)
-        // }
-        // if(12){
-        //     this.props.findOrderForUser(customerId)
-        // }
-        // this.props.findAllOrders()
-
-        // this.setState({orders: this.props.location.state.orders})
-        // this.setState({label:this.props.location.state.label})
-        // console.log("hello:"+this.props.location.state.orders)
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
 
@@ -71,22 +56,12 @@ class orderListContainer extends React.Component {
 
                 if(this.props.currentUser.type === "DELIVERER"){
                     this.props.findAllOrders()
-                    // .then(allOrders => this.setState({
-                    //     allOrders: allOrders
-                    // }))
 
                 }
 
             }
         }
 
-
-        // const customerId = this.props.currentUser.userId
-        //    const orderId = this.props.match.params.orderId
-        // // if(customerId !== prevProps.currentUser) {
-        // //     this.props.findOrderForUser(customerId)
-        // // }
-        //     this.props.findOrderForUser(customerId)
     }
     render() {
 
@@ -110,7 +85,7 @@ class orderListContainer extends React.Component {
 }
 
 const stateToPropertyMapper = (state) => ({
-    // course: state.courseReducer.course
+
     order: state.orderReducer.order,
     orders: state.orderReducer.orders,     // new addition
     allOrders: state.orderReducer.allOrders,
@@ -118,15 +93,9 @@ const stateToPropertyMapper = (state) => ({
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
+
     profile: () => UserActions.profile(dispatch),
 
-    // findAllOrders: () => OrderActions.findAllOrders(dispatch),
-    // findAllOrders: () =>findAllOrders()
-    //         .then(orders => dispatch({
-    //             // type: "FIND_ALL_WIDGETS",
-    //             type: "FIND_ALL_ORDERS",
-    //             orders
-    //         })),
 
     findAllOrders: () => orderService.findAllOrders()
         .then(allOrders => dispatch({

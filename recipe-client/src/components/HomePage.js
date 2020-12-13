@@ -23,13 +23,9 @@ class HomePage extends React.Component {
     state = {
 
         imageUrl: "https://image.shutterstock.com/image-photo/healthy-food-clean-eating-selection-600w-722718097.jpg",
-        // cuisineTypes: ["American", "Asian", "British", "Caribbean", "Central Europe", "Chinese", "Eastern Europe",
-        //     "French", "Indian", "Italian", "Japanese", "Kosher", "Mediterranean", "Mexican", "Middle Eastern", "Nordic",
-        //     "South American", "South East Asian"],
         ingredients: ["chicken", "pork", "tomatoes", "cheese", "flour", "milk", "potato", "onion", "avocado", "beans",
         "pasta", "pepper", "nuts", "beef", "vegetables", "bread", "egg", "fish"],
         selectedIngredient: "",
-        recipeOfTheDay: "",
         rawRecipes: [],
         recipeUri: "",
         randomRecipes: [],
@@ -70,7 +66,6 @@ class HomePage extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("State after refresh of homePage: ", this.state)
 
     }
 
@@ -126,13 +121,16 @@ class HomePage extends React.Component {
                     <a className="navbar-brand" href="#">
 
 
-                        <span>
-                            <h1>Foodify</h1>
-                            <h5>Bringing meals to your doors</h5></span>
+                        <span >
+                            <h1 className="homepage-header">
+                                Foodify
+                            </h1>
+                            <h6 className="font-italic">Bringing meals to your doors</h6>
+                            </span>
 
                     </a>
 
-                    {/*<h6>Bringing meals to your doors</h6>*/}
+
 
                     <h5>Welcome {this.props.currentUser ? this.props.currentUser.username : "anonymous"}</h5>
 
@@ -192,9 +190,12 @@ class HomePage extends React.Component {
                     </button>
 
                     <a className="navbar-brand" href="#">
-                        <span>
-                            <h1>Foodify</h1>
-                            <h5>Bringing meals to your doors</h5></span>
+                        <span >
+                            <h1 className="homepage-header">
+                                Foodify
+                            </h1>
+                            <h6 className="font-italic">Bringing meals to your doors</h6>
+                            </span>
                     </a>
 
 
@@ -258,7 +259,6 @@ class HomePage extends React.Component {
                         {this.props.orders.map((order =>
                         <li>{order.items}</li>))}
 
-                    {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
 
                     <h1>Today's pick</h1>
 
@@ -311,7 +311,7 @@ class HomePage extends React.Component {
                         <SearchRecipe props={this.props}
                                       match={this.props.match}
                                       history={this.props.history}/>
-                    {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
+
 
                     <h1>Today's pick</h1>
 
@@ -339,8 +339,6 @@ class HomePage extends React.Component {
 
                     }
 
-                    {/*</div>*/}
-                    {/*<div className="col-6">*/}
 
 
                     </div>
@@ -429,8 +427,7 @@ class HomePage extends React.Component {
                     )}
                     </div>
 
-                    {/*</div>*/}
-                    {/*<div className="col-6">*/}
+
                     <SearchRecipe props={this.props}
                     match={this.props.match}
                     history={this.props.history}/>
@@ -486,9 +483,6 @@ class HomePage extends React.Component {
                                     return (
                                         <div key={index}>
 
-                                            {/*<Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>*/}
-
-                                            {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
                                             <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
 
 
@@ -517,14 +511,11 @@ class HomePage extends React.Component {
                     <div className="col-6">
 
                         <h1>Latest Recipe purchased:</h1>
-{/*<ul>*/}
+
                         {this.props.allOrders.map((ord) =>
                        <div hidden>{this.state.latestOrd = ord.name}</div>
                         )}
-{/*</ul>*/}
-{/*                        {this.setState({latestOrd:this.props.allOrders[this.props.allOrders.length-1].name})}*/}
-{/*                        <p>{this.state.latestOrd[this.state.latestOrd.length-1].name}</p>*/}
-<p>{this.state.latestOrd}</p>
+                        <p>{this.state.latestOrd}</p>
 
 
                         <SearchRecipe props={this.props}
@@ -545,17 +536,12 @@ class HomePage extends React.Component {
 
 
 
-
-                            {/*<div className="col-6">*/}
-
                                 <h1>Latest Recipe purchased:</h1>
                                 {/*<ul>*/}
                                 {this.props.allOrders.map((ord) =>
                                     <div hidden>{this.state.latestOrd = ord.name}</div>
                                 )}
-                                {/*</ul>*/}
-                                {/*                        {this.setState({latestOrd:this.props.allOrders[this.props.allOrders.length-1].name})}*/}
-                                {/*                        <p>{this.state.latestOrd[this.state.latestOrd.length-1].name}</p>*/}
+
                                 <p>{this.state.latestOrd}</p>
 
 
@@ -575,9 +561,7 @@ class HomePage extends React.Component {
                                             return (
                                                 <div key={index}>
 
-                                                    {/*<Link to={`/recipeSearch/q=${this.state.selectedIngredient}/recipes/${recipeUri}`}>*/}
 
-                                                    {/*<Link to={`/recipes/${rawRecipe.recipe.label}`}>*/}
                                                     <Link to={`/search/q=${this.state.selectedIngredient}/${recipeUri}`}>
 
 
@@ -599,7 +583,6 @@ class HomePage extends React.Component {
 
                                 }
 
-                                {/*</div>*/}
 
                             </div>
 
@@ -620,15 +603,12 @@ class HomePage extends React.Component {
                     <div className="col-6">
                         <h1>Most Recent User:</h1>
                         {this.props.users != null &&
-                            // this.props.users.map(use =>
-                            // <li>{use.username}</li>)
+
                             <Link to={`/profile/${this.props.users[this.props.users.length-1].userId}`}>
                             <p>{this.props.users[this.props.users.length-1].username}</p>
                                 </Link>
                         }
 
-
-                        {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
 
                         <h1>Today's pick</h1>
 
@@ -684,7 +664,6 @@ class HomePage extends React.Component {
                                               match={this.props.match}
                                               history={this.props.history}/>
 
-                                {/*<p>{this.props.orders[this.props.orders.length - 1].items}</p>*/}
 
                                 <h1>Today's pick</h1>
 
@@ -712,8 +691,6 @@ class HomePage extends React.Component {
 
                                 }
 
-                            {/*</div>*/}
-                            {/*<div className="col-6">*/}
 
 
                             </div>

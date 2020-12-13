@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import orderService from "../services/OrderService";
 import UserActions from "../actions/UserActions";
 import {Link} from "react-router-dom";
-import OrderDetails from "./OrderDetails";
+
 import OrderActions from "../actions/OrderActions";
 
 const OrderList = (
@@ -83,7 +83,7 @@ const OrderList = (
 
                             <ol>
 
-                                {/*<h5>Please select a deliverer for your order</h5>*/}
+
                                 {deliverers.map(deliverer =>
                                     <li>
                                         <ul className="list-group">
@@ -97,7 +97,7 @@ const OrderList = (
                                                 orderId: order.orderId,
                                                 customerId: order.customerId,
                                                 delivered: false
-                                                //orderStatus: "ORDERED"
+
                                             })}
                                                 className="list-group-item btn">
                                                 <h4>Deliverer: {deliverer.username}</h4>
@@ -146,8 +146,8 @@ const OrderList = (
 
                                     <h6>{order.items}</h6>
                                     <br/>
-                                    <p>{order.orderId}</p>
-                                    <p>{order.delivererId}</p>
+                                    <p>Order Id: {order.orderId}</p>
+                                    <p>Deliverer Id: {order.delivererId}</p>
                                     {!order.delivered &&
                                     <p>Order status: Pending</p>
                                     }
@@ -155,42 +155,19 @@ const OrderList = (
                                     <p>Order status: Delivered</p>
                                     }
 
-                                    {/*<Link to="/cart">*/}
-                                    {/*    <i className="fa fa-truck btn" aria-hidden="true"*/}
-                                    {/*       onClick={() => alert("Order delivered!")}>*/}
-                                    {/*        Mark as delivered*/}
-                                    {/*    </i>*/}
-                                    {/*</Link>*/}
-
-                                    {/*{!order.delivered &&*/}
                                     <Link to="/cart">
                                         <i className="fa fa-truck btn btn-outline-success" aria-hidden="true"
                                            onClick={() => markOrderCompleted(order, order.delivererId)}>
                                             Mark as delivered
-                                            {console.log("Order delivered:", order)}
                                         </i>
                                     </Link>
-                                    {/*}*/}
+
 
                                 </div>
 
 
                             </li>
-                            {/*<div>*/}
 
-                            {/*    <Link to="/cart">*/}
-                            {/*<i className="fa fa-truck btn" aria-hidden="true"*/}
-                            {/*   onClick={() => markOrderCompleted(order.orderId, order.delivererId, {*/}
-                            {/*       ...order,*/}
-                            {/*       delivererId: order.delivererId,*/}
-                            {/*       orderId: order.orderId,*/}
-                            {/*       orderStatus: "DELIVERED"*/}
-                            {/*   })}>*/}
-                            {/*    Mark as delivered*/}
-                            {/*</i>*/}
-                            {/*    </Link>*/}
-
-                            {/*</div>*/}
 
                         </div>
 
@@ -213,7 +190,6 @@ const OrderList = (
 const stateToPropertyMapper = (state) => ({
     orders: state.orderReducer.orders,
     customerId: state.orderReducer.customerId,
-    //orderStatus: state.orderReducer.orderStatus,
     deliverers: state.orderReducer.deliverers,
     currentUser: state.UserReducer.currentUser,
     //allOrders: state.orderReducer.allOrders
@@ -223,18 +199,6 @@ const stateToPropertyMapper = (state) => ({
 const dispatchToPropertyMapper = (dispatch) => ({
     profile: () => UserActions.profile(dispatch),
 
-
-    // updateOrder: (orderId,delivererId,newOrder) =>
-
-    // orderService.updateOrder(orderId, delivererId,{
-    //     ...newOrder, delivered: true
-    // })
-    //     .then(status => dispatch({
-    //         type: "UPDATE_ORDER",
-    //         orderId: orderId,
-    //         delivererId: delivererId,
-    //         order: newOrder
-    //     })),
 
     deleteOrder: (orderId) =>
         orderService.deleteOrder(orderId)
@@ -258,8 +222,9 @@ const dispatchToPropertyMapper = (dispatch) => ({
                 orderId: orderId,
                 delivererId: delivererId,
                 order: newOrder,
-                //orderStatus: newOrder.orderStatus
-            })).then(newOrder => console.log("New order", newOrder)),
+
+            })),
+    //.then(newOrder => console.log("New order", newOrder)),
 
 
     markOrderCompleted: (order,delivererId) =>
@@ -271,7 +236,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
                 orderId: order.orderId,
                 delivererId: delivererId,
                 order: {...order, delivered: true}
-            }))
+            })).then(status => alert("Order delivered!"))
 
 
 

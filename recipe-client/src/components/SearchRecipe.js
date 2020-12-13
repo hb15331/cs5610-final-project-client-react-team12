@@ -24,10 +24,8 @@ class SearchRecipe extends React.Component {
     componentDidMount() {
         /**  Generates the same search results after refresh **/
 
-        // console.log("props in searchRecipe:", this.props )
-        // console.log("keyword:", this.state.keyword)
         if(this.props.match !== undefined) {
-            //console.log(this.props.match.params.keyword)
+
             this.setState({
                 keyword: this.props.match.params.keyword
             })
@@ -61,14 +59,12 @@ class SearchRecipe extends React.Component {
     searchByKeyword = (keyword) => {
 
         this.props.history.push(`/search/q=${keyword}/`)
-        // console.log("After history push", this.props)
 
     }
 
     // fetch a list of recipes that match user's search criteria
     searchRecipes = (keyword) => {
 
-        // const queryUrl = `${RECIPE_URL}?q=${this.state.keyword}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=10`
         const queryUrl = `${RECIPE_URL}?q=${keyword}&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=10`
         edmamApiService.findRecipesBySearchKeyword(queryUrl)
             .then(data => this.setState({
@@ -77,17 +73,6 @@ class SearchRecipe extends React.Component {
 
     }
 
-
-    /** This method no longer required after implementing the edmamAPIservice **/
-    // // data includes all the info retrieved from api
-    // renderRecipes = (data) => {
-    //     //console.log("hello", data)
-    //     this.setState(prevState => ({
-    //         //...prevState,
-    //         // hits is an array of objects that include the true recipes we want
-    //         rawRecipes: data.hits
-    //     }))
-    // }
 
 
 
@@ -102,7 +87,7 @@ class SearchRecipe extends React.Component {
                     <label for="search" className="col-12">Enter keyword</label>
 
                    <input value={this.state.keyword} onChange={(event) =>
-                        //console.log(event.target.value)
+
                         this.setState(prevState => ({
                             keyword: event.target.value
                         }))}
@@ -134,13 +119,6 @@ class SearchRecipe extends React.Component {
 
                                 return (
                                     <div key={index}>
-
-                                        {/*<Link to={`/search/q=${this.state.keyword}/${recipeLabel}/details`}>*/}
-                                        {/*    <li key={recipeLabel} className="list-group-item">*/}
-
-                                        {/*        {rawRecipe.recipe.label}*/}
-                                        {/*    </li>*/}
-                                        {/*</Link>*/}
 
                                         <Link to={`/search/q=${this.state.keyword}/${recipeUri}`}>
                                             <li key={recipeUri} className="list-group-item">
