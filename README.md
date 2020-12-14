@@ -9,11 +9,11 @@ Do npm install ,npm install bootstrap, and npm install jquery.
 To start the program, run npm start.
 
 # Heroku Link:
-https://shrouded-fjord-64864.herokuapp.com/
+https://salty-shelf-18174.herokuapp.com/
 __________________________________________________________________________
 
 ### PROTOTYPE WIKI 
-
+*(UML in the Proposal Doc linked above)*
 Wiki that describes the API, the search criteria, summary results, and details results. In the wiki page, provide example queries and what results to expect. 
 
 ### THE API: Edamam
