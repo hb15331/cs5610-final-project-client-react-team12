@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import orderService from "../services/OrderService";
 import UserActions from "../actions/UserActions";
 import {Link} from "react-router-dom";
+import '../styling/OrderListStyle.css'
 
 import OrderActions from "../actions/OrderActions";
 
@@ -29,8 +30,10 @@ const OrderList = (
 
         <h6>Scroll down to see your latest order</h6>
 
+        <div className="container-fluid d-none d-lg-block">
         {currentUser &&
         currentUser.type === "CUSTOMER" &&
+
         <ol>
             {
                 orders.map(order =>
@@ -61,7 +64,7 @@ const OrderList = (
                                     </div>
                                     {order.delivererId &&
                                     <span>
-                                    <h3>Your assigned deliverer for this order: DelivererId {order.delivererId}</h3>
+                                    <h5>Your assigned deliverer for this order: DelivererId {order.delivererId}</h5>
                                 </span>
                                     }
                                 </li>
@@ -119,6 +122,7 @@ const OrderList = (
             }
 
         </ol>
+
         }
 
         {console.log("I am there", allOrders)}
@@ -148,12 +152,6 @@ const OrderList = (
                                     <br/>
                                     <p>Order Id: {order.orderId}</p>
                                     <p>Deliverer Id: {order.delivererId}</p>
-                                    {!order.delivered &&
-                                    <p>Order status: Pending</p>
-                                    }
-                                    {order.delivered &&
-                                    <p>Order status: Delivered</p>
-                                    }
 
                                     <Link to="/cart">
                                         <i className="fa fa-truck btn btn-outline-success" aria-hidden="true"
@@ -182,6 +180,167 @@ const OrderList = (
 
         </ul>
         }
+        </div>
+
+
+
+
+        <div className="container-fluid d-block d-lg-none">
+            {currentUser &&
+            currentUser.type === "CUSTOMER" &&
+
+            <ol>
+                {
+                    orders.map(order =>
+
+                        <div className="row">
+                            {/*<div className="col-8">*/}
+                                <div className="col-12">
+
+                                <div className="card card-img-top">
+                                    <li>
+                                        <i className="fa fa-times fa-2x btn float-right"
+                                           onClick={() => deleteOrder(order.orderId)}></i>
+                                        <img className="img-thumbnail"
+                                             height="400px"
+                                             width="auto"
+                                             src={order.image}/>
+                                        {/*{order.customerId}*/}
+
+                                        <div className="card-body">
+
+                                            <h6>{order.items}</h6><br/>
+                                            {!order.delivered &&
+                                            <p>Order status: Pending</p>
+                                            }
+                                            {order.delivered &&
+                                            <p>Order status: Delivered</p>
+                                            }
+
+                                        </div>
+                                        {order.delivererId &&
+                                        <span>
+                                    <h5>Your assigned deliverer for this order: DelivererId {order.delivererId}</h5>
+                                </span>
+                                        }
+                                    </li>
+
+                                </div>
+
+                            {/*</div>*/}
+
+
+                            {/*<div className="col-4">*/}
+                                <Link to={{pathname: "/cart"}}>
+                                    {console.log(customerId)}
+                                    <button className="btn btn-block btn-outline-info"
+                                            onClick={() => findDeliverersForOrder(customerId)}>
+                                        Find a deliverer
+                                    </button>
+                                    {console.log(deliverers)}
+                                </Link>
+
+                                <ol>
+
+
+                                    {deliverers.map(deliverer =>
+                                        <li>
+                                            <ul className="list-group">
+                                                {console.log("Deliverer: ", deliverer)}
+                                                {console.log("Order before assignment: ", order)}
+
+
+                                                <li onClick={() => assignDelivererToOrder(order.orderId, deliverer.userId, {
+                                                    ...order,
+                                                    delivererId: deliverer.userId,
+                                                    orderId: order.orderId,
+                                                    customerId: order.customerId,
+                                                    delivered: false
+
+                                                })}
+                                                    className="list-group-item btn">
+                                                    <h4>Deliverer: {deliverer.username}</h4>
+                                                    Name: {deliverer.firstName} <br/>
+                                                    Location: {deliverer.location} <br/>
+                                                    {console.log("new order", order)}
+                                                </li>
+
+                                            </ul>
+
+
+                                        </li>
+                                    )}
+                                </ol>
+
+                            </div>
+                        </div>
+                    )
+                }
+
+            </ol>
+
+            }
+
+            {console.log("I am there", allOrders)}
+
+
+            {currentUser &&
+            currentUser.type === "DELIVERER" &&
+            <ul>
+                { allOrders !== undefined &&
+                allOrders.map(order =>
+
+                    <div className="row">
+                        <div className="col-8">
+                            {currentUser.userId === order.delivererId &&
+                            <div className="card card-img-top">
+
+                                <li>
+
+                                    <img className="img-thumbnail"
+                                         height="400px"
+                                         width="auto"
+                                         src={order.image}/>
+
+                                    <div className="card-body">
+
+                                        <h6>{order.items}</h6>
+                                        <br/>
+                                        <p>Order Id: {order.orderId}</p>
+                                        <p>Deliverer Id: {order.delivererId}</p>
+
+
+                                        <Link to="/cart">
+                                            <i className="fa fa-truck btn btn-outline-success" aria-hidden="true"
+                                               onClick={() => markOrderCompleted(order, order.delivererId)}>
+                                                Mark as delivered
+                                            </i>
+                                        </Link>
+
+
+                                    </div>
+
+
+                                </li>
+
+
+                            </div>
+
+
+                            }
+
+
+                        </div>
+                    </div>
+                )
+                }
+
+            </ul>
+            }
+        </div>
+
+
+
 
     </div>
 
