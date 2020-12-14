@@ -173,7 +173,12 @@ class ProfilePage extends React.Component {
                         ))}
 
                     </div>
+
                         <label htmlFor="blogs">Food Thoughts Entries</label>
+                        <Link to="/blogs">
+                            <i className="fa fa-book fa-lg"></i>
+                        </Link>
+
                         <div id="blogs" className="container">
                             {
                                 this.props.blogs.map((blog =>
@@ -215,9 +220,25 @@ class ProfilePage extends React.Component {
                             )}
 
                     </div>
+                    <label htmlFor="blogs">Food Thoughts Entries</label>
                     <Link to="/blogs">
-                        <button>Go to Thoughts</button>
+                        <i className="fa fa-book fa-lg"></i>
                     </Link>
+
+                    <div id="blogs" className="container">
+                        {
+                            this.props.blogs.map((blog =>
+                                    <div>
+
+                                        <Link to="/blogs">
+                                            <li>{blog.title}</li>
+                                        </Link>
+
+
+                                    </div>
+                            ))}
+
+                    </div>
                 </div>
                 }
 
@@ -262,9 +283,7 @@ class ProfilePage extends React.Component {
                             }
 
                     </div>
-                    <Link to="/blogs">
-                    <button>Go to Thoughts</button>
-                    </Link>
+
                 </div>
                 }
 
