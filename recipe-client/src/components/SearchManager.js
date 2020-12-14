@@ -10,6 +10,7 @@ import SearchRecipe from "./SearchRecipe";
 import LoginPage from "./LoginPage";
 import orderListContainer from "../containers/OrderListContainer"
 import PublicProfilePage from "./PublicProfilePage";
+import BlogEntry from "./BlogEntry";
 
 export class SearchManager extends React.Component {
 
@@ -31,6 +32,7 @@ export class SearchManager extends React.Component {
                             <Route exact path={["/search/q=:keyword/:recipeUri", "/details/purchases"]} component={RecipeDetails}/>
 
                             <Route exact path="/cart" component={orderListContainer}/>
+                            <Route exact path="/blogs" component={BlogEntry}/>
 
 
 

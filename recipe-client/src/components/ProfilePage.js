@@ -4,8 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import UserService from "../services/UserService";
 import UserActions from "../actions/UserActions";
 import {connect} from "react-redux";
-import {findOrderForUser} from "../services/OrderService";
+import orderService, {findOrderForUser} from "../services/OrderService";
 import OrderActions from "../actions/OrderActions";
+import BlogService from "../services/BlogService";
 
 
 // the private profile page contains both the public info and private info
@@ -16,6 +17,9 @@ class ProfilePage extends React.Component {
         if(this.props.currentUser != null){
             const customerId = this.props.currentUser.userId
             {this.props.findOrderForUser(customerId)}
+            {
+                this.props.findBlogForUser(customerId)
+            }
         }
         if(this.props.allOrders != null) {
             {
@@ -167,7 +171,24 @@ class ProfilePage extends React.Component {
                                     }
                                 </div>
                         ))}
+
                     </div>
+                        <label htmlFor="blogs">Food Thoughts Entries</label>
+                        <div id="blogs" className="container">
+                            {
+                                this.props.blogs.map((blog =>
+                                        <div>
+
+                                            <Link to="/blogs">
+                                                <li>{blog.title}</li>
+                                            </Link>
+
+
+                                        </div>
+                                ))}
+
+                        </div>
+
                     </div>
                 }
 
@@ -194,6 +215,9 @@ class ProfilePage extends React.Component {
                             )}
 
                     </div>
+                    <Link to="/blogs">
+                        <button>Go to Thoughts</button>
+                    </Link>
                 </div>
                 }
 
@@ -238,6 +262,9 @@ class ProfilePage extends React.Component {
                             }
 
                     </div>
+                    <Link to="/blogs">
+                    <button>Go to Thoughts</button>
+                    </Link>
                 </div>
                 }
 
@@ -277,6 +304,8 @@ const stateToPropertyMapper = (state) => ({
     user: state.UserReducer.user,
     users: state.UserReducer.users,
     allOrders: state.orderReducer.allOrders,
+    blogs: state.blogReducer.blogs,
+    blog: state.blogReducer.blog
 
 
 })
@@ -294,7 +323,14 @@ const propertyToDispatchMapper = (dispatch) => ({
             .then(status => dispatch({
                 type: "DELETE_USER",
                 userId
-            }))
+            })),
+
+    findBlogForUser: (customerId) => BlogService.findBlogForUser(customerId)
+        .then(blogs => dispatch({
+            type: "FIND_BLOGS_FOR_USER",
+            blogs,
+            customerId
+        })),
 
 })
 
