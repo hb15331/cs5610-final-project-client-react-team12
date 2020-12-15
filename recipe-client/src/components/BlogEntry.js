@@ -50,7 +50,7 @@ class BlogEntry extends React.Component {
 
 
 <ol>
-                {
+                {this.props.currentUser.type === "CUSTOMER" &&
                     this.props.blogs.map((blog) =>
                         <li key={blog._id}>
 
@@ -117,6 +117,65 @@ class BlogEntry extends React.Component {
 
 
                 )}
+
+
+
+    {this.props.currentUser.type === "DELIVERER" &&
+    this.props.blogs.map((blog) =>
+        <li key={blog._id}>
+
+            {
+                !blog.editing &&
+                <span>
+                                     <i className="fa fa-times pull-right"
+                                        onClick={() => this.props.deleteBlog(blog.blogId)}></i>
+                                    <i className="fa fa-pencil pull-right"
+                                       onClick={() => this.props.edit(blog)}></i>
+
+                                    <label htmlFor="title-fld"></label>
+                                    <div id="title-fld"><h3>{blog.title}</h3></div>
+                                    <label htmlFor="entry-fld"></label>
+                                    <div id="entry-fld"><p>{blog.entry}</p></div>
+
+
+                            </span>
+            }
+            {
+                blog.editing &&
+
+                <span >
+                                        <i className="fa fa-check pull-right"
+                                           onClick={() => this.props.ok(blog)}></i>
+                    {/*<i className="fa fa-times pull-right"*/}
+                    {/*   onClick={() => deleteLesson(lesson._id)}></i>*/}
+                    <div className="container-fluid">
+
+
+
+                        <input
+                            onChange={(event) => this.props.updateBlog({
+                                ...blog,
+                                title: event.target.value
+                            })}
+                            value={blog.title}
+                        />
+                     </div>
+                                   <div className="container-fluid">
+                    <textarea
+                        onChange={(event) => this.props.updateBlog({
+                            ...blog,
+                            entry: event.target.value
+                        })}
+                        value={blog.entry}
+                    />
+                                   </div>
+                  </span>
+
+            }
+        </li>
+
+
+    )}
 </ol>
             </div>
 
