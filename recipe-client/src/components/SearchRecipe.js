@@ -4,9 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import {RecipeDetails} from "./RecipeDetails";
 import edmamApiService from "../services/edmamApiService";
 
-const APP_ID = "e488ff8f"
-const APP_KEY = "922801bd953e0343123e19348ba693fe"
+// const APP_ID = "e488ff8f"
+// const APP_KEY = "922801bd953e0343123e19348ba693fe"
+// const RECIPE_URL = "https://api.edamam.com/search"
+
+const APP_ID = "040971eb"
+const APP_KEY = "aa00af86118008cae75d54f7cdded366"
 const RECIPE_URL = "https://api.edamam.com/search"
+
 
 // TODO: Solve a CORS error when we are clicking Search too fast
 class SearchRecipe extends React.Component {
