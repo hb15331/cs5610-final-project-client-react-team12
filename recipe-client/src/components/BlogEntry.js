@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import UserActions from "../actions/UserActions";
 import orderService, {findOrderForUser} from "../services/OrderService";
 import BlogService, {findBlogForUser} from "../services/BlogService";
+import OrderActions from "../actions/OrderActions";
 
 
 
@@ -22,6 +23,7 @@ class BlogEntry extends React.Component {
         this.props.profile()
         if(this.props.currentUser != null) {
             const customerId = this.props.currentUser.userId
+            {this.props.findOrderForUser(customerId)}
             {
                 this.props.findBlogForUser(customerId)
             }
@@ -60,10 +62,10 @@ class BlogEntry extends React.Component {
                                     <i className="fa fa-pencil pull-right"
                                        onClick={() => this.props.edit(blog)}></i>
 
-                                    <label htmlFor="title-fld"><h3>Title</h3></label>
-                                    <div id="title-fld">{blog.title}</div>
-                                    <label htmlFor="entry-fld"><h3>Entry</h3></label>
-                                   <div id="entry-fld">{blog.entry}</div>
+                                    <label htmlFor="title-fld"></label>
+                                    <div id="title-fld"><h3>{blog.title}</h3></div>
+                                    <label htmlFor="entry-fld"></label>
+                                    <div id="entry-fld"><p>{blog.entry}</p></div>
 
 
                             </span>
@@ -77,13 +79,27 @@ class BlogEntry extends React.Component {
                                          {/*<i className="fa fa-times pull-right"*/}
                                          {/*   onClick={() => deleteLesson(lesson._id)}></i>*/}
                                     <div className="container-fluid">
-                    <input
-                        onChange={(event) => this.props.updateBlog({
-                            ...blog,
-                            title: event.target.value
-                        })}
-                        value={blog.title}
-                    />
+
+                                        <select id="heading-list"
+                                                onChange={(event) => this.props.updateBlog({
+                                                    ...blog,
+                                                    title: event.target.value
+                                                })}
+                                                value={blog.title}
+                                        >
+
+                                            {this.props.orders.map((order =>
+                        <option value={order.name}>{order.name}</option>
+                                                ) )}
+                    </select>
+
+                    {/*<input*/}
+                    {/*    onChange={(event) => this.props.updateBlog({*/}
+                    {/*        ...blog,*/}
+                    {/*        title: event.target.value*/}
+                    {/*    })}*/}
+                    {/*    value={blog.title}*/}
+                    {/*/>*/}
                      </div>
                                    <div className="container-fluid">
                     <textarea
@@ -111,7 +127,9 @@ class BlogEntry extends React.Component {
 const stateToPropertyMapper = (state) => ({
     currentUser: state.UserReducer.currentUser,
    blogs: state.blogReducer.blogs,
-    blog: state.blogReducer.blog
+    blog: state.blogReducer.blog,
+    order:state.orderReducer.order,
+    orders:state.orderReducer.orders
 })
 
 const propertyToDispatchMapper = (dispatch) => ({
@@ -154,6 +172,7 @@ const propertyToDispatchMapper = (dispatch) => ({
                 type: "DELETE_BLOG",
                 blogId
             })),
+    findOrderForUser: (customerId) => OrderActions.findOrderForUser(dispatch,customerId),
 })
 
 export default connect(stateToPropertyMapper, propertyToDispatchMapper)(BlogEntry)
