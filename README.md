@@ -8,8 +8,18 @@ To run the program, navigate to recipe-client directory.
 Do npm install ,npm install bootstrap, and npm install jquery.
 To start the program, run npm start.
 
-# Heroku Link:
-https://salty-shelf-18174.herokuapp.com/
+When the program starts, users can use the search bar to find recipes using keyword ingredients such as "chicken",
+"avocado", etc. 
+
+The third-party api used to query search results is a free account, therefore, search
+queries are very slow. If the user searches for a recipe immediately after doing the previous search, 
+an error will occur and no result will show. The user would then have to wait for a few seconds and refresh
+the page. Then they can try to do a search again. 
+
+If no results shows up, repeat the above instructions.
+
+# Heroku Link (Please use firefox to test out the heroku app):
+https://salty-shelf-18174.herokuapp.com/ 
 __________________________________________________________________________
 
 ### PROTOTYPE WIKI 
